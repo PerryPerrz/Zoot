@@ -56,8 +56,8 @@ parser code {:
    
 /* Terminals (tokens returned by the scanner).  */
 
-terminal Symbol    DEBUT, FIN, POINTVIRGULE, ECRIRE ;
-terminal String    CSTENTIERE ;
+terminal Symbol    DEBUT, FIN, POINTVIRGULE, ECRIRE, LIRE, AFFECT, ENTIER, BOOLEEN ;
+terminal String    IDF, CSTENTIERE ;
    
 /* Non terminals used in the grammar section.  */
 
@@ -85,8 +85,17 @@ LINST   ::=     LINST:li  INST:i
 
 INST    ::=     ECRIRE EXP:e POINTVIRGULE
                 {: RESULT = new Ecrire(e, eleft + 1) ; :}
+        |
+                LIRE IDF:i POINTVIRGULE
+                {: RESULT = new Lire(new Idf(i, ileft + 1), ileft+1) ; :}
+        |
+                IDF:i EGAL EXP:e POINTVIRGULE
+                {: RESULT = new Affect(new Idf(i,ileft+1), e, eleft+1) ; :}
                 ;
     
 EXP    ::=     CSTENTIERE:c
                 {: RESULT = new ConstanteEntiere(c, cleft + 1) ; :}
+        |
+               IDF:i
+                {: RESULT = new Idf(i, ileft + 1) ; :}
                 ;
