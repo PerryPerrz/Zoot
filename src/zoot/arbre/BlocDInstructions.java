@@ -31,6 +31,8 @@ public class BlocDInstructions extends ArbreAbstrait {
     @Override
     public String toMIPS() {
         StringBuilder stringBuilder = new StringBuilder(programme.size() * 16);
+        stringBuilder.append("#IOPETI Hugo & YVOZ Ludovic\n");
+        stringBuilder.append(".text\n");
         stringBuilder.append("main :\n");
         for (Instruction i : programme) {
             stringBuilder.append(i.toMIPS());
