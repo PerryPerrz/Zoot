@@ -3,7 +3,7 @@ package zoot.arbre.expressions;
 public class Idf extends Variable {
 
     public Idf(String texte, int n) {
-        super(texte, n) ;
+        super(texte, n);
     }
 
     @Override

@@ -4,16 +4,16 @@ import zoot.arbre.expressions.Expression;
 
 public class Ecrire extends Instruction {
 
-    protected Expression exp ;
+    protected Expression exp;
 
-    public Ecrire (Expression e, int n) {
-        super(n) ;
-        exp = e ;
+    public Ecrire(Expression e, int n) {
+        super(n);
+        exp = e;
     }
 
     @Override
     public void verifier() {
-        throw new UnsupportedOperationException("fonction verfier non définie ") ;
+        throw new UnsupportedOperationException("fonction verfier non définie ");
     }
 
     @Override

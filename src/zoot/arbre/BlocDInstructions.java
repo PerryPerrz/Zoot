@@ -11,23 +11,23 @@ import java.util.ArrayList;
  */
 
 public class BlocDInstructions extends ArbreAbstrait {
-    
-    protected ArrayList<Instruction> programme ;
+
+    protected ArrayList<Instruction> programme;
 
     public BlocDInstructions(int n) {
-        super(n) ;
-        programme = new ArrayList<>() ;
+        super(n);
+        programme = new ArrayList<>();
     }
-    
+
     public void ajouter(Instruction i) {
-        programme.add(i) ;
+        programme.add(i);
     }
 
     @Override
     public void verifier() {
-        throw new UnsupportedOperationException("fonction verifier non définie ") ;
+        throw new UnsupportedOperationException("fonction verifier non définie ");
     }
-    
+
     @Override
     public String toMIPS() {
         StringBuilder stringBuilder = new StringBuilder(programme.size() * 16);
@@ -43,7 +43,7 @@ public class BlocDInstructions extends ArbreAbstrait {
 
     @Override
     public String toString() {
-        return programme.toString() ;
+        return programme.toString();
     }
 
 }

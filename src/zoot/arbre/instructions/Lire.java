@@ -4,16 +4,16 @@ import zoot.arbre.expressions.Idf;
 
 public class Lire extends Instruction {
 
-    protected Idf idf ;
+    protected Idf idf;
 
-    public Lire (Idf i, int n) {
-        super(n) ;
-        idf = i ;
+    public Lire(Idf i, int n) {
+        super(n);
+        idf = i;
     }
 
     @Override
     public void verifier() {
-        throw new UnsupportedOperationException("fonction verfier non définie ") ;
+        throw new UnsupportedOperationException("fonction verfier non définie ");
     }
 
     @Override
