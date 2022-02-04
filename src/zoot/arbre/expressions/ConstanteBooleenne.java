@@ -11,7 +11,13 @@ public class ConstanteBooleenne extends Constante {
 
     @Override
     public String toMIPS() {
-        throw new UnsupportedOperationException("toMips des expressions booléennes pas encore fait ");
+        String res;
+        if (this.cste.equals("vrai")) { //La valeur est vrai
+            res = "1";
+        } else { //La valeur est faux
+            res = "0";
+        }
+        return res;
     }
 
     @Override

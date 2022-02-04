@@ -36,7 +36,9 @@ public class Affect extends Instruction {
 
     @Override
     public String toMIPS() {
-        return null;
+        return "# " + idf.toString() + " = " + exp.toString() +
+                "\tli $v0, " + exp.toMIPS() + "\n" +
+                "\tsw $v0, " + idf.toMIPS() + "\n";
     }
 
 }

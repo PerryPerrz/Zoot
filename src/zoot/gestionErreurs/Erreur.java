@@ -11,7 +11,7 @@ public class Erreur {
     /**
      * Constucteur de la classe Erreur.
      *
-     * @param message le message de l'erreur
+     * @param message  le message de l'erreur
      * @param numLigne le numéro de ligne associé à l'erreur
      * @param numCarac le numéro de caractère associé à l'erreur
      */
@@ -24,7 +24,7 @@ public class Erreur {
     /**
      * Constructeur de la classe Erreur.
      *
-     * @param message le numéro de ligne associé à l'erreur
+     * @param message  le numéro de ligne associé à l'erreur
      * @param numLigne le numéro de caractère associé à l'erreur
      */
     public Erreur(String message, int numLigne) {

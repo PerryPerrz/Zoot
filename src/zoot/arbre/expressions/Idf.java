@@ -30,7 +30,12 @@ public class Idf extends Expression {
 
     @Override
     public String toMIPS() {
-        return null;
+        String res;
+        if (this.depl == 0)
+            res = this.depl + "($s7)";
+        else
+            res = "-" + this.depl + "($s7)";
+        return res;
     }
 
     /**
@@ -42,5 +47,10 @@ public class Idf extends Expression {
     @Override
     public String getType() throws VariableNonDeclareeException {
         return TDS.getInstance().identifier(nom).getType();
+    }
+
+    @Override
+    public String toString() {
+        return nom;
     }
 }
