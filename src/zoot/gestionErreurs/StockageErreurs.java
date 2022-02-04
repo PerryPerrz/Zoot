@@ -1,8 +1,5 @@
 package zoot.gestionErreurs;
 
-import zoot.exceptions.DoubleDeclarationException;
-import zoot.exceptions.VariableNonDeclareeException;
-
 import java.util.ArrayList;
 
 /**

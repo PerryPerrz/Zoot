@@ -3,10 +3,12 @@ package zoot.gestionErreurs;
 public class Erreur {
     private String message;
     private int numLigne;
+    private int numCarac;
 
-    public Erreur(String message, int numLigne) {
+    public Erreur(String message, int numLigne, int numCarac) {
         this.message = message;
         this.numLigne = numLigne;
+        this.numCarac = numCarac;
     }
 
     public String getMessage() {
@@ -23,5 +25,13 @@ public class Erreur {
 
     public void setNumLigne(int numLigne) {
         this.numLigne = numLigne;
+    }
+
+    public int getNumCarac() {
+        return numCarac;
+    }
+
+    public void setNumCarac(int numCarac) {
+        this.numCarac = numCarac;
     }
 }
