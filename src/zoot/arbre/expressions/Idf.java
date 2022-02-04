@@ -19,9 +19,11 @@ public class Idf extends Expression {
     @Override
     public void verifier() {
         try {
+            //Si la variable existe déjà, on stocke sa position dans la pile (déplacement).
             Symbole temp = TDS.getInstance().identifier(nom);
             this.depl = temp.getDeplacement();
         } catch (VariableNonDeclareeException e) {
+            //Sinon, on ajoute une erreur et on passe à la suite.
             StockageErreurs.getInstance().ajouter(new Erreur(e.getMessage(), this.getNoLigne()));
         }
     }
@@ -31,6 +33,12 @@ public class Idf extends Expression {
         return null;
     }
 
+    /**
+     * Fonction qui retourne le type de la variable
+     *
+     * @return une chaîne de caractère correspondant au type de la variable ("Entier" ou "Booleen").
+     * @throws VariableNonDeclareeException exception se déclenchant si la variable n'est pas déclarée.
+     */
     @Override
     public String getType() throws VariableNonDeclareeException {
         return TDS.getInstance().identifier(nom).getType();
