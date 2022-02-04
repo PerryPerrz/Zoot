@@ -26,7 +26,7 @@ public class Affect extends Instruction {
             } else {
                 StockageErreurs.getInstance().ajouter(new Erreur("Attention le type de la variable et le type de l'expression ne correspondent pas !", this.getNoLigne()));
             }
-        } catch (VariableNonDeclareeException e){
+        } catch (VariableNonDeclareeException e) {
             StockageErreurs.getInstance().ajouter(new Erreur("Attention, une des variables de l'expression n'est pas déclarée !", this.getNoLigne()));
         }
     }
