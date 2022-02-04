@@ -31,15 +31,8 @@ public class Idf extends Expression {
         return null;
     }
 
-    public String getType() {
-        TDS tds = TDS.getInstance();
-        String res;
-        try {
-            res = tds.identifier(nom).getType();
-        } catch (VariableNonDeclareeException e) {
-            StockageErreurs.getInstance().ajouter(new Erreur(e.getMessage(), this.getNoLigne()));
-            res = null;
-        }
-        return res;
+    @Override
+    public String getType() throws VariableNonDeclareeException {
+        return TDS.getInstance().identifier(nom).getType();
     }
 }
