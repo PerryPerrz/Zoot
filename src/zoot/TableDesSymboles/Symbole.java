@@ -8,7 +8,7 @@ public class Symbole {
         this.type = type;
         this.deplacement = depl;
     }
-    
+
     public String getType() {
         return type;
     }
