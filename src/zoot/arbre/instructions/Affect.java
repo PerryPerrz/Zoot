@@ -2,6 +2,8 @@ package zoot.arbre.instructions;
 
 import zoot.arbre.expressions.Expression;
 import zoot.arbre.expressions.Idf;
+import zoot.gestionErreurs.Erreur;
+import zoot.gestionErreurs.StockageErreurs;
 
 public class Affect extends Instruction {
 
@@ -16,7 +18,12 @@ public class Affect extends Instruction {
 
     @Override
     public void verifier() {
-        throw new UnsupportedOperationException("fonction verfier non définie ");
+        if (idf.getType().equals(exp.getType()) && idf.getType() != null && exp.getType() != null) {
+            idf.verifier();
+            exp.verifier();
+        } else {
+            StockageErreurs.getInstance().ajouter(new Erreur("Attention le type de la variable et le type de l'expression ne correspondent pas !", this.getNoLigne()));
+        }
     }
 
     @Override

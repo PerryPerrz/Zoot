@@ -11,6 +11,12 @@ public class Erreur {
         this.numCarac = numCarac;
     }
 
+    public Erreur(String message, int numLigne) {
+        this.message = message;
+        this.numLigne = numLigne;
+        this.numCarac = 0;
+    }
+
     public String getMessage() {
         return message;
     }

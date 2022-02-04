@@ -1,4 +1,4 @@
-package zoot.TableDesSymboles;
+package zoot.tableDesSymboles;
 
 public class Symbole {
     private String type;

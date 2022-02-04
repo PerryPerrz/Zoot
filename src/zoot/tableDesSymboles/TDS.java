@@ -1,4 +1,4 @@
-package zoot.TableDesSymboles;
+package zoot.tableDesSymboles;
 
 import zoot.exceptions.DoubleDeclarationException;
 import zoot.exceptions.VariableNonDeclareeException;

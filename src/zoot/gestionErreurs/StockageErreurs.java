@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Singleton StockageEtterrus représentant le stockage des erreurs qui apparaissent lors de la vérification du code.
  */
 public class StockageErreurs {
-    private ArrayList<Erreur> listeErreurs;
+    private final ArrayList<Erreur> listeErreurs;
 
     /**
      * Constructeur privé du singleton StockageErreurs.
