@@ -1,7 +1,5 @@
 package zoot.arbre;
 
-import zoot.arbre.instructions.Instruction;
-
 import java.util.ArrayList;
 
 /**
@@ -12,15 +10,15 @@ import java.util.ArrayList;
 
 public class BlocDInstructions extends ArbreAbstrait {
 
-    protected ArrayList<Instruction> programme;
+    protected ArrayList<ArbreAbstrait> programme;
 
     public BlocDInstructions(int n) {
         super(n);
         programme = new ArrayList<>();
     }
 
-    public void ajouter(Instruction i) {
-        programme.add(i);
+    public void ajouter(ArbreAbstrait a) {
+        programme.add(a);
     }
 
     @Override
@@ -34,8 +32,8 @@ public class BlocDInstructions extends ArbreAbstrait {
         stringBuilder.append("#IOPETI Hugo & YVOZ Ludovic\n");
         stringBuilder.append(".text\n");
         stringBuilder.append("main :\n");
-        for (Instruction i : programme) {
-            stringBuilder.append(i.toMIPS());
+        for (ArbreAbstrait a : programme) {
+            stringBuilder.append(a.toMIPS());
         }
         stringBuilder.append("end :\n").append("\tli $v0, 10\n").append("\tsyscall");
         return stringBuilder.toString();

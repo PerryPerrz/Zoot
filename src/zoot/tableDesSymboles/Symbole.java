@@ -11,11 +11,9 @@ public class Symbole {
      * Constructeur de la classe Symbole.
      *
      * @param type, type de la variable
-     * @param depl, position de la variable dans la pile
      */
-    public Symbole(String type, int depl) {
+    public Symbole(String type) {
         this.type = type;
-        this.deplacement = depl;
     }
 
     /**

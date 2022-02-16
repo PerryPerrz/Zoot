@@ -5,6 +5,7 @@ import zoot.arbre.* ;
 import zoot.arbre.expressions.* ;
 import zoot.arbre.instructions.* ;
 import zoot.exceptions.AnalyseSyntaxiqueException;
+import zoot.tableDesSymboles.*;
 
 import java_cup.runtime.*;
 
@@ -16,7 +17,7 @@ parser code {:
     public void report_error(String message, Object info) {
 
         HashMap<Integer, String> lesTerminaux = new HashMap<>() ;
-    
+
         lesTerminaux.put(new Integer(CodesLexicaux.DEBUT), "debut") ;
         lesTerminaux.put(new Integer(CodesLexicaux.FIN), "fin") ;
         lesTerminaux.put(new Integer(CodesLexicaux.POINTVIRGULE), ";") ;
@@ -26,12 +27,12 @@ parser code {:
         if (info instanceof java_cup.runtime.Symbol) {
             java_cup.runtime.Symbol s = ((java_cup.runtime.Symbol) info);
 
-            if (s.left >= 0) {                
+            if (s.left >= 0) {
                 m.append("\tligne : " + (s.left + 1)) ;
-                if (s.right >= 0)                    
+                if (s.right >= 0)
                     m.append(" colonne : " + (s.right+1)) ;
             }
-            
+
             if (s.value != null) {
                 lesTerminaux.put(CodesLexicaux.CSTENTIERE, "" + s.value) ;
             }
@@ -51,26 +52,39 @@ parser code {:
         report_error(message, info);
     }
 :};
-   
+
 /* ------------Declaration of Terminals and Non Terminals Section----------- */
-   
+
 /* Terminals (tokens returned by the scanner).  */
 
-terminal Symbol    DEBUT, FIN, POINTVIRGULE, ECRIRE, LIRE, AFFECT, ENTIER, BOOLEEN ;
-terminal String    IDF, CSTENTIERE ;
-   
+terminal Symbol    DEBUT, FIN, VARIABLES, POINTVIRGULE, ECRIRE, ENTIER, BOOLEEN, EGAL ;
+terminal String    IDF, CSTENTIERE, CSTBOOLEENNE;
+
 /* Non terminals used in the grammar section.  */
 
-non terminal ArbreAbstrait PROG, LINST ;
-non terminal Instruction INST ;
+non terminal ArbreAbstrait PROG, LINST, LDECL, DECL;
+non terminal Instruction INST;
 non terminal Expression EXP ;
 
 /* ----------------------------Grammar Section-------------------- */
- 
+
 start with PROG ;
 
-PROG    ::=     DEBUT  LINST:li  FIN
+PROG    ::=     VARIABLES LDECL:ld DEBUT LINST:li  FIN
                 {: RESULT = li ; :}
+        |
+                DEBUT LINST:li  FIN
+                {: RESULT = li ; :}
+                ;
+
+LDECL   ::=     LDECL:ld  DECL:d
+                {: ((BlocDInstructions)ld).ajouter(d) ;
+                   RESULT = ld ; :}
+        |
+                DECL:d
+                {: BlocDInstructions b = new BlocDInstructions(dleft + 1) ;
+                   b.ajouter(d) ;
+                   RESULT = b ; :}
                 ;
 
 LINST   ::=     LINST:li  INST:i
@@ -89,10 +103,20 @@ INST    ::=     ECRIRE EXP:e POINTVIRGULE
                 IDF:i EGAL EXP:e POINTVIRGULE
                 {: RESULT = new Affect(new Idf(i,ileft+1), e, eleft+1) ; :}
                 ;
-    
+
 EXP    ::=     CSTENTIERE:c
                 {: RESULT = new ConstanteEntiere(c, cleft + 1) ; :}
         |
+               CSTBOOLEENNE:c
+               {: RESULT = new ConstanteBooleenne(c, cleft + 1) ; :}
+        |
                IDF:i
                 {: RESULT = new Idf(i, ileft + 1) ; :}
+                ;
+
+DECL    ::=     ENTIER IDF:i POINTVIRGULE
+                {: TDS.getInstance().ajouter(i, new Symbole("entier")) ; :}
+        |
+                BOOLEEN IDF:i POINTVIRGULE
+                {: TDS.getInstance().ajouter(i, new Symbole("booleen")) ; :}
                 ;

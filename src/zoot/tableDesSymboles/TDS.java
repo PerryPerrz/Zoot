@@ -40,6 +40,7 @@ public class TDS {
         if (this.tableDesSymboles.containsKey(idf)) {
             throw new DoubleDeclarationException("Le symbole " + idf + " ne peut pas être ajouté deux fois dans la table des symboles !");
         }
+        s.setDeplacement(this.getTailleZoneVariables());
         this.tableDesSymboles.put(idf, s);
     }
 
@@ -63,7 +64,7 @@ public class TDS {
      * @return la taille en octets.
      */
     public int getTailleZoneVariables() {
-        //On définit la taille d'un entier et la taille d'un booléen à 4 octets.
-        return this.tableDesSymboles.size() * 4;
+        //On définit la taille d'un entier et la taille d'un booléen à 4 octets. (on descend dans la pile donc -4)
+        return this.tableDesSymboles.size() * -4;
     }
 }
