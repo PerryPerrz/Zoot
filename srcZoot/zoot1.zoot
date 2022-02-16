@@ -1,11 +1,14 @@
 variables
 entier a;
 booleen b;
+entier c;
 debut
 a = 9;
 b = vrai;
+c = a;
 ecrire a;
 ecrire b;
 ecrire 125;
 ecrire faux;
+ecrire c;
 fin
