@@ -52,11 +52,11 @@ idf = [a-zA-Z_][a-zA-Z\-_]*
 
 {csteB}                { return symbol(CodesLexicaux.CSTBOOLEENNE, yytext()); }
 
-{idf}                  { return symbol(CodesLexicaux.IDF, yytext()); }
-
 "entier"               { return symbol(CodesLexicaux.ENTIER); }
 
 "booleen"              { return symbol(CodesLexicaux.BOOLEEN); }
+
+{idf}                  { return symbol(CodesLexicaux.IDF, yytext()); }
 
 "="                    { return symbol(CodesLexicaux.EGAL); }
 
