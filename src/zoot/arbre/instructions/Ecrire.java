@@ -13,14 +13,21 @@ public class Ecrire extends Instruction {
 
     @Override
     public void verifier() {
-        throw new UnsupportedOperationException("fonction verfier non définie ");
+        exp.verifier();
     }
 
     @Override
     public String toMIPS() {
-        return "\tli $a0 , " + exp.toMIPS() + "\n" +
-                "\tli $v0 , 1\n" +
-                "\tsyscall\n";
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("# Ecrire ").append(exp.toString()).append("\n");
+        if (exp.estUneVariable())
+            stringBuilder.append("\tlw $a0 , ");
+        else
+            stringBuilder.append("\tli $a0 , ");
+        stringBuilder.append(exp.toMIPS()).append("\n");
+        stringBuilder.append("\tli $v0 , 1\n");
+        stringBuilder.append("\tsyscall\n");
+        return stringBuilder.toString();
     }
 
 }

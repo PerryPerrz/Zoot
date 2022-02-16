@@ -14,4 +14,6 @@ public abstract class Expression extends ArbreAbstrait {
      * @return une chaîne de caractère correspondant au type de l'expression ("Entier" ou "Booleen").
      */
     public abstract String getType();
+
+    public abstract boolean estUneVariable();
 }

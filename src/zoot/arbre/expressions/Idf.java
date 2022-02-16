@@ -30,18 +30,13 @@ public class Idf extends Expression {
 
     @Override
     public String toMIPS() {
-        String res;
-        if (this.depl == 0)
-            res = this.depl + "($s7)";
-        else
-            res = "-" + this.depl + "($s7)";
-        return res;
+        return this.depl + "($s7)";
     }
 
     /**
      * Fonction qui retourne le type de la variable
      *
-     * @return une chaîne de caractère correspondant au type de la variable ("Entier" ou "Booleen").
+     * @return une chaîne de caractère correspondant au type de la variable ("entier" ou "booleen").
      * @throws VariableNonDeclareeException exception se déclenchant si la variable n'est pas déclarée.
      */
     @Override
@@ -52,5 +47,10 @@ public class Idf extends Expression {
     @Override
     public String toString() {
         return nom;
+    }
+
+    @Override
+    public boolean estUneVariable() {
+        return true;
     }
 }

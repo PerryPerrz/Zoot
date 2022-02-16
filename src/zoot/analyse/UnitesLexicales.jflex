@@ -32,7 +32,7 @@ import zoot.exceptions.AnalyseLexicaleException;
 %}
 
 csteE = [0-9]+
-csteB = (\bvrai\b)|(\bfaux\b)
+csteB = (vrai|faux)
 finDeLigne = \r|\n
 espace = {finDeLigne}  | [ \t\f]
 idf = [a-zA-Z_][a-zA-Z\-_]*
@@ -56,9 +56,9 @@ idf = [a-zA-Z_][a-zA-Z\-_]*
 
 "booleen"              { return symbol(CodesLexicaux.BOOLEEN); }
 
-{idf}                  { return symbol(CodesLexicaux.IDF, yytext()); }
-
 "="                    { return symbol(CodesLexicaux.EGAL); }
+
+{idf}                  { return symbol(CodesLexicaux.IDF, yytext()); }
 
 {espace}               { }
 .                      { throw new AnalyseLexicaleException(yyline, yycolumn, yytext()) ; }

@@ -22,6 +22,6 @@ public class ConstanteBooleenne extends Constante {
 
     @Override
     public String getType() {
-        return "eooleen";
+        return "booleen";
     }
 }

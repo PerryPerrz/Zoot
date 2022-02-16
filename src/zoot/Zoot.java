@@ -4,6 +4,8 @@ import zoot.analyse.AnalyseurLexical;
 import zoot.analyse.AnalyseurSyntaxique;
 import zoot.arbre.ArbreAbstrait;
 import zoot.exceptions.AnalyseException;
+import zoot.gestionErreurs.Erreur;
+import zoot.gestionErreurs.StockageErreurs;
 
 import java.io.*;
 import java.util.logging.Level;
@@ -16,13 +18,18 @@ public class Zoot {
             AnalyseurSyntaxique analyseur = new AnalyseurSyntaxique(new AnalyseurLexical(new FileReader(nomFichier)));
             ArbreAbstrait arbre = (ArbreAbstrait) analyseur.parse().value;
 
-            //arbre.verifier() ;
-            System.out.println("COMPILATION OK");
-
-            String nomSortie = nomFichier.replaceAll("[.]zoot", ".mips");
-            PrintWriter flot = new PrintWriter(new BufferedWriter(new FileWriter(nomSortie)));
-            flot.println(arbre.toMIPS());
-            flot.close();
+            arbre.verifier() ;
+            if (StockageErreurs.getInstance().getNbErreurs() == 0) {
+                System.out.println("COMPILATION OK");
+                String nomSortie = nomFichier.replaceAll("[.]zoot", ".mips");
+                PrintWriter flot = new PrintWriter(new BufferedWriter(new FileWriter(nomSortie)));
+                flot.println(arbre.toMIPS());
+                flot.close();
+            }else {
+                for(Erreur e : StockageErreurs.getInstance().getListeErreurs()) {
+                    System.err.println("ERREUR : " + e.getMessage() + "\nA la ligne " + e.getNumLigne() + ", caractère n°" + e.getNumCarac());
+                }
+            }
         } catch (FileNotFoundException ex) {
             System.err.println("Fichier " + nomFichier + " inexistant");
         } catch (AnalyseException ex) {

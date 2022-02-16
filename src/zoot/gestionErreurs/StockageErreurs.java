@@ -46,4 +46,12 @@ public class StockageErreurs {
             return null;
         return this.listeErreurs.get(i);
     }
+
+    public int getNbErreurs() {
+        return listeErreurs.size();
+    }
+
+    public ArrayList<Erreur> getListeErreurs() {
+        return listeErreurs;
+    }
 }

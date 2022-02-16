@@ -1,5 +1,8 @@
 package zoot.arbre;
 
+import zoot.gestionErreurs.StockageErreurs;
+import zoot.tableDesSymboles.TDS;
+
 import java.util.ArrayList;
 
 /**
@@ -23,7 +26,9 @@ public class BlocDInstructions extends ArbreAbstrait {
 
     @Override
     public void verifier() {
-        throw new UnsupportedOperationException("fonction verifier non définie ");
+        for (ArbreAbstrait a : programme) {
+            a.verifier();
+        }
     }
 
     @Override
@@ -32,6 +37,10 @@ public class BlocDInstructions extends ArbreAbstrait {
         stringBuilder.append("#IOPETI Hugo & YVOZ Ludovic\n");
         stringBuilder.append(".text\n");
         stringBuilder.append("main :\n");
+        stringBuilder.append("# Initialiser $s7 avec $sp\n");
+        stringBuilder.append("\tmove $s7, $sp\n");
+        stringBuilder.append("# Réserver la place pour ").append((TDS.getInstance().getTailleZoneVariables() * -1) / 4).append(" variables\n");
+        stringBuilder.append("\tadd $sp, $sp, ").append(TDS.getInstance().getTailleZoneVariables()).append("\n");
         for (ArbreAbstrait a : programme) {
             stringBuilder.append(a.toMIPS());
         }
