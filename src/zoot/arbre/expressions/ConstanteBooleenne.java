@@ -11,13 +11,7 @@ public class ConstanteBooleenne extends Constante {
 
     @Override
     public String toMIPS() {
-        String res;
-        if (this.cste.equals("vrai")) { //La valeur est vrai
-            res = "1";
-        } else { //La valeur est faux
-            res = "0";
-        }
-        return res;
+        return cste;
     }
 
     @Override

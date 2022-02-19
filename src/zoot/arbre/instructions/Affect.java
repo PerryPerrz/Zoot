@@ -38,10 +38,15 @@ public class Affect extends Instruction {
     public String toMIPS() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("# ").append(idf.toString()).append(" = ").append(exp.toString()).append("\n");
-        if (exp.estUneVariable())
-            stringBuilder.append("\tlw $v0 , ");
-        else
-            stringBuilder.append("\tli $v0 , ");
+        if (exp.estUneVariable()) {
+            stringBuilder.append("\tlw $v0, ");
+        } else {
+            if (exp.getType().equals("booleen")) {
+                stringBuilder.append("\tla $v0, ");
+            } else {
+                stringBuilder.append("\tli $v0, ");
+            }
+        }
         stringBuilder.append(exp.toMIPS()).append("\n");
         stringBuilder.append("\tsw $v0, ").append(idf.toMIPS()).append("\n");
         return stringBuilder.toString();

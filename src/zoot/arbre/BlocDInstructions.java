@@ -34,19 +34,21 @@ public class BlocDInstructions extends ArbreAbstrait {
     @Override
     public String toMIPS() {
         StringBuilder stringBuilder = new StringBuilder(programme.size() * 16);
-        stringBuilder.append("#IOPETI Hugo & YVOZ Ludovic\n");
+        stringBuilder.append("#IOPETI Hugo & YVOZ Ludovic\n\n");
         stringBuilder.append(".data\n");
-        stringBuilder.append("vrai:\t.asciiz \"vrai\"\n");
-        stringBuilder.append("faux:\t.asciiz \"faux\"\n");
-        stringBuilder.append("sautLigne:\t.asciiz \"\\n\"\n");
+        stringBuilder.append("vrai:\t.word 1\n");
+        stringBuilder.append("faux:\t.word 0\n");
+        stringBuilder.append("vraiAff:\t.asciiz \"vrai\"\n");
+        stringBuilder.append("fauxAff:\t.asciiz \"faux\"\n");
+        stringBuilder.append("sautLigne:\t.asciiz \"\\n\"\n\n");
         stringBuilder.append(".text\n");
         stringBuilder.append("main :\n");
         stringBuilder.append("# Initialiser $s7 avec $sp\n");
         stringBuilder.append("\tmove $s7, $sp\n");
         stringBuilder.append("# Réserver la place pour ").append((TDS.getInstance().getTailleZoneVariables() * -1) / 4).append(" variables\n");
-        stringBuilder.append("\tadd $sp, $sp, ").append(TDS.getInstance().getTailleZoneVariables()).append("\n");
+        stringBuilder.append("\tadd $sp, $sp, ").append(TDS.getInstance().getTailleZoneVariables()).append("\n\n");
         for (ArbreAbstrait a : programme) {
-            stringBuilder.append(a.toMIPS());
+            stringBuilder.append(a.toMIPS()).append("\n");
         }
         stringBuilder.append("end :\n").append("\tli $v0, 10\n").append("\tsyscall");
         return stringBuilder.toString();

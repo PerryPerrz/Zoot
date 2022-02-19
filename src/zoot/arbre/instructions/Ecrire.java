@@ -25,7 +25,7 @@ public class Ecrire extends Instruction {
             stringBuilder.append("\tli $v0, 1\n");
         } else {
             if (exp.getType().equals("booleen")) {
-                stringBuilder.append("\tla $a0, ").append(exp.toMIPS().equals("1") ? "vrai" : "faux").append("\n");
+                stringBuilder.append("\tla $a0, ").append(exp.toMIPS()).append("Aff\n");
                 stringBuilder.append("\tli $v0, 4\n");
             } else {
                 stringBuilder.append("\tli $a0, ").append(exp.toMIPS()).append("\n");
@@ -33,6 +33,11 @@ public class Ecrire extends Instruction {
             }
         }
         stringBuilder.append("\tsyscall\n");
+        //Affichage d'un saut de ligne
+        stringBuilder.append("\tla $a0, sautLigne\n");
+        stringBuilder.append("\tli $v0, 4\n");
+        stringBuilder.append("\tsyscall\n");
+
         return stringBuilder.toString();
     }
 
