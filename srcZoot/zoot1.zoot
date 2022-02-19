@@ -10,5 +10,6 @@ ecrire a;
 ecrire b;
 ecrire 125;
 ecrire faux;
+ecrire vrai;
 ecrire c;
 fin

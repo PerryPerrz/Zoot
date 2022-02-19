@@ -20,12 +20,18 @@ public class Ecrire extends Instruction {
     public String toMIPS() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("# Ecrire ").append(exp.toString()).append("\n");
-        if (exp.estUneVariable())
-            stringBuilder.append("\tlw $a0 , ");
-        else
-            stringBuilder.append("\tli $a0 , ");
-        stringBuilder.append(exp.toMIPS()).append("\n");
-        stringBuilder.append("\tli $v0 , 1\n");
+        if (exp.estUneVariable()) {
+            stringBuilder.append("\tlw $a0, ").append(exp.toMIPS()).append("\n");
+            stringBuilder.append("\tli $v0, 1\n");
+        } else {
+            if (exp.getType().equals("booleen")) {
+                stringBuilder.append("\tla $a0, ").append(exp.toMIPS().equals("1") ? "vrai" : "faux").append("\n");
+                stringBuilder.append("\tli $v0, 4\n");
+            } else {
+                stringBuilder.append("\tli $a0, ").append(exp.toMIPS()).append("\n");
+                stringBuilder.append("\tli $v0, 1\n");
+            }
+        }
         stringBuilder.append("\tsyscall\n");
         return stringBuilder.toString();
     }
