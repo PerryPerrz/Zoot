@@ -1,15 +1,14 @@
-variables
-entier a;
 entier a;
 booleen b;
 booleen w;
 booleen y;
 entier c;
 debut
-a = 9;
+p = 9;
 b = vrai;
 w = faux;
-c = a;
+c = b;
+ml = b;
 ecrire a;
 ecrire b;
 ecrire w;

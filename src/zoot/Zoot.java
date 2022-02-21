@@ -27,7 +27,7 @@ public class Zoot {
                 flot.close();
             } else {
                 for (Erreur e : StockageErreurs.getInstance().getListeErreurs()) {
-                    System.err.println("ERREUR : " + e.getMessage() + "\nA la ligne " + e.getNumLigne() + ", caractère n°" + e.getNumCarac());
+                    System.err.println("ERREUR SEMANTIQUE : Ligne n°" + e.getNumLigne() + " : " + e.getMessage());
                 }
             }
         } catch (FileNotFoundException ex) {
