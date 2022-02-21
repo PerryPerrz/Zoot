@@ -1,6 +1,5 @@
 package zoot.arbre;
 
-import zoot.gestionErreurs.StockageErreurs;
 import zoot.tableDesSymboles.TDS;
 
 import java.util.ArrayList;
@@ -43,9 +42,11 @@ public class BlocDInstructions extends ArbreAbstrait {
         stringBuilder.append("sautLigne:\t.asciiz \"\\n\"\n\n");
         stringBuilder.append(".text\n");
         stringBuilder.append("main :\n");
-        stringBuilder.append("# Initialiser $s7 avec $sp\n");
+        stringBuilder.append("\n# Initialiser $s1 avec la valeur vrai\n");
+        stringBuilder.append("\tla $s1, faux\n");
+        stringBuilder.append("\n# Initialiser $s7 avec $sp\n");
         stringBuilder.append("\tmove $s7, $sp\n");
-        stringBuilder.append("# Réserver la place pour ").append((TDS.getInstance().getTailleZoneVariables() * -1) / 4).append(" variables\n");
+        stringBuilder.append("\n# Réserver la place pour ").append((TDS.getInstance().getTailleZoneVariables() * -1) / 4).append(" variables\n");
         stringBuilder.append("\tadd $sp, $sp, ").append(TDS.getInstance().getTailleZoneVariables()).append("\n\n");
         for (ArbreAbstrait a : programme) {
             stringBuilder.append(a.toMIPS()).append("\n");

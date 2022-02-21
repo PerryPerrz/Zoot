@@ -21,18 +21,34 @@ public class Ecrire extends Instruction {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("# Ecrire ").append(exp.toString()).append("\n");
         if (exp.estUneVariable()) {
-            stringBuilder.append("\tlw $a0, ").append(exp.toMIPS()).append("\n");
-            stringBuilder.append("\tli $v0, 1\n");
+            if (exp.getType().equals("booleen")) {
+                stringBuilder.append("\tlw $t0,").append(exp.toMIPS()).append("\n");
+                stringBuilder.append("\tbeq $s1, $t0, Sinon").append(noLigne).append("\n");
+                stringBuilder.append("\tla $a0, vraiAff\n");
+                stringBuilder.append("\tli $v0, 4\n");
+                stringBuilder.append("\tsyscall\n");
+                stringBuilder.append("\tb FinSi").append(noLigne).append("\n");
+                stringBuilder.append("Sinon").append(noLigne).append(":");
+                stringBuilder.append("\tla $a0, fauxAff\n");
+                stringBuilder.append("\tli $v0, 4\n");
+                stringBuilder.append("\tsyscall\n");
+                stringBuilder.append("FinSi").append(noLigne).append(":\n");
+            } else {
+                stringBuilder.append("\tlw $a0, ").append(exp.toMIPS()).append("\n");
+                stringBuilder.append("\tli $v0, 1\n");
+                stringBuilder.append("\tsyscall\n");
+            }
         } else {
             if (exp.getType().equals("booleen")) {
                 stringBuilder.append("\tla $a0, ").append(exp.toMIPS()).append("Aff\n");
                 stringBuilder.append("\tli $v0, 4\n");
+                stringBuilder.append("\tsyscall\n");
             } else {
                 stringBuilder.append("\tli $a0, ").append(exp.toMIPS()).append("\n");
                 stringBuilder.append("\tli $v0, 1\n");
+                stringBuilder.append("\tsyscall\n");
             }
         }
-        stringBuilder.append("\tsyscall\n");
         //Affichage d'un saut de ligne
         stringBuilder.append("\tla $a0, sautLigne\n");
         stringBuilder.append("\tli $v0, 4\n");
