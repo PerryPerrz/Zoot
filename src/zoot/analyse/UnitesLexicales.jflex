@@ -36,6 +36,7 @@ csteB = (vrai|faux)
 finDeLigne = \r|\n
 espace = {finDeLigne}  | [ \t\f]
 idf = [a-zA-Z_][a-zA-Z\-_]*
+commentaire = [/]{2}.*{finDeLigne}
 
 %%
 "//".*                                    { /* DO NOTHING */ }
@@ -61,5 +62,6 @@ idf = [a-zA-Z_][a-zA-Z\-_]*
 {idf}                  { return symbol(CodesLexicaux.IDF, yytext()); }
 
 {espace}               { }
+{commentaire}          { }
 .                      { throw new AnalyseLexicaleException(yyline, yycolumn, yytext()) ; }
 
