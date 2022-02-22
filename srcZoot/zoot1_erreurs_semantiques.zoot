@@ -5,17 +5,17 @@ booleen w;
 booleen y;
 entier c;
 debut
-p = 9;
+a = 9;
 b = vrai;
 w = faux;
-c = b;
-ml = b;
+c = a;
 ecrire a;
 ecrire b;
+c = b;
 ecrire w;
 ecrire 125;
 ecrire faux;
 ecrire vrai;
 ecrire c;
-ecrire y;
+ml = b;
 fin

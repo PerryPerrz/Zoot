@@ -21,15 +21,16 @@ public class Zoot {
             arbre.verifier();
             if (StockageErreurs.getInstance().getNbErreurs() == 0) {
                 System.out.println("COMPILATION OK");
-                String nomSortie = nomFichier.replaceAll("[.]zoot", ".mips");
-                PrintWriter flot = new PrintWriter(new BufferedWriter(new FileWriter(nomSortie)));
-                flot.println(arbre.toMIPS());
-                flot.close();
             } else {
                 for (Erreur e : StockageErreurs.getInstance().getListeErreurs()) {
                     System.err.println("ERREUR SEMANTIQUE : Ligne n°" + e.getNumLigne() + " : " + e.getMessage());
                 }
             }
+
+            String nomSortie = nomFichier.replaceAll("[.]zoot", ".mips");
+            PrintWriter flot = new PrintWriter(new BufferedWriter(new FileWriter(nomSortie)));
+            flot.println(arbre.toMIPS());
+            flot.close();
         } catch (FileNotFoundException ex) {
             System.err.println("Fichier " + nomFichier + " inexistant");
         } catch (AnalyseException ex) {
