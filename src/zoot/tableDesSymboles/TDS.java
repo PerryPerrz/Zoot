@@ -3,19 +3,21 @@ package zoot.tableDesSymboles;
 import zoot.exceptions.DoubleDeclarationException;
 import zoot.exceptions.VariableNonDeclareeException;
 
-import java.util.HashMap;
-
 /**
  * Singleton TDS représentant la table des symboles de zoot.
  */
 public class TDS {
-    private final HashMap<String, Symbole> tableDesSymboles;
+    private ArbreTDS arbre;
+    private int numBlocActu;
+    private int numBlocActuMax; //Numéro qui stock le numéro du bloc possédant l'id le plus élevé. Permet de palier au problème des id : je créer un fils, je sort, je créer un autre fils
 
     /**
      * Constructeur privé du singleton TDS.
      */
     private TDS() {
-        this.tableDesSymboles = new HashMap<>();
+        this.numBlocActu = 1;
+        this.numBlocActuMax = 1;
+        this.arbre = new ArbreTDS(this.numBlocActu, null);
     }
 
     private static final TDS instance = new TDS();
@@ -30,41 +32,62 @@ public class TDS {
     }
 
     /**
-     * Procédure qui ajoute un identifiant ainsi que son symbole à la table des symboles.
+     * Procédure qui matérialise l'action de rentrer dans un bloc.
+     */
+    public void entreeBloc() {
+        this.numBlocActuMax++;
+        this.arbre = new ArbreTDS(this.numBlocActuMax, this.arbre);
+        //Mise à jour du numéro du bloc actuel.
+        this.numBlocActu = this.arbre.getId();
+    }
+
+    /**
+     * Procédure qui matérialise l'action de sortir d'un bloc.
+     */
+    public void sortieBloc() {
+        this.arbre = this.arbre.getPere();
+        this.numBlocActu = this.arbre.getId();
+    }
+
+    /**
+     * Procédure qui matérialise l'action de rentrer dans un bloc. (sans créer de nouveau fils)
+     */
+    public void entreeBlocASem() {
+        this.numBlocActuMax++;
+        for (ArbreTDS a : this.arbre.getListeDeFils())
+            if (a.getId() == this.numBlocActuMax)
+                this.arbre = a;
+        //Mise à jour du numéro du bloc actuel.
+        this.numBlocActu = this.arbre.getId();
+    }
+
+    /**
+     * Procédure qui matérialise l'action de sortir dans un bloc. (sans créer de nouveau fils)
+     */
+    public void sortieBlocASem() {
+        this.arbre = this.arbre.getPere();
+        this.numBlocActu = this.arbre.getId();
+    }
+
+    /**
+     * Procédure qui ajoute une variable ou une fonction au bloc actuel.
      *
-     * @param idf l'identifiant de la variable
-     * @param s   le type de la variable
+     * @param e l'entrée correspondant à la variable ou à la fonction que l'on veut ajouter
+     * @param s le symbole correspondant à la variable ou à la fonction que l'on veut ajouter
      * @throws DoubleDeclarationException Exception étant appelée lorsque l'utilisateur veut déclarer une variable déjà inscrite dans la table des symboles.
      */
-    public void ajouter(String idf, Symbole s) throws DoubleDeclarationException {
-        if (this.tableDesSymboles.containsKey(idf)) {
-            throw new DoubleDeclarationException("Le symbole " + idf + " ne peut pas être ajouté deux fois dans la table des symboles !");
-        }
-        s.setDeplacement(this.getTailleZoneVariables());
-        this.tableDesSymboles.put(idf, s);
+    public void ajouter(Entree e, Symbole s) throws DoubleDeclarationException {
+        this.arbre.ajouter(e, s);
     }
 
     /**
-     * Fonction qui identifie une variable dans la table des symboles et retourne son symbole correspondant.
+     * Fonction qui permet d'identifier une entrée dans le bloc actuel.
      *
-     * @param idf l'identifiant de la variable
-     * @return le symbole de la variable
+     * @param e entrée que l'on veut identifier
+     * @return le Symbole correspondant à l'entrée
      * @throws VariableNonDeclareeException Exception étant appelée lorsque l'utilisateur recherche une variable n'étant pas enregistrée dans la table des symboles.
      */
-    public Symbole identifier(String idf) throws VariableNonDeclareeException {
-        if (!this.tableDesSymboles.containsKey(idf)) {
-            throw new VariableNonDeclareeException("Le symbole " + idf + " n'existe pas dans la table des symboles !");
-        }
-        return this.tableDesSymboles.get(idf);
-    }
-
-    /**
-     * Fonction qui retourne la taille de la zone contenant toutes les variables définies dans la table des symboles.
-     *
-     * @return la taille en octets.
-     */
-    public int getTailleZoneVariables() {
-        //On définit la taille d'un entier et la taille d'un booléen à 4 octets. (on descend dans la pile donc -4)
-        return this.tableDesSymboles.size() * -4;
+    public Symbole identifier(Entree e) throws VariableNonDeclareeException {
+        return this.arbre.identifier(e);
     }
 }
