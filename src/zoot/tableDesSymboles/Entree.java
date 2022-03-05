@@ -1,10 +1,10 @@
 package zoot.tableDesSymboles;
 
 public class Entree {
-    private String idf;
-    private String type; //Vaut soit "variable" soit "fonction"
+    private final String idf;
+    private final String type; //Vaut soit "variable" soit "fonction"
 
-    public Entree (String idf, String type){
+    public Entree(String idf, String type) {
         this.idf = idf;
         this.type = type;
     }

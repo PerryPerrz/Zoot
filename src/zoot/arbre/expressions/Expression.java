@@ -16,4 +16,10 @@ public abstract class Expression extends ArbreAbstrait {
     public abstract String getType();
 
     public abstract boolean estUneVariable();
+
+    public abstract boolean estUnAppelDeFonction();
+
+    public String getSignatureFonction() {
+        return null;
+    }
 }

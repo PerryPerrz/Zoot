@@ -130,6 +130,9 @@ EXP    ::=     CSTENTIERE:c
         |
                IDF:i
                 {: RESULT = new Idf(i, ileft + 1) ; :}
+        |
+                IDF:i PAROUVRANTE PARFERMANTE
+                {: RESULT = new AppelFonction(ileft + 1, i) ; :}
                 ;
 
 TYPE    ::=     ENTIER

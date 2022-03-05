@@ -23,4 +23,9 @@ public abstract class Constante extends Expression {
     public boolean estUneVariable() {
         return false;
     }
+
+    @Override
+    public boolean estUnAppelDeFonction() {
+        return false;
+    }
 }

@@ -36,20 +36,28 @@ public class Affect extends Instruction {
 
     @Override
     public String toMIPS() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("# ").append(idf.toString()).append(" = ").append(exp.toString()).append("\n");
-        if (exp.estUneVariable()) {
-            stringBuilder.append("\tlw $v0, ");
-        } else {
-            if (exp.getType().equals("booleen")) {
-                stringBuilder.append("\tla $v0, ");
-            } else {
-                stringBuilder.append("\tli $v0, ");
+        StringBuilder sb = new StringBuilder();
+        sb.append("# ").append(idf.toString()).append(" = ");
+        if (!exp.estUnAppelDeFonction()) {
+            sb.append(exp.toString()).append("\n");
+            if (exp.estUneVariable()) {
+                sb.append("\tlw $v0, ");
+            } else { //Si c'est une constante
+                if (exp.getType().equals("booleen")) {
+                    sb.append("\tla $v0, ");
+                } else {
+                    sb.append("\tli $v0, ");
+                }
             }
+            sb.append(exp.toMIPS()).append("\n");
+            sb.append("\tsw $v0, ").append(idf.toMIPS()).append("\n");
+
+        } else {
+            sb.append(this.exp.getSignatureFonction()).append("()\n");
+            sb.append("\t").append(exp.toMIPS()).append("\n");
+            sb.append("\t").append("sw $v0, ").append(idf.toMIPS()).append("\n");
         }
-        stringBuilder.append(exp.toMIPS()).append("\n");
-        stringBuilder.append("\tsw $v0, ").append(idf.toMIPS()).append("\n");
-        return stringBuilder.toString();
+        return sb.toString();
     }
 
 }

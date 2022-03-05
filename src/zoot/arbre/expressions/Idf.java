@@ -21,7 +21,7 @@ public class Idf extends Expression {
     public void verifier() {
         try {
             //Si la variable existe déjà, on stocke sa position dans la pile (déplacement).
-            Symbole temp = TDS.getInstance().identifier(new Entree(nom,"variable"));
+            Symbole temp = TDS.getInstance().identifier(new Entree(nom, "variable"));
             this.depl = temp.getDeplacement();
         } catch (VariableNonDeclareeException e) {
             //Sinon, on ajoute une erreur et on passe à la suite.
@@ -42,7 +42,7 @@ public class Idf extends Expression {
      */
     @Override
     public String getType() throws VariableNonDeclareeException {
-        return TDS.getInstance().identifier(new Entree(nom,"variable")).getType();
+        return TDS.getInstance().identifier(new Entree(nom, "variable")).getType();
     }
 
     @Override
@@ -53,5 +53,10 @@ public class Idf extends Expression {
     @Override
     public boolean estUneVariable() {
         return true;
+    }
+
+    @Override
+    public boolean estUnAppelDeFonction() {
+        return false;
     }
 }

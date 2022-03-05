@@ -34,7 +34,7 @@ public class TDS {
      * Procédure qui ajoute un identifiant ainsi que son symbole à la table des symboles.
      *
      * @param e l'entrée
-     * @param s   le type de la variable
+     * @param s le type de la variable
      * @throws DoubleDeclarationException Exception étant appelée lorsque l'utilisateur veut déclarer une variable déjà inscrite dans la table des symboles.
      */
     public void ajouter(Entree e, Symbole s) throws DoubleDeclarationException {
@@ -56,12 +56,12 @@ public class TDS {
         //TODO Si erreur : vérif si il ne faut pas throw une erreur quand se n'est pas une variable ou une fonction.
         Symbole s = null;
         for (Map.Entry<Entree, Symbole> elem : this.tableDesSymboles.entrySet()) {
-            if (elem.getKey().equals(e.getIdf())) {
+            if (elem.getKey().getIdf().equals(e.getIdf())) {
                 s = new Symbole(elem.getValue().getType());
                 s.setDeplacement(elem.getValue().getDeplacement());
             }
         }
-        if (s == null){ //TODO Changer erreur : peut être une fonction
+        if (s == null) { //TODO Changer erreur : peut être une fonction
             throw new VariableNonDeclareeException("Le symbole " + e.getIdf() + " n'existe pas dans la table des symboles !");
         }
         return s;

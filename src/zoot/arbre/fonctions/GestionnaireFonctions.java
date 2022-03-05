@@ -1,16 +1,12 @@
 package zoot.arbre.fonctions;
 
-import zoot.tableDesSymboles.TDS;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Singleton GestionnaireFonctions.
  */
 public class GestionnaireFonctions {
-    private ArrayList<Fonction> fonctions;
+    private final ArrayList<Fonction> fonctions;
     private boolean fonctionsSontTraitees; //Booléen qui sert à différencier un bloc d'instructions de fonctions du bloc d'instruction du programme.
 
     /**
@@ -34,6 +30,7 @@ public class GestionnaireFonctions {
 
     /**
      * Fonction qui retourne le booléen isFonctionsSontTraitees.
+     *
      * @return le booléen isFonctionsSontTraitees
      */
     public boolean isFonctionsSontTraitees() {
@@ -42,6 +39,7 @@ public class GestionnaireFonctions {
 
     /**
      * Procédure qui définit le booléen isFonctionsSontTraitees.
+     *
      * @param fonctionsSontTraitees le booléen a set
      */
     public void setFonctionsSontTraitees(boolean fonctionsSontTraitees) {
@@ -50,9 +48,18 @@ public class GestionnaireFonctions {
 
     /**
      * Fonction qui ajooute une fonction à l'ArrayList de fonctions.
+     *
      * @param fonc la fonction a ajouter
      */
-    public void ajouter(Fonction fonc){
+    public void ajouter(Fonction fonc) {
         this.fonctions.add(fonc);
+    }
+
+    public String toMipsFonctions() {
+        StringBuilder sb = new StringBuilder();
+        for (Fonction f : this.fonctions) {
+            sb.append(f.toMIPS());
+        }
+        return sb.toString();
     }
 }

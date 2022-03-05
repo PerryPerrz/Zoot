@@ -1,0 +1,23 @@
+variables
+entier a;
+booleen b;
+
+fonctions
+booleen fonc1()
+debut
+ecrire 42;
+retourne vrai;
+fin
+
+entier fonc2()
+debut
+ecrire faux;
+retourne 25;
+fin
+
+debut
+b = vrai;
+ecrire fonc1();
+a = fonc2();
+ecrire a;
+fin

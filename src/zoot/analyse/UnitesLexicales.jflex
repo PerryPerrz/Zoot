@@ -35,7 +35,7 @@ csteE = [0-9]+
 csteB = (vrai|faux)
 finDeLigne = \r|\n
 espace = {finDeLigne}  | [ \t\f]
-idf = [a-zA-Z_][a-zA-Z\-_]*
+idf = [a-zA-Z_][a-zA-Z0-9\-_]*
 commentaire = [/]{2}.*{finDeLigne}
 
 %%
