@@ -44,10 +44,14 @@ commentaire = [/]{2}.*{finDeLigne}
 "debut"                { return symbol(CodesLexicaux.DEBUT); }
 "fin"              	   { return symbol(CodesLexicaux.FIN); }
 "variables"            { return symbol(CodesLexicaux.VARIABLES); }
+"fonctions"            { return symbol(CodesLexicaux.FONCTIONS); }
 
 "ecrire"               { return symbol(CodesLexicaux.ECRIRE); }
 
 ";"                    { return symbol(CodesLexicaux.POINTVIRGULE); }
+"("                    { return symbol(CodesLexicaux.PAROUVRANTE); }
+")"                    { return symbol(CodesLexicaux.PARFERMANTE); }
+"retourne"             { return symbol(CodesLexicaux.RETOURNE); }
 
 {csteE}      	       { return symbol(CodesLexicaux.CSTENTIERE, yytext()); }
 

@@ -6,6 +6,7 @@ import zoot.arbre.expressions.* ;
 import zoot.arbre.instructions.* ;
 import zoot.exceptions.AnalyseSyntaxiqueException;
 import zoot.tableDesSymboles.*;
+import zoot.arbre.fonctions.*;
 
 import java_cup.runtime.*;
 
@@ -57,12 +58,12 @@ parser code {:
 
 /* Terminals (tokens returned by the scanner).  */
 
-terminal Symbol    DEBUT, FIN, VARIABLES, POINTVIRGULE, ECRIRE, EGAL;
+terminal Symbol    DEBUT, FIN, VARIABLES, POINTVIRGULE, ECRIRE, EGAL, FONCTIONS, PAROUVRANTE, PARFERMANTE, RETOURNE;
 terminal String    IDF, CSTENTIERE, CSTBOOLEENNE, BOOLEEN, ENTIER;
 
 /* Non terminals used in the grammar section.  */
 
-non terminal ArbreAbstrait PROG, LINST, LDECL, DECL;
+non terminal ArbreAbstrait PROG, LINST, LDECL,LFONC, DECL, PARAM, FONC;
 non terminal Instruction INST;
 non terminal Expression EXP;
 non terminal String TYPE;
@@ -75,6 +76,9 @@ PROG    ::=     VARIABLES LDECL:ld DEBUT LINST:li  FIN
                 {: RESULT = li ; :}
         |
                 DEBUT LINST:li  FIN
+                {: RESULT = li ; :}
+        |
+                VARIABLES LDECL:ld FONCTIONS LFONC:lf DEBUT LINST:li  FIN
                 {: RESULT = li ; :}
                 ;
 
@@ -98,11 +102,24 @@ LINST   ::=     LINST:li  INST:i
                    RESULT = b ; :}
                 ;
 
+LFONC   ::=     LFONC:lf  FONC:f
+                {: ((BlocDInstructions)lf).ajouter(f) ;
+                   RESULT = lf ; :}
+        |
+                FONC:f
+                {: BlocDInstructions b = new BlocDInstructions(fleft + 1) ;
+                   b.ajouter(f) ;
+                   RESULT = b ; :}
+                ;
+
 INST    ::=     ECRIRE EXP:e POINTVIRGULE
                 {: RESULT = new Ecrire(e, eleft + 1) ; :}
         |
                 IDF:i EGAL EXP:e POINTVIRGULE
                 {: RESULT = new Affect(new Idf(i,ileft+1), e, eleft+1) ; :}
+       |
+                RETOURNE EXP:e POINTVIRGULE
+                {: RESULT = new Retourne(eleft + 1, e); :}
                 ;
 
 EXP    ::=     CSTENTIERE:c
@@ -123,5 +140,14 @@ TYPE    ::=     ENTIER
                 ;
 
 DECL    ::=     TYPE:t IDF:i POINTVIRGULE
-                {: TDS.getInstance().ajouter(i, new Symbole(t)) ; :}
+                {: TDS.getInstance().ajouter(new Entree(i,"variable"), new Symbole(t)) ; :}
+                ;
+
+PARAM   ::=     PAROUVRANTE PARFERMANTE
+                {: :}
+                ;
+
+FONC   ::=      TYPE:t IDF:i PARAM:p DEBUT LINST:li FIN
+                {: GestionnaireFonctions.getInstance().ajouter(new Fonction(ileft + 1,i,li));
+                   TDS.getInstance().ajouter(new Entree(i,"fonction"), new Symbole(t)) ;:}
                 ;
