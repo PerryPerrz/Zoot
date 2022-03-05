@@ -3,6 +3,7 @@ package zoot.arbre.expressions;
 import zoot.exceptions.VariableNonDeclareeException;
 import zoot.gestionErreurs.Erreur;
 import zoot.gestionErreurs.StockageErreurs;
+import zoot.tableDesSymboles.Entree;
 import zoot.tableDesSymboles.Symbole;
 import zoot.tableDesSymboles.TDS;
 
@@ -20,7 +21,7 @@ public class Idf extends Expression {
     public void verifier() {
         try {
             //Si la variable existe déjà, on stocke sa position dans la pile (déplacement).
-            Symbole temp = TDS.getInstance().identifier(nom);
+            Symbole temp = TDS.getInstance().identifier(new Entree(nom,"variable"));
             this.depl = temp.getDeplacement();
         } catch (VariableNonDeclareeException e) {
             //Sinon, on ajoute une erreur et on passe à la suite.
@@ -41,7 +42,7 @@ public class Idf extends Expression {
      */
     @Override
     public String getType() throws VariableNonDeclareeException {
-        return TDS.getInstance().identifier(nom).getType();
+        return TDS.getInstance().identifier(new Entree(nom,"variable")).getType();
     }
 
     @Override
