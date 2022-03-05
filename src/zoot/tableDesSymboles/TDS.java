@@ -4,12 +4,13 @@ import zoot.exceptions.DoubleDeclarationException;
 import zoot.exceptions.VariableNonDeclareeException;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Singleton TDS représentant la table des symboles de zoot.
  */
 public class TDS {
-    private final HashMap<String, Symbole> tableDesSymboles;
+    private final HashMap<Entree, Symbole> tableDesSymboles;
 
     /**
      * Constructeur privé du singleton TDS.
@@ -32,30 +33,38 @@ public class TDS {
     /**
      * Procédure qui ajoute un identifiant ainsi que son symbole à la table des symboles.
      *
-     * @param idf l'identifiant de la variable
+     * @param e l'entrée
      * @param s   le type de la variable
      * @throws DoubleDeclarationException Exception étant appelée lorsque l'utilisateur veut déclarer une variable déjà inscrite dans la table des symboles.
      */
-    public void ajouter(String idf, Symbole s) throws DoubleDeclarationException {
-        if (this.tableDesSymboles.containsKey(idf)) {
-            throw new DoubleDeclarationException("Le symbole " + idf + " ne peut pas être ajouté deux fois dans la table des symboles !");
+    public void ajouter(Entree e, Symbole s) throws DoubleDeclarationException {
+        if (this.tableDesSymboles.containsKey(e)) {
+            throw new DoubleDeclarationException("Le symbole " + e.getIdf() + " ne peut pas être ajouté deux fois dans la table des symboles !");
         }
         s.setDeplacement(this.getTailleZoneVariables());
-        this.tableDesSymboles.put(idf, s);
+        this.tableDesSymboles.put(e, s);
     }
 
     /**
      * Fonction qui identifie une variable dans la table des symboles et retourne son symbole correspondant.
      *
-     * @param idf l'identifiant de la variable
+     * @param e l'entrée
      * @return le symbole de la variable
      * @throws VariableNonDeclareeException Exception étant appelée lorsque l'utilisateur recherche une variable n'étant pas enregistrée dans la table des symboles.
      */
-    public Symbole identifier(String idf) throws VariableNonDeclareeException {
-        if (!this.tableDesSymboles.containsKey(idf)) {
-            throw new VariableNonDeclareeException("Le symbole " + idf + " n'existe pas dans la table des symboles !");
+    public Symbole identifier(Entree e) throws VariableNonDeclareeException {
+        //TODO Si erreur : vérif si il ne faut pas throw une erreur quand se n'est pas une variable ou une fonction.
+        Symbole s = null;
+        for (Map.Entry<Entree, Symbole> elem : this.tableDesSymboles.entrySet()) {
+            if (elem.getKey().equals(e.getIdf())) {
+                s = new Symbole(elem.getValue().getType());
+                s.setDeplacement(elem.getValue().getDeplacement());
+            }
         }
-        return this.tableDesSymboles.get(idf);
+        if (s == null){ //TODO Changer erreur : peut être une fonction
+            throw new VariableNonDeclareeException("Le symbole " + e.getIdf() + " n'existe pas dans la table des symboles !");
+        }
+        return s;
     }
 
     /**
