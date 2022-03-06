@@ -51,6 +51,14 @@ public class BlocDInstructions extends ArbreAbstrait {
             sb.append("\tla $s1, faux\n");
             sb.append("\n# Initialiser $s7 avec $sp\n");
             sb.append("\tmove $s7, $sp\n");
+            //On check si il existe une erreur de déclaration, si c'est le cas, on stop le programme mips à cet endroit là.
+            if (StockageErreurs.getInstance().getNbErreurs() > 0 && StockageErreurs.getInstance().getErreurI(0).getType().equals("DECLARATION")) {
+                sb.append("# Affichage de l'erreur lors de l'exécution du programme\n");
+                sb.append("\tla $a0, erreurAff\n");
+                sb.append("\tli $v0, 4\n");
+                sb.append("\tsyscall\n");
+                sb.append("\tb end\n\n");
+            }
             sb.append("\n# Réserver la place pour ").append((TDS.getInstance().getTailleZoneVariables() * -1) / 4).append(" variables\n");
             sb.append("\tadd $sp, $sp, ").append(TDS.getInstance().getTailleZoneVariables()).append("\n\n");
             for (ArbreAbstrait a : programme) {

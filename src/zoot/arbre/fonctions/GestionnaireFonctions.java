@@ -1,7 +1,5 @@
 package zoot.arbre.fonctions;
 
-import zoot.arbre.expressions.Expression;
-
 import java.util.ArrayList;
 
 /**

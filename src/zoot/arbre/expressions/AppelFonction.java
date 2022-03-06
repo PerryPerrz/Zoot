@@ -1,5 +1,8 @@
 package zoot.arbre.expressions;
 
+import zoot.exceptions.EntreeNonDeclareeException;
+import zoot.gestionErreurs.Erreur;
+import zoot.gestionErreurs.StockageErreurs;
 import zoot.tableDesSymboles.Entree;
 import zoot.tableDesSymboles.TDS;
 
@@ -24,7 +27,13 @@ public class AppelFonction extends Expression {
 
     @Override
     public String getType() {
-        return TDS.getInstance().identifier(new Entree(this.idf, "fonction")).getType();
+        String type = null;
+        try {
+            type = TDS.getInstance().identifier(new Entree(this.idf, "fonction")).getType();
+        } catch (EntreeNonDeclareeException e) {
+            StockageErreurs.getInstance().ajouter(new Erreur(e.getMessage(), this.noLigne));
+        }
+        return type;
     }
 
     @Override

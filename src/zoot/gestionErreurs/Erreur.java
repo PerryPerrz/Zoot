@@ -7,6 +7,7 @@ public class Erreur {
     private String message;
     private int numLigne;
     private int numCarac;
+    private final String type;
 
     /**
      * Constucteur de la classe Erreur.
@@ -19,6 +20,7 @@ public class Erreur {
         this.message = message;
         this.numLigne = numLigne;
         this.numCarac = numCarac;
+        this.type = "INSTRUCTION";
     }
 
     /**
@@ -31,6 +33,21 @@ public class Erreur {
         this.message = message;
         this.numLigne = numLigne;
         this.numCarac = 0;
+        this.type = "INSTRUCTION";
+    }
+
+    /**
+     * Constructeur de la classe Erreur.
+     *
+     * @param message  le numéro de ligne associé à l'erreur
+     * @param numLigne le numéro de caractère associé à l'erreur
+     * @param type     le type de l'erreur
+     */
+    public Erreur(String message, int numLigne, String type) {
+        this.message = message;
+        this.numLigne = numLigne;
+        this.numCarac = 0;
+        this.type = type;
     }
 
     /**
@@ -85,5 +102,14 @@ public class Erreur {
      */
     public void setNumCarac(int numCarac) {
         this.numCarac = numCarac;
+    }
+
+    /**
+     * Fonction qui retourne le type associé à l'erreur.
+     *
+     * @return le type
+     */
+    public String getType() {
+        return type;
     }
 }

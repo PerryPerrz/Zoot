@@ -4,9 +4,10 @@ import java.util.*;
 import zoot.arbre.* ;
 import zoot.arbre.expressions.* ;
 import zoot.arbre.instructions.* ;
-import zoot.exceptions.AnalyseSyntaxiqueException;
+import zoot.exceptions.*;
 import zoot.tableDesSymboles.*;
 import zoot.arbre.fonctions.*;
+import zoot.gestionErreurs.*;
 
 import java_cup.runtime.*;
 
@@ -143,7 +144,14 @@ TYPE    ::=     ENTIER
                 ;
 
 DECL    ::=     TYPE:t IDF:i POINTVIRGULE
-                {: TDS.getInstance().ajouter(new Entree(i,"variable"), new Symbole(t)) ; :}
+                {:
+                    try {
+                        TDS.getInstance().ajouter(new Entree(i,"variable"), new Symbole(t)) ;
+                    }
+                    catch (DoubleDeclarationException e){
+                        StockageErreurs.getInstance().ajouter(new Erreur(e.getMessage(), ileft + 1, "DECLARATION"));
+                    }
+                :}
                 ;
 
 PARAM   ::=     PAROUVRANTE PARFERMANTE
@@ -151,6 +159,14 @@ PARAM   ::=     PAROUVRANTE PARFERMANTE
                 ;
 
 FONC   ::=      TYPE:t IDF:i PARAM:p DEBUT LINST:li FIN
-                {: GestionnaireFonctions.getInstance().ajouter(new Fonction(ileft + 1,i,li));
-                   TDS.getInstance().ajouter(new Entree(i,"fonction"), new Symbole(t)) ;:}
+                {:
+                    try {
+                        TDS.getInstance().ajouter(new Entree(i,"fonction"), new Symbole(t)) ;
+                        GestionnaireFonctions.getInstance().ajouter(new Fonction(ileft + 1,i,li));
+                    }
+                    catch (DoubleDeclarationException e){
+                        GestionnaireFonctions.getInstance().ajouter(new Fonction(ileft + 1,i + "ERREUR" + (ileft + 1),li));
+                        StockageErreurs.getInstance().ajouter(new Erreur(e.getMessage(), ileft + 1, "DECLARATION"));
+                    }
+                :}
                 ;

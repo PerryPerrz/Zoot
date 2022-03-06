@@ -5,6 +5,6 @@ package zoot.exceptions;
  */
 public class AnalyseLexicaleSemantique extends AnalyseException {
     protected AnalyseLexicaleSemantique(String m) {
-        super("ERREUR LEXICALE SEMANTIQUE : " + m);
+        super(m);
     }
 }
