@@ -1,6 +1,6 @@
 package zoot.arbre.expressions;
 
-import zoot.exceptions.VariableNonDeclareeException;
+import zoot.exceptions.EntreeNonDeclareeException;
 import zoot.gestionErreurs.Erreur;
 import zoot.gestionErreurs.StockageErreurs;
 import zoot.tableDesSymboles.Entree;
@@ -23,7 +23,7 @@ public class Idf extends Expression {
             //Si la variable existe déjà, on stocke sa position dans la pile (déplacement).
             Symbole temp = TDS.getInstance().identifier(new Entree(nom, "variable"));
             this.depl = temp.getDeplacement();
-        } catch (VariableNonDeclareeException e) {
+        } catch (EntreeNonDeclareeException e) {
             //Sinon, on ajoute une erreur et on passe à la suite.
             StockageErreurs.getInstance().ajouter(new Erreur(e.getMessage(), this.getNoLigne()));
         }
@@ -38,10 +38,10 @@ public class Idf extends Expression {
      * Fonction qui retourne le type de la variable
      *
      * @return une chaîne de caractère correspondant au type de la variable ("entier" ou "booleen").
-     * @throws VariableNonDeclareeException exception se déclenchant si la variable n'est pas déclarée.
+     * @throws EntreeNonDeclareeException exception se déclenchant si la variable n'est pas déclarée.
      */
     @Override
-    public String getType() throws VariableNonDeclareeException {
+    public String getType() throws EntreeNonDeclareeException {
         return TDS.getInstance().identifier(new Entree(nom, "variable")).getType();
     }
 

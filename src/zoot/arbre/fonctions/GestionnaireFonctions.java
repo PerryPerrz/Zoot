@@ -1,5 +1,7 @@
 package zoot.arbre.fonctions;
 
+import zoot.arbre.expressions.Expression;
+
 import java.util.ArrayList;
 
 /**
@@ -61,5 +63,15 @@ public class GestionnaireFonctions {
             sb.append(f.toMIPS());
         }
         return sb.toString();
+    }
+
+    public void verifier() {
+        for (Fonction f : this.fonctions) {
+            f.verifier();
+        }
+    }
+
+    public ArrayList<Fonction> getFonctions() {
+        return fonctions;
     }
 }

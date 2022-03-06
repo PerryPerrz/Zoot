@@ -2,7 +2,7 @@ package zoot.arbre.instructions;
 
 import zoot.arbre.expressions.Expression;
 import zoot.arbre.expressions.Idf;
-import zoot.exceptions.VariableNonDeclareeException;
+import zoot.exceptions.EntreeNonDeclareeException;
 import zoot.gestionErreurs.Erreur;
 import zoot.gestionErreurs.StockageErreurs;
 
@@ -28,7 +28,7 @@ public class Affect extends Instruction {
                 //Sinon, on stocke l'erreur et passe à la suite
                 StockageErreurs.getInstance().ajouter(new Erreur("Attention le type de la variable et le type de l'expression ne correspondent pas !", this.getNoLigne()));
             }
-        } catch (VariableNonDeclareeException e) {
+        } catch (EntreeNonDeclareeException e) {
             //Si la variable ou l'exception contiennent une variable non déclarée, on stocke l'erreur et passe à la suite
             StockageErreurs.getInstance().ajouter(new Erreur("Attention, une des variables de l'expression n'est pas déclarée !", this.getNoLigne()));
         }

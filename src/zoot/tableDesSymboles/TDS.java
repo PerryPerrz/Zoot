@@ -1,7 +1,7 @@
 package zoot.tableDesSymboles;
 
 import zoot.exceptions.DoubleDeclarationException;
-import zoot.exceptions.VariableNonDeclareeException;
+import zoot.exceptions.EntreeNonDeclareeException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -38,8 +38,10 @@ public class TDS {
      * @throws DoubleDeclarationException Exception étant appelée lorsque l'utilisateur veut déclarer une variable déjà inscrite dans la table des symboles.
      */
     public void ajouter(Entree e, Symbole s) throws DoubleDeclarationException {
-        if (this.tableDesSymboles.containsKey(e)) {
-            throw new DoubleDeclarationException("Le symbole " + e.getIdf() + " ne peut pas être ajouté deux fois dans la table des symboles !");
+        for (Map.Entry<Entree, Symbole> elem : this.tableDesSymboles.entrySet()) {
+            if (elem.getKey().getIdf().equals(e.getIdf())) {
+                throw new DoubleDeclarationException("Le symbole " + e.getIdf() + " ne peut pas être ajouté deux fois dans la table des symboles !");
+            }
         }
         s.setDeplacement(this.getTailleZoneVariables());
         this.tableDesSymboles.put(e, s);
@@ -50,19 +52,18 @@ public class TDS {
      *
      * @param e l'entrée
      * @return le symbole de la variable
-     * @throws VariableNonDeclareeException Exception étant appelée lorsque l'utilisateur recherche une variable n'étant pas enregistrée dans la table des symboles.
+     * @throws EntreeNonDeclareeException Exception étant appelée lorsque l'utilisateur recherche une variable n'étant pas enregistrée dans la table des symboles.
      */
-    public Symbole identifier(Entree e) throws VariableNonDeclareeException {
-        //TODO Si erreur : vérif si il ne faut pas throw une erreur quand se n'est pas une variable ou une fonction.
+    public Symbole identifier(Entree e) throws EntreeNonDeclareeException {
         Symbole s = null;
         for (Map.Entry<Entree, Symbole> elem : this.tableDesSymboles.entrySet()) {
-            if (elem.getKey().getIdf().equals(e.getIdf())) {
+            if (elem.getKey().getIdf().equals(e.getIdf()) && elem.getKey().getType().equals(e.getType())) {
                 s = new Symbole(elem.getValue().getType());
                 s.setDeplacement(elem.getValue().getDeplacement());
             }
         }
-        if (s == null) { //TODO Changer erreur : peut être une fonction
-            throw new VariableNonDeclareeException("Le symbole " + e.getIdf() + " n'existe pas dans la table des symboles !");
+        if (s == null) {
+            throw new EntreeNonDeclareeException("Le symbole " + e.getIdf() + " n'existe pas dans la table des symboles !");
         }
         return s;
     }

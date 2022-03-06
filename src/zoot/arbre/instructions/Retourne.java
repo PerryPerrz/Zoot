@@ -1,6 +1,8 @@
 package zoot.arbre.instructions;
 
 import zoot.arbre.expressions.Expression;
+import zoot.arbre.fonctions.Fonction;
+import zoot.arbre.fonctions.GestionnaireFonctions;
 
 public class Retourne extends Instruction {
     private final Expression exp;
@@ -12,6 +14,8 @@ public class Retourne extends Instruction {
 
     @Override
     public void verifier() {
+        //TODO : Vérifier si retourner est dans une fonction
+        //TODO : Vérifier si le type de retour est le même que celui de la fonction dans lequel le retour se trouve
     }
 
     @Override

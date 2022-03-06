@@ -5,6 +5,8 @@ booleen b;
 fonctions
 booleen fonc1()
 debut
+a = 25;
+ecrire a;
 ecrire 42;
 retourne vrai;
 fin

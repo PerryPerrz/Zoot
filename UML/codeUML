@@ -34,7 +34,7 @@ abstract class zoot.arbre.expressions.Expression {
 + {abstract}String getType()
 + {abstract}boolean estUneVariable()
 }
-class zoot.exceptions.VariableNonDeclareeException {
+class zoot.exceptions.EntreeNonDeclareeException {
 }
 class zoot.arbre.instructions.Ecrire {
 + void verifier()
@@ -113,7 +113,7 @@ zoot.arbre.expressions.Constante <|-- zoot.arbre.expressions.ConstanteEntiere
 zoot.exceptions.AnalyseException <|-- zoot.exceptions.AnalyseSyntaxiqueException
 zoot.arbre.instructions.Instruction <|-- zoot.arbre.instructions.Affect
 zoot.arbre.ArbreAbstrait <|-- zoot.arbre.expressions.Expression
-zoot.exceptions.AnalyseLexicaleSemantique <|-- zoot.exceptions.VariableNonDeclareeException
+zoot.exceptions.AnalyseLexicaleSemantique <|-- zoot.exceptions.EntreeNonDeclareeException
 zoot.arbre.instructions.Instruction <|-- zoot.arbre.instructions.Ecrire
 zoot.arbre.expressions.Expression <|-- zoot.arbre.expressions.Idf
 zoot.arbre.expressions.Expression <|-- zoot.arbre.expressions.Constante
