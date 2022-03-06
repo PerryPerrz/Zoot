@@ -74,4 +74,12 @@ public class GestionnaireFonctions {
     public ArrayList<Fonction> getFonctions() {
         return fonctions;
     }
+
+    public Fonction getFonctionINumLigne(int noLigne) {
+        for (Fonction f : this.fonctions) {
+            if (f.getNoLigne() == noLigne)
+                return f;
+        }
+        return null;
+    }
 }
