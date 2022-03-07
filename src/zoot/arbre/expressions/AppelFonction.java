@@ -1,5 +1,7 @@
 package zoot.arbre.expressions;
 
+import zoot.arbre.fonctions.Fonction;
+import zoot.arbre.fonctions.GestionnaireFonctions;
 import zoot.exceptions.EntreeNonDeclareeException;
 import zoot.gestionErreurs.Erreur;
 import zoot.gestionErreurs.StockageErreurs;
@@ -16,7 +18,22 @@ public class AppelFonction extends Expression {
 
     @Override
     public void verifier() {
-        //Il n'y a rien à vérifier dans cette classe
+        if (GestionnaireFonctions.getInstance().isFonctionsSontTraitees()) { //Si on est dans une fonction
+            //On regarde la fonction la plus proche de l'expression appel fonction pour regarder si cette même fonction ne s'appelle pas récursivement.
+            int stockageNoLigne = 0;
+            for (Fonction f : GestionnaireFonctions.getInstance().getFonctions()) {
+                if (f.getNoLigne() < this.noLigne)
+                    if (f.getNoLigne() >= stockageNoLigne)
+                        stockageNoLigne = f.getNoLigne();
+            }
+            //Une fois que l'on a identifié la fonction dans laquelle on se trouve, on la stocke
+            String idfFonction = GestionnaireFonctions.getInstance().getFonctionINumLigne(stockageNoLigne).getIdf();
+            //On vérifie à présent que la fonction soit du même type de retour que l'espression que l'on essaie de retourner
+
+            if (idfFonction.equals(this.idf)) { //Si c'est la même, cela signifie que c'est un appel récursif
+                StockageErreurs.getInstance().ajouter(new Erreur("Appel récursif d'une fonction non autorisée dans zoot !", noLigne));
+            }
+        }
     }
 
     @Override
