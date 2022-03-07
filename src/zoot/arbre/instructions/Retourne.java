@@ -46,7 +46,7 @@ public class Retourne extends Instruction {
                 sb.append("\tli $v0, ");
             }
         }
-        sb.append(exp.toMIPS()).append("\n");
+        sb.append(exp.toMIPS());
         return sb.toString();
     }
 }

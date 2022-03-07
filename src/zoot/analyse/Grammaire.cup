@@ -149,7 +149,7 @@ DECL    ::=     TYPE:t IDF:i POINTVIRGULE
                         TDS.getInstance().ajouter(new Entree(i,"variable"), new Symbole(t)) ;
                     }
                     catch (DoubleDeclarationException e){
-                        StockageErreurs.getInstance().ajouter(new Erreur(e.getMessage(), ileft + 1, "DECLARATION"));
+                        StockageErreurs.getInstance().ajouter(new Erreur(e.getMessage(), ileft + 1));
                     }
                 :}
                 ;
@@ -160,13 +160,12 @@ PARAM   ::=     PAROUVRANTE PARFERMANTE
 
 FONC   ::=      TYPE:t IDF:i PARAM:p DEBUT LINST:li FIN
                 {:
+                    GestionnaireFonctions.getInstance().ajouter(new Fonction(ileft + 1,i,li));
                     try {
                         TDS.getInstance().ajouter(new Entree(i,"fonction"), new Symbole(t)) ;
-                        GestionnaireFonctions.getInstance().ajouter(new Fonction(ileft + 1,i,li));
                     }
                     catch (DoubleDeclarationException e){
-                        GestionnaireFonctions.getInstance().ajouter(new Fonction(ileft + 1,i + "ERREUR" + (ileft + 1),li));
-                        StockageErreurs.getInstance().ajouter(new Erreur(e.getMessage(), ileft + 1, "DECLARATION"));
+                        StockageErreurs.getInstance().ajouter(new Erreur(e.getMessage(), ileft + 1));
                     }
                 :}
                 ;
