@@ -4,10 +4,20 @@ class zoot.exceptions.AnalyseLexicaleException {
 class zoot.tableDesSymboles.TDS {
 - {static} TDS instance
 + {static} TDS getInstance()
-+ void ajouter(String,Symbole)
-+ Symbole identifier(String)
++ void ajouter(Entree,Symbole)
++ Symbole identifier(Entree)
 + int getTailleZoneVariables()
 }
+class zoot.arbre.expressions.AppelFonction {
++ void verifier()
++ String toMIPS()
++ String getType()
++ boolean estUneVariable()
++ boolean estUnAppelDeFonction()
++ String getSignatureFonction()
+}
+zoot.arbre.expressions.AppelFonction -- "1" zoot.arbre.expressions.Idf
+
 class zoot.exceptions.DoubleDeclarationException {
 }
 class zoot.arbre.BlocDInstructions {
@@ -18,11 +28,20 @@ class zoot.arbre.BlocDInstructions {
 }
 class zoot.exceptions.AnalyseLexicaleSemantique {
 }
+class zoot.tableDesSymboles.Entree {
+- String type
+- String idf
++ String getIdf()
++ String getType()
+}
+
 abstract class zoot.arbre.instructions.Instruction {
 }
 class zoot.arbre.expressions.ConstanteEntiere {
 + String toMIPS()
 + String getType()
+}
+class zoot.exceptions.EntreeNonDeclareeException {
 }
 class zoot.exceptions.AnalyseSyntaxiqueException {
 }
@@ -33,8 +52,8 @@ class zoot.arbre.instructions.Affect {
 abstract class zoot.arbre.expressions.Expression {
 + {abstract}String getType()
 + {abstract}boolean estUneVariable()
-}
-class zoot.exceptions.EntreeNonDeclareeException {
++ {abstract}boolean estUnAppelDeFonction()
++ String getSignatureFonction()
 }
 class zoot.arbre.instructions.Ecrire {
 + void verifier()
@@ -59,13 +78,36 @@ class zoot.arbre.expressions.Idf {
 + String getType()
 + String toString()
 + boolean estUneVariable()
++ boolean estUnAppelDeFonction()
 }
+class zoot.arbre.fonctions.Fonction {
+- String idf
++ void verifier()
++ String toMIPS()
++ String getIdf()
+}
+
+
 abstract class zoot.arbre.expressions.Constante {
 # String cste
 + void verifier()
 + String toString()
 + boolean estUneVariable()
++ boolean estUnAppelDeFonction()
 }
+class zoot.arbre.fonctions.GestionnaireFonctions {
+- boolean fonctionsSontTraitees
+- {static} GestionnaireFonctions instance
++ {static} GestionnaireFonctions getInstance()
++ boolean isFonctionsSontTraitees()
++ void setFonctionsSontTraitees(boolean)
++ void ajouter(Fonction)
++ String toMipsFonctions()
++ void verifier()
++ ArrayList<Fonction> getFonctions()
++ Fonction getFonctionINumLigne(int)
+}
+
 class zoot.Zoot {
 + {static} void main(String[])
 }
@@ -79,6 +121,12 @@ class zoot.arbre.expressions.ConstanteBooleenne {
 + String toMIPS()
 + String getType()
 }
+class zoot.arbre.instructions.Retourne {
++ void verifier()
++ String toMIPS()
+}
+zoot.arbre.instructions.Retourne -- "1" zoot.arbre.expressions.Expression
+
 class zoot.gestionErreurs.StockageErreurs {
 - {static} StockageErreurs instance
 + {static} StockageErreurs getInstance()
@@ -98,25 +146,32 @@ class zoot.tableDesSymboles.Symbole {
 abstract class zoot.exceptions.AnalyseException {
 }
 
+zoot.arbre.fonctions.Fonction-- "1" zoot.arbre.ArbreAbstrait
+zoot.arbre.fonctions.Fonction-- "1" zoot.arbre.expressions.Idf
+zoot.arbre.fonctions.GestionnaireFonctions-- "*" zoot.arbre.fonctions.Fonction
 zoot.gestionErreurs.StockageErreurs -- "*" zoot.gestionErreurs.Erreur
 zoot.arbre.instructions.Ecrire -- "1" zoot.arbre.expressions.Expression
 zoot.arbre.instructions.Affect -- "1" zoot.arbre.expressions.Expression
 zoot.arbre.instructions.Affect -- "1" zoot.arbre.expressions.Idf
 zoot.tableDesSymboles.TDS -- "*" zoot.tableDesSymboles.Symbole
+zoot.tableDesSymboles.TDS -- "*" zoot.tableDesSymboles.Entree
 zoot.arbre.BlocDInstructions -- "*" zoot.arbre.ArbreAbstrait
 zoot.exceptions.AnalyseException <|-- zoot.exceptions.AnalyseLexicaleException
+zoot.arbre.expressions.Expression <|-- zoot.arbre.expressions.AppelFonction
 zoot.exceptions.AnalyseLexicaleSemantique <|-- zoot.exceptions.DoubleDeclarationException
 zoot.arbre.ArbreAbstrait <|-- zoot.arbre.BlocDInstructions
 zoot.exceptions.AnalyseException <|-- zoot.exceptions.AnalyseLexicaleSemantique
 zoot.arbre.ArbreAbstrait <|-- zoot.arbre.instructions.Instruction
 zoot.arbre.expressions.Constante <|-- zoot.arbre.expressions.ConstanteEntiere
+zoot.exceptions.AnalyseLexicaleSemantique <|-- zoot.exceptions.EntreeNonDeclareeException
 zoot.exceptions.AnalyseException <|-- zoot.exceptions.AnalyseSyntaxiqueException
 zoot.arbre.instructions.Instruction <|-- zoot.arbre.instructions.Affect
 zoot.arbre.ArbreAbstrait <|-- zoot.arbre.expressions.Expression
-zoot.exceptions.AnalyseLexicaleSemantique <|-- zoot.exceptions.EntreeNonDeclareeException
 zoot.arbre.instructions.Instruction <|-- zoot.arbre.instructions.Ecrire
 zoot.arbre.expressions.Expression <|-- zoot.arbre.expressions.Idf
+zoot.arbre.ArbreAbstrait <|-- zoot.arbre.fonctions.Fonction
 zoot.arbre.expressions.Expression <|-- zoot.arbre.expressions.Constante
 zoot.arbre.expressions.Constante <|-- zoot.arbre.expressions.ConstanteBooleenne
+zoot.arbre.instructions.Instruction <|-- zoot.arbre.instructions.Retourne
 zoot.exceptions.RuntimeException <|-- zoot.exceptions.AnalyseException
 @enduml
