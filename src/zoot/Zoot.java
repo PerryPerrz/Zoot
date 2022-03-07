@@ -20,7 +20,10 @@ public class Zoot {
             ArbreAbstrait arbre = (ArbreAbstrait) analyseur.parse().value;
 
             arbre.verifier();
+            GestionnaireFonctions.getInstance().setFonctionsSontTraitees(true);
             GestionnaireFonctions.getInstance().verifier();
+            GestionnaireFonctions.getInstance().setFonctionsSontTraitees(false);
+
             if (StockageErreurs.getInstance().getNbErreurs() == 0) {
                 System.out.println("COMPILATION OK");
                 String nomSortie = nomFichier.replaceAll("[.]zoot", ".mips");

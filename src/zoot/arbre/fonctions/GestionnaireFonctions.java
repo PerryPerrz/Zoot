@@ -13,7 +13,7 @@ public class GestionnaireFonctions {
      * Constructeur privé du singleton GestionnaireFonctions.
      */
     private GestionnaireFonctions() {
-        this.fonctions = new ArrayList<Fonction>();
+        this.fonctions = new ArrayList<>();
         this.fonctionsSontTraitees = false;
     }
 
