@@ -13,6 +13,7 @@ fin
 
 entier fonc2()
 debut
+ecrire fonc1();
 ecrire faux;
 retourne 25;
 fin
