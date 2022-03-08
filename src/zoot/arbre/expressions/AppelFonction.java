@@ -47,10 +47,9 @@ public class AppelFonction extends Expression {
     }
 
     @Override
-    //On jump vers l'étiquette.
     public String toMIPS() {
         StringBuilder str = new StringBuilder();
-        str.append("# Sauvegarde des registres avant l'appel de fonction.\n");
+        str.append("\n# Sauvegarde des registres avant l'appel de fonction.\n");
         str.append("\tsw $ra,0($sp)\n");
         str.append("\tsw $s1,-4($sp)\n");
         str.append("\taddi $sp,$sp,-8\n");

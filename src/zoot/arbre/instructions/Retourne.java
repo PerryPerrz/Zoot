@@ -55,17 +55,24 @@ public class Retourne extends Instruction {
     @Override
     public String toMIPS() { //Appelé à la fin de la fonction.
         StringBuilder sb = new StringBuilder();
-        sb.append("# ").append("Retourne ").append(exp.toString()).append("\n");
-        if (exp.estUneVariable()) {
-            sb.append("\tlw $v0, ");
-        } else { //Si c'est une constante
-            if (exp.getType().equals("booleen")) {
-                sb.append("\tla $v0, ");
-            } else {
-                sb.append("\tli $v0, ");
+        sb.append("# ").append("Retourne ");
+        if (!exp.estUnAppelDeFonction()) {
+            sb.append(exp).append("\n");
+            if (exp.estUneVariable()) {
+                sb.append("\tlw $v0, ");
+            } else { //Si c'est une constante
+                if (exp.getType().equals("booleen")) {
+                    sb.append("\tla $v0, ");
+                } else {
+                    sb.append("\tli $v0, ");
+                }
             }
+            sb.append(exp.toMIPS());
+        } else {
+            sb.append(this.exp.getSignatureFonction()).append("()\n");
+            sb.append("\t").append(exp.toMIPS()).append("\n");
+            sb.append("# Rien à faire vu que le résultat de l'ancienne fonction est déjà dans $v0 !\n");
         }
-        sb.append(exp.toMIPS());
         return sb.toString();
     }
 }
