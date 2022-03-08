@@ -1,5 +1,8 @@
 package zoot.arbre;
 
+/**
+ * Classe abstraite ArbreAbstrait.
+ */
 public abstract class ArbreAbstrait {
 
     //numéro de ligne du début de l'instruction

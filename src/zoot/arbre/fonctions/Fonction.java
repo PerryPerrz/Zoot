@@ -2,10 +2,20 @@ package zoot.arbre.fonctions;
 
 import zoot.arbre.ArbreAbstrait;
 
+/**
+ * Classe Fonction.
+ */
 public class Fonction extends ArbreAbstrait {
     private final String idf;
     private final ArbreAbstrait bloc;
 
+    /**
+     * Constructeur de la classe Fonction.
+     *
+     * @param n    le numéro de ligne
+     * @param idf  l'identifiant
+     * @param bloc le bloc d'instruction
+     */
     public Fonction(int n, String idf, ArbreAbstrait bloc) {
         super(n);
         this.idf = idf;
@@ -26,6 +36,11 @@ public class Fonction extends ArbreAbstrait {
         return sb.toString();
     }
 
+    /**
+     * Fonction qui retourne l'identifiant d'une fonction.
+     *
+     * @return l'identifiant d'une fonction.
+     */
     public String getIdf() {
         return idf;
     }

@@ -47,10 +47,20 @@ public class StockageErreurs {
         return this.listeErreurs.get(i);
     }
 
+    /**
+     * Fonction qui retourne le nombre d'erreur.
+     *
+     * @return le nombre d'erreur.
+     */
     public int getNbErreurs() {
         return listeErreurs.size();
     }
 
+    /**
+     * Fonction qui retourne la liste des erreurs.
+     *
+     * @return la liste des erreurs.
+     */
     public ArrayList<Erreur> getListeErreurs() {
         return listeErreurs;
     }

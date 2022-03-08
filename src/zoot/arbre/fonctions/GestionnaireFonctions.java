@@ -55,6 +55,11 @@ public class GestionnaireFonctions {
         this.fonctions.add(fonc);
     }
 
+    /**
+     * Fonction qui retourne le code mips d'une fonction.
+     *
+     * @return le code mips d'une fonction.
+     */
     public String toMipsFonctions() {
         StringBuilder sb = new StringBuilder();
         for (Fonction f : this.fonctions) {
@@ -63,21 +68,21 @@ public class GestionnaireFonctions {
         return sb.toString();
     }
 
+    /**
+     * Procédure qui vérifie les fonctions.
+     */
     public void verifier() {
         for (Fonction f : this.fonctions) {
             f.verifier();
         }
     }
 
+    /**
+     * Fonction qui retourne les fonctions du gestionnaire.
+     *
+     * @return les fonctions du gestionnaire.
+     */
     public ArrayList<Fonction> getFonctions() {
         return fonctions;
-    }
-
-    public Fonction getFonctionINumLigne(int noLigne) {
-        for (Fonction f : this.fonctions) {
-            if (f.getNoLigne() == noLigne)
-                return f;
-        }
-        return null;
     }
 }

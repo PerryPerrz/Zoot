@@ -2,10 +2,19 @@ package zoot.arbre.instructions;
 
 import zoot.arbre.expressions.Expression;
 
+/**
+ * Classe Ecrire.
+ */
 public class Ecrire extends Instruction {
 
     protected Expression exp;
 
+    /**
+     * Constructeur de la classe Ecrire.
+     *
+     * @param e l'expression
+     * @param n le numéro de ligne
+     */
     public Ecrire(Expression e, int n) {
         super(n);
         exp = e;

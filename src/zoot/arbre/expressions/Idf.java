@@ -7,6 +7,9 @@ import zoot.tableDesSymboles.Entree;
 import zoot.tableDesSymboles.Symbole;
 import zoot.tableDesSymboles.TDS;
 
+/**
+ * Classe Idf.
+ */
 public class Idf extends Expression {
 
     private final String nom;

@@ -6,11 +6,21 @@ import zoot.exceptions.EntreeNonDeclareeException;
 import zoot.gestionErreurs.Erreur;
 import zoot.gestionErreurs.StockageErreurs;
 
+/**
+ * Classe Affect.
+ */
 public class Affect extends Instruction {
 
     protected Idf idf;
     protected Expression exp;
 
+    /**
+     * Constructeur de la classe Affect.
+     *
+     * @param i l'identifiant
+     * @param e l'expression
+     * @param n le numéro de ligne
+     */
     public Affect(Idf i, Expression e, int n) {
         super(n);
         idf = i;

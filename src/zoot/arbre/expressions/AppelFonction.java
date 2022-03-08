@@ -8,9 +8,18 @@ import zoot.gestionErreurs.StockageErreurs;
 import zoot.tableDesSymboles.Entree;
 import zoot.tableDesSymboles.TDS;
 
+/**
+ * Classe AppelFonction.
+ */
 public class AppelFonction extends Expression {
     private final String idf;
 
+    /**
+     * Constructeur de la classe AppelFonction
+     *
+     * @param n   numéro de la ligne
+     * @param idf identifiant de la fonction appelée
+     */
     public AppelFonction(int n, String idf) {
         super(n);
         this.idf = idf;
@@ -21,13 +30,14 @@ public class AppelFonction extends Expression {
         if (GestionnaireFonctions.getInstance().isFonctionsSontTraitees()) { //Si on est dans une fonction
             //On regarde la fonction la plus proche de l'expression appel fonction pour regarder si cette même fonction ne s'appelle pas récursivement.
             int stockageNoLigne = 0;
+            String idfFonction = "";
             for (Fonction f : GestionnaireFonctions.getInstance().getFonctions()) {
                 if (f.getNoLigne() < this.noLigne)
-                    if (f.getNoLigne() >= stockageNoLigne)
+                    if (f.getNoLigne() >= stockageNoLigne) {
                         stockageNoLigne = f.getNoLigne();
+                        idfFonction = f.getIdf();
+                    }
             }
-            //Une fois que l'on a identifié la fonction dans laquelle on se trouve, on la stocke
-            String idfFonction = GestionnaireFonctions.getInstance().getFonctionINumLigne(stockageNoLigne).getIdf();
             //On vérifie à présent que la fonction soit du même type de retour que l'espression que l'on essaie de retourner
 
             if (idfFonction.equals(this.idf)) { //Si c'est la même, cela signifie que c'est un appel récursif

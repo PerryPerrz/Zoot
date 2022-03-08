@@ -12,6 +12,9 @@ import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Classe Zoot.
+ */
 public class Zoot {
 
     public Zoot(String nomFichier) {

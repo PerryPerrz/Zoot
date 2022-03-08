@@ -9,9 +9,18 @@ import zoot.gestionErreurs.StockageErreurs;
 import zoot.tableDesSymboles.Entree;
 import zoot.tableDesSymboles.TDS;
 
+/**
+ * CLasse Retourne.
+ */
 public class Retourne extends Instruction {
     private final Expression exp;
 
+    /**
+     * Constructeur de la classe Retourne.
+     *
+     * @param n numéro de ligne
+     * @param e l'expression
+     */
     public Retourne(int n, Expression e) {
         super(n);
         this.exp = e;
@@ -19,25 +28,26 @@ public class Retourne extends Instruction {
 
     @Override
     public void verifier() {
+        this.exp.verifier();
         if (!GestionnaireFonctions.getInstance().isFonctionsSontTraitees()) { //Si retourner n'est pas dans une fonction
             StockageErreurs.getInstance().ajouter(new Erreur("Instruction retourner en dehors d'une fonction !", noLigne));
         } else {
             //On regarde la fonction la plus proche de l'instruction retourner pour regarder son type mainentant que l'on sait que l'on est dans une fonction
             int stockageNoLigne = 0;
+            String idfFonction = "";
             for (Fonction f : GestionnaireFonctions.getInstance().getFonctions()) {
                 if (f.getNoLigne() < this.noLigne)
-                    if (f.getNoLigne() >= stockageNoLigne)
+                    if (f.getNoLigne() >= stockageNoLigne) {
                         stockageNoLigne = f.getNoLigne();
+                        idfFonction = f.getIdf();
+                    }
             }
-            //Une fois que l'on a identifié la fonction dans laquelle on se trouve, on la stocke
-            String idfFonction = GestionnaireFonctions.getInstance().getFonctionINumLigne(stockageNoLigne).getIdf();
             //On vérifie à présent que la fonction soit du même type de retour que l'espression que l'on essaie de retourner
             try {
                 if (!TDS.getInstance().identifier(new Entree(idfFonction, "fonction")).getType().equals(exp.getType()))
                     StockageErreurs.getInstance().ajouter(new Erreur("Le type de retour de la fonction ne correspond pas avec l'expression retournée !", noLigne));
-            }
-            catch (EntreeNonDeclareeException e){
-                StockageErreurs.getInstance().ajouter(new Erreur(e.getMessage(),this.noLigne));
+            } catch (EntreeNonDeclareeException e) {
+                StockageErreurs.getInstance().ajouter(new Erreur(e.getMessage(), this.noLigne));
             }
         }
     }
