@@ -1,0 +1,21 @@
+variables
+    entier x;
+fonctions
+booleen fonc2(entier a;)
+debut
+    retourne faux;
+fin
+booleen fonc3(entier a;)
+variables
+      entier b;
+debut
+    b = 3;
+    ecrire b;
+    retourne faux;
+fin
+debut
+    x = 6;
+    ecrire x;
+    ecrire fonc2();
+    ecrire fonc3();
+fin

@@ -64,7 +64,7 @@ terminal String    IDF, CSTENTIERE, CSTBOOLEENNE, BOOLEEN, ENTIER;
 
 /* Non terminals used in the grammar section.  */
 
-non terminal ArbreAbstrait PROG, LINST, LDECL,LFONC, DECL, PARAM, FONC;
+non terminal ArbreAbstrait PROG, LINST, LDECL,LFONC, DECL, PARAM, FONC, LDECL_LOC, LDECL_PARAM, DECL_LOC, DECL_PARAM;
 non terminal Instruction INST;
 non terminal Expression EXP;
 non terminal String TYPE;
@@ -84,13 +84,10 @@ PROG    ::=     VARIABLES LDECL:ld DEBUT LINST:li  FIN
                 ;
 
 LDECL   ::=     LDECL:ld  DECL:d
-                {: ((BlocDInstructions)ld).ajouter(d) ;
-                   RESULT = ld ; :}
+                {:  :}
         |
                 DECL:d
-                {: BlocDInstructions b = new BlocDInstructions(dleft + 1) ;
-                   b.ajouter(d) ;
-                   RESULT = b ; :}
+                {: :}
                 ;
 
 LINST   ::=     LINST:li  INST:i
@@ -111,6 +108,20 @@ LFONC   ::=     LFONC:lf  FONC:f
                 {: BlocDInstructions b = new BlocDInstructions(fleft + 1) ;
                    b.ajouter(f) ;
                    RESULT = b ; :}
+                ;
+
+LDECL_PARAM ::= LDECL_PARAM:ld  DECL_PARAM:d
+                {:  :}
+        |
+                DECL_PARAM:d
+                {: :}
+                ;
+
+LDECL_LOC ::=   LDECL_LOC:ld  DECL_LOC:d
+                {: :}
+        |
+                DECL_LOC:d
+                {: :}
                 ;
 
 INST    ::=     ECRIRE EXP:e POINTVIRGULE
@@ -154,12 +165,54 @@ DECL    ::=     TYPE:t IDF:i POINTVIRGULE
                 :}
                 ;
 
+DECL_PARAM ::=  TYPE:t IDF:i POINTVIRGULE
+                {:
+                    TDS tds = TDS.getInstance();
+                    if (tds.getNoBlocActuel() == 0) {
+                        tds.entreeBloc();
+                    }
+                    try {
+                        tds.ajouter(new Entree(i,"variable"), new Symbole(t)) ;
+                    }
+                    catch (DoubleDeclarationException e){
+                        StockageErreurs.getInstance().ajouter(new Erreur(e.getMessage(), ileft + 1));
+                    }
+                :}
+                ;
+
+DECL_LOC ::=    TYPE:t IDF:i POINTVIRGULE
+                {:
+                    try {
+                        TDS.getInstance().ajouter(new Entree(i,"variable"), new Symbole(t)) ;
+                    }
+                    catch (DoubleDeclarationException e){
+                        StockageErreurs.getInstance().ajouter(new Erreur(e.getMessage(), ileft + 1));
+                    }
+                :}
+                ;
+
 PARAM   ::=     PAROUVRANTE PARFERMANTE
+                {: :}
+        |
+                PAROUVRANTE LDECL_PARAM:ld PARFERMANTE
                 {: :}
                 ;
 
 FONC   ::=      TYPE:t IDF:i PARAM:p DEBUT LINST:li FIN
                 {:
+                    TDS.getInstance().sortieBloc();
+                    GestionnaireFonctions.getInstance().ajouter(new Fonction(ileft + 1,i,li));
+                    try {
+                        TDS.getInstance().ajouter(new Entree(i,"fonction"), new Symbole(t)) ;
+                    }
+                    catch (DoubleDeclarationException e){
+                        StockageErreurs.getInstance().ajouter(new Erreur(e.getMessage(), ileft + 1));
+                    }
+                :}
+        |
+                TYPE:t IDF:i PARAM:p VARIABLES LDECL_LOC:ldl DEBUT LINST:li FIN
+                {:
+                    TDS.getInstance().sortieBloc();
                     GestionnaireFonctions.getInstance().ajouter(new Fonction(ileft + 1,i,li));
                     try {
                         TDS.getInstance().ajouter(new Entree(i,"fonction"), new Symbole(t)) ;
