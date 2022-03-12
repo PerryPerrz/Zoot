@@ -1,14 +1,16 @@
 variables
     entier x;
 fonctions
-booleen fonc2(entier a;)
+booleen fonc2(booleen a;)
 debut
-    retourne faux;
+    a = fonc3();
+    retourne a;
 fin
 booleen fonc3(entier a;)
 variables
       entier b;
 debut
+    x = 5;
     b = 3;
     ecrire b;
     retourne faux;

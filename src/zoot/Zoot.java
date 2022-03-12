@@ -31,6 +31,7 @@ public class Zoot {
                 System.out.println("COMPILATION OK");
                 String nomSortie = nomFichier.replaceAll("[.]zoot", ".mips");
                 PrintWriter flot = new PrintWriter(new BufferedWriter(new FileWriter(nomSortie)));
+                System.out.println("aaaaaaa");
                 flot.println(arbre.toMIPS());
                 flot.close();
             } else {

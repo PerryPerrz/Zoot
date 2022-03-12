@@ -1,6 +1,7 @@
 package zoot.arbre.fonctions;
 
 import zoot.arbre.ArbreAbstrait;
+import zoot.tableDesSymboles.TDS;
 
 /**
  * Classe Fonction.
@@ -24,7 +25,9 @@ public class Fonction extends ArbreAbstrait {
 
     @Override
     public void verifier() {
+        TDS.getInstance().entreeBlocVerif();
         this.bloc.verifier();
+        TDS.getInstance().sortieBloc();
     }
 
     @Override

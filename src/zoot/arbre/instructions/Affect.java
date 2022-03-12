@@ -2,9 +2,11 @@ package zoot.arbre.instructions;
 
 import zoot.arbre.expressions.Expression;
 import zoot.arbre.expressions.Idf;
+import zoot.arbre.fonctions.GestionnaireFonctions;
 import zoot.exceptions.EntreeNonDeclareeException;
 import zoot.gestionErreurs.Erreur;
 import zoot.gestionErreurs.StockageErreurs;
+import zoot.tableDesSymboles.TDS;
 
 /**
  * Classe Affect.
@@ -30,11 +32,20 @@ public class Affect extends Instruction {
     @Override
     public void verifier() {
         try {
-            //On vérifie que la variable et l'expression sont du même type.
-            if (idf.getType().equals(exp.getType())) {
-                idf.verifier();
-                exp.verifier();
-            } else {
+            idf.verifier();
+            if (GestionnaireFonctions.getInstance().isFonctionsSontTraitees()) { //Si on se trouve dans une fonction
+                if (this.exp.estUnAppelDeFonction()) { //Si c'est un appel de fonction, on doit sortir du bloc pour la chercher.
+                    TDS.getInstance().sortieBloc();
+                    this.exp.verifier();
+                    TDS.getInstance().entreeBlocPrecVerif();
+                } else { //Sinon on vérifie juste
+                    this.exp.verifier();
+                }
+            } else { //Sinon on vérifie juste
+                this.exp.verifier();
+            }
+            //On vérifie que la variable et l'expression sont du même type, si une erreur à déjà été détectée avec l'idf et l'exp, on ne stocke pas d'erreur de type.
+            if (!idf.getType().equals("erreur") && !exp.getType().equals("erreur") && !idf.getType().equals(exp.getType())) {
                 //Sinon, on stocke l'erreur et passe à la suite
                 StockageErreurs.getInstance().ajouter(new Erreur("Attention le type de la variable et le type de l'expression ne correspondent pas !", this.getNoLigne()));
             }

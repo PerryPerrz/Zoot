@@ -1,6 +1,8 @@
 package zoot.arbre.instructions;
 
 import zoot.arbre.expressions.Expression;
+import zoot.arbre.fonctions.GestionnaireFonctions;
+import zoot.tableDesSymboles.TDS;
 
 /**
  * Classe Ecrire.
@@ -22,7 +24,17 @@ public class Ecrire extends Instruction {
 
     @Override
     public void verifier() {
-        exp.verifier();
+        if (GestionnaireFonctions.getInstance().isFonctionsSontTraitees()) { //Si on se trouve dans une fonction
+            if (this.exp.estUnAppelDeFonction()) { //Si c'est un appel de fonction, on doit sortir du bloc pour la chercher.
+                TDS.getInstance().sortieBloc();
+                this.exp.verifier();
+                TDS.getInstance().entreeBlocPrecVerif();
+            } else { //Sinon on vérifie juste
+                this.exp.verifier();
+            }
+        } else { //Sinon on vérifie juste
+            this.exp.verifier();
+        }
     }
 
     @Override

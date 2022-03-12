@@ -13,6 +13,7 @@ import zoot.tableDesSymboles.TDS;
  */
 public class AppelFonction extends Expression {
     private final String idf;
+    private String type;
 
     /**
      * Constructeur de la classe AppelFonction
@@ -38,11 +39,17 @@ public class AppelFonction extends Expression {
                         idfFonction = f.getIdf();
                     }
             }
-            //On vérifie à présent que la fonction soit du même type de retour que l'espression que l'on essaie de retourner
 
             if (idfFonction.equals(this.idf)) { //Si c'est la même, cela signifie que c'est un appel récursif
                 StockageErreurs.getInstance().ajouter(new Erreur("Appel récursif d'une fonction non autorisée dans zoot !", noLigne));
             }
+        }
+        //On récupère le type de retour de la fonction
+        try {
+            this.type = TDS.getInstance().identifier(new Entree(this.idf, "fonction")).getType();
+        } catch (EntreeNonDeclareeException e) {
+            StockageErreurs.getInstance().ajouter(new Erreur(e.getMessage(), noLigne));
+            this.type = "erreur";
         }
     }
 
@@ -64,13 +71,7 @@ public class AppelFonction extends Expression {
 
     @Override
     public String getType() {
-        String type = null;
-        try {
-            type = TDS.getInstance().identifier(new Entree(this.idf, "fonction")).getType();
-        } catch (EntreeNonDeclareeException e) {
-            StockageErreurs.getInstance().ajouter(new Erreur(e.getMessage(), this.noLigne));
-        }
-        return type;
+        return this.type;
     }
 
     @Override

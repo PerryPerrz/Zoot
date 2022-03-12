@@ -14,6 +14,7 @@ public class Idf extends Expression {
 
     private final String nom;
     private int depl;
+    private String type;
 
     public Idf(String texte, int n) {
         super(n);
@@ -26,9 +27,11 @@ public class Idf extends Expression {
             //Si la variable existe déjà, on stocke sa position dans la pile (déplacement).
             Symbole temp = TDS.getInstance().identifier(new Entree(nom, "variable"));
             this.depl = temp.getDeplacement();
+            this.type = temp.getType();
         } catch (EntreeNonDeclareeException e) {
-            //Sinon, on ajoute une erreur et on passe à la suite.
+            //Sinon, on ajoute une erreur, on donne un type erreur et on passe à la suite.
             StockageErreurs.getInstance().ajouter(new Erreur(e.getMessage(), this.getNoLigne()));
+            this.type = "erreur";
         }
     }
 
@@ -41,11 +44,10 @@ public class Idf extends Expression {
      * Fonction qui retourne le type de la variable
      *
      * @return une chaîne de caractère correspondant au type de la variable ("entier" ou "booleen").
-     * @throws EntreeNonDeclareeException exception se déclenchant si la variable n'est pas déclarée.
      */
     @Override
-    public String getType() throws EntreeNonDeclareeException {
-        return TDS.getInstance().identifier(new Entree(nom, "variable")).getType();
+    public String getType() {
+        return type;
     }
 
     @Override

@@ -28,10 +28,17 @@ public class Retourne extends Instruction {
 
     @Override
     public void verifier() {
-        this.exp.verifier();
         if (!GestionnaireFonctions.getInstance().isFonctionsSontTraitees()) { //Si retourner n'est pas dans une fonction
             StockageErreurs.getInstance().ajouter(new Erreur("Instruction retourner en dehors d'une fonction !", noLigne));
+            this.exp.verifier();
         } else {
+            if (this.exp.estUnAppelDeFonction()) { //Si c'est un appel de fonction, on doit sortir du bloc pour la chercher.
+                TDS.getInstance().sortieBloc();
+                this.exp.verifier();
+                TDS.getInstance().entreeBlocPrecVerif();
+            } else { //Sinon on vérifie juste
+                this.exp.verifier();
+            }
             //On regarde la fonction la plus proche de l'instruction retourner pour regarder son type mainentant que l'on sait que l'on est dans une fonction
             int stockageNoLigne = 0;
             String idfFonction = "";
@@ -43,12 +50,14 @@ public class Retourne extends Instruction {
                     }
             }
             //On vérifie à présent que la fonction soit du même type de retour que l'espression que l'on essaie de retourner
+            TDS.getInstance().sortieBloc();
             try {
                 if (!TDS.getInstance().identifier(new Entree(idfFonction, "fonction")).getType().equals(exp.getType()))
                     StockageErreurs.getInstance().ajouter(new Erreur("Le type de retour de la fonction ne correspond pas avec l'expression retournée !", noLigne));
             } catch (EntreeNonDeclareeException e) {
                 StockageErreurs.getInstance().ajouter(new Erreur(e.getMessage(), this.noLigne));
             }
+            TDS.getInstance().entreeBlocPrecVerif();
         }
     }
 
