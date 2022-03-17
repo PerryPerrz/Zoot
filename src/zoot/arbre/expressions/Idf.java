@@ -37,17 +37,21 @@ public class Idf extends Expression {
 
     @Override
     public String toMIPS() {
-        return this.depl + "($s7)";
+        return "\t lw $v0, " + this.depl + "($s7)\n";
     }
 
-    /**
-     * Fonction qui retourne le type de la variable
-     *
-     * @return une chaîne de caractère correspondant au type de la variable ("entier" ou "booleen").
-     */
     @Override
     public String getType() {
         return type;
+    }
+
+    /**
+     * Fonction qui retourne le déplacement d'un idf
+     *
+     * @return le déplacement d'un idf
+     */
+    public int getDepl() {
+        return depl;
     }
 
     @Override

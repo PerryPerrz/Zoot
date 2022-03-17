@@ -58,26 +58,20 @@ public class Affect extends Instruction {
     @Override
     public String toMIPS() {
         StringBuilder sb = new StringBuilder();
+
+        //Construction d'un commentaire approprié.
         sb.append("# ").append(idf.toString()).append(" = ");
         if (!exp.estUnAppelDeFonction()) {
             sb.append(exp.toString()).append("\n");
-            if (exp.estUneVariable()) {
-                sb.append("\tlw $v0, ");
-            } else { //Si c'est une constante
-                if (exp.getType().equals("booleen")) {
-                    sb.append("\tla $v0, ");
-                } else {
-                    sb.append("\tli $v0, ");
-                }
-            }
-            sb.append(exp.toMIPS()).append("\n");
-            sb.append("\tsw $v0, ").append(idf.toMIPS()).append("\n");
 
         } else {
             sb.append(this.exp.getSignatureFonction()).append("()\n");
-            sb.append("\t").append(exp.toMIPS()).append("\n");
-            sb.append("\t").append("sw $v0, ").append(idf.toMIPS()).append("\n");
         }
+
+        //On stocke dans v0 le resultat de l'expression.
+        sb.append(exp.toMIPS());
+        //On transfère l'expression dans la variable
+        sb.append("\t").append("sw $v0, ").append(idf.getDepl()).append("($s7)\n");
         return sb.toString();
     }
 

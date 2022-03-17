@@ -11,7 +11,7 @@ public class ConstanteEntiere extends Constante {
 
     @Override
     public String toMIPS() {
-        return "" + this.cste;
+        return "\t li $v0, " + this.cste + "\n";
     }
 
     @Override

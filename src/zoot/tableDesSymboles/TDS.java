@@ -43,9 +43,11 @@ public class TDS {
      * @throws DoubleDeclarationException Exception étant appelée lorsque l'utilisateur veut déclarer une variable déjà inscrite dans la table des symboles.
      */
     public void ajouter(Entree e, Symbole s) throws DoubleDeclarationException {
-        for (Map.Entry<Entree, Symbole> elem : this.tableDesSymboles.get(noBlocActuel).entrySet()) {
-            if (elem.getKey().getIdf().equals(e.getIdf())) {
-                throw new DoubleDeclarationException("Le symbole " + e.getIdf() + " ne peut pas être ajouté deux fois dans la table des symboles !");
+        if (this.tableDesSymboles.size() <= noBlocActuel) { //Si la TDS recherchée n'existe pas (dans une fonction sans déclarations)
+            for (Map.Entry<Entree, Symbole> elem : this.tableDesSymboles.get(noBlocActuel).entrySet()) {
+                if (elem.getKey().getIdf().equals(e.getIdf())) {
+                    throw new DoubleDeclarationException("Le symbole " + e.getIdf() + " ne peut pas être ajouté deux fois dans la table des symboles !");
+                }
             }
         }
         s.setDeplacement(this.getTailleZoneVariables());
@@ -61,10 +63,13 @@ public class TDS {
      */
     public Symbole identifier(Entree e) throws EntreeNonDeclareeException {
         Symbole s = null;
-        for (Map.Entry<Entree, Symbole> elem : this.tableDesSymboles.get(noBlocActuel).entrySet()) {
-            if (elem.getKey().getIdf().equals(e.getIdf()) && elem.getKey().getType().equals(e.getType())) {
-                s = new Symbole(elem.getValue().getType());
-                s.setDeplacement(elem.getValue().getDeplacement());
+
+        if (this.tableDesSymboles.size() > noBlocActuel) { //Si la TDS recherchée existe (dans une fonction sans déclarations elle peut ne pas exister)
+            for (Map.Entry<Entree, Symbole> elem : this.tableDesSymboles.get(noBlocActuel).entrySet()) {
+                if (elem.getKey().getIdf().equals(e.getIdf()) && elem.getKey().getType().equals(e.getType())) {
+                    s = new Symbole(elem.getValue().getType());
+                    s.setDeplacement(elem.getValue().getDeplacement());
+                }
             }
         }
         if (s == null) {
@@ -104,7 +109,7 @@ public class TDS {
         //On crée le nouveau bloc
         this.tableDesSymboles.add(new HashMap<>());
         //On se positionne dans le nouveau bloc.
-        noBlocActuel = this.tableDesSymboles.size()-1;
+        noBlocActuel = this.tableDesSymboles.size() - 1;
     }
 
     /**

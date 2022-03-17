@@ -55,18 +55,18 @@ public class AppelFonction extends Expression {
 
     @Override
     public String toMIPS() {
-        StringBuilder str = new StringBuilder();
-        str.append("\n# Sauvegarde des registres avant l'appel de fonction.\n");
-        str.append("\tsw $ra,0($sp)\n");
-        str.append("\tsw $s1,-4($sp)\n");
-        str.append("\taddi $sp,$sp,-8\n");
-        str.append("\t# Appel de la fonction.\n");
-        str.append("\tjal ").append(this.idf).append("\n");
-        str.append("\t# Restauration des registres après l'appel de fonction.\n");
-        str.append("\tlw $s1,4($sp)\n");
-        str.append("\tlw $ra,8($sp)\n");
-        str.append("\taddi $sp,$sp,8\n");
-        return str.toString();
+        StringBuilder sb = new StringBuilder();
+        sb.append("\n# Sauvegarde des registres avant l'appel de fonction.\n");
+        sb.append("\tsw $ra,0($sp)\n");
+        sb.append("\tsw $s1,-4($sp)\n");
+        sb.append("\taddi $sp,$sp,-8\n");
+        sb.append("\t# Appel de la fonction.\n");
+        sb.append("\tjal ").append(this.idf).append("\n");
+        sb.append("\t# Restauration des registres après l'appel de fonction.\n");
+        sb.append("\tlw $s1,4($sp)\n");
+        sb.append("\tlw $ra,8($sp)\n");
+        sb.append("\taddi $sp,$sp,8\n");
+        return sb.toString();
     }
 
     @Override

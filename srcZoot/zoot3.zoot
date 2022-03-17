@@ -10,7 +10,6 @@ booleen fonc3(entier a;)
 variables
       entier b;
 debut
-    x = 5;
     b = 3;
     ecrire b;
     retourne faux;
