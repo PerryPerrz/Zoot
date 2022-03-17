@@ -49,6 +49,7 @@ commentaire = [/]{2}.*{finDeLigne}
 "ecrire"               { return symbol(CodesLexicaux.ECRIRE); }
 
 ";"                    { return symbol(CodesLexicaux.POINTVIRGULE); }
+","                    { return symbol(CodesLexicaux.VIRGULE); }
 "("                    { return symbol(CodesLexicaux.PAROUVRANTE); }
 ")"                    { return symbol(CodesLexicaux.PARFERMANTE); }
 "retourne"             { return symbol(CodesLexicaux.RETOURNE); }

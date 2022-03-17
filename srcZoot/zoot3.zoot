@@ -1,23 +1,25 @@
 variables
     entier x;
-    entier fonc2;
 fonctions
 booleen fonc2(booleen a;)
+variables
+    booleen x;
 debut
-    a = fonc3();
+    x = vrai;
+    ecrire x;
+    a = faux;
     retourne a;
 fin
-booleen fonc3(entier a;)
-variables
-      entier b;
+
+booleen fonc2(booleen a;booleen b;booleen c;)
 debut
-    b = 3;
-    ecrire b;
-    retourne faux;
+    x = 5;
+    a = faux;
+    retourne a;
 fin
 debut
     x = 6;
     ecrire x;
     ecrire fonc2();
-    ecrire fonc3();
+    ecrire x;
 fin

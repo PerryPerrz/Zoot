@@ -9,6 +9,7 @@ import zoot.tableDesSymboles.TDS;
 public class Fonction extends ArbreAbstrait {
     private final String idf;
     private final ArbreAbstrait bloc;
+    private final String[] typeParam;
 
     /**
      * Constructeur de la classe Fonction.
@@ -17,10 +18,11 @@ public class Fonction extends ArbreAbstrait {
      * @param idf  l'identifiant
      * @param bloc le bloc d'instruction
      */
-    public Fonction(int n, String idf, ArbreAbstrait bloc) {
+    public Fonction(int n, String idf, ArbreAbstrait bloc, String typeParams) {
         super(n);
         this.idf = idf;
         this.bloc = bloc;
+        this.typeParam = typeParams.split(",");
     }
 
     @Override
@@ -46,5 +48,13 @@ public class Fonction extends ArbreAbstrait {
      */
     public String getIdf() {
         return idf;
+    }
+
+    public String[] getTypeParam() {
+        return typeParam;
+    }
+
+    public int getNbParams() {
+        return typeParam.length;
     }
 }

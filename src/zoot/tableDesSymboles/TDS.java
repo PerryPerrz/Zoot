@@ -4,6 +4,7 @@ import zoot.exceptions.DoubleDeclarationException;
 import zoot.exceptions.EntreeNonDeclareeException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,7 +46,9 @@ public class TDS {
     public void ajouter(Entree e, Symbole s) throws DoubleDeclarationException {
         if (this.tableDesSymboles.size() > noBlocActuel) { //Si la TDS recherchée n'existe pas (dans une fonction sans déclarations)
             for (Map.Entry<Entree, Symbole> elem : this.tableDesSymboles.get(noBlocActuel).entrySet()) {
-                if (elem.getKey().getIdf().equals(e.getIdf()) && elem.getKey().getTypeParam().equals(e.getTypeParam())) { //Si 2 entrées sont identiques.
+                String[] typesParamE = e.getTypeParam().split(",");
+                String[] typesParamElem = elem.getKey().getTypeParam().split(",");
+                if (elem.getKey().getIdf().equals(e.getIdf()) && typesParamElem.length == typesParamE.length) { //Si 2 entrées sont identiques.
                     throw new DoubleDeclarationException("Le symbole " + e.getIdf() + " ne peut pas être ajouté deux fois dans la table des symboles !");
                 }
                 if (elem.getKey().getIdf().equals(e.getIdf()) && !elem.getKey().getType().equals(e.getType())) { //Si une variable et une fonction ont le même nom.
@@ -129,6 +132,11 @@ public class TDS {
     public void entreeBlocVerif() {
         //On augmente le bloc précédent
         noBlocPrec++;
+        //On se positionne dans le bloc suivant.
+        noBlocActuel = noBlocPrec;
+    }
+
+     public void entreeBlocVerifIDF() {
         //On se positionne dans le bloc suivant.
         noBlocActuel = noBlocPrec;
     }

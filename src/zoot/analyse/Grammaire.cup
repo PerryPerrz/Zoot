@@ -59,7 +59,7 @@ parser code {:
 
 /* Terminals (tokens returned by the scanner).  */
 
-terminal Symbol    DEBUT, FIN, VARIABLES, POINTVIRGULE, ECRIRE, EGAL, FONCTIONS, PAROUVRANTE, PARFERMANTE, RETOURNE;
+terminal Symbol    DEBUT, FIN, VARIABLES, POINTVIRGULE, VIRGULE, ECRIRE, EGAL, FONCTIONS, PAROUVRANTE, PARFERMANTE, RETOURNE;
 terminal String    IDF, CSTENTIERE, CSTBOOLEENNE, BOOLEEN, ENTIER;
 
 /* Non terminals used in the grammar section.  */
@@ -68,6 +68,7 @@ non terminal ArbreAbstrait PROG, LINST, LDECL,LFONC, DECL,FONC, LDECL_LOC,DECL_L
 non terminal Instruction INST;
 non terminal Expression EXP;
 non terminal String TYPE,PARAM, LDECL_PARAM,DECL_PARAM;
+non terminal ArrayList<Expression> LEXP;
 
 /* ----------------------------Grammar Section-------------------- */
 
@@ -111,7 +112,7 @@ LFONC   ::=     LFONC:lf  FONC:f
                 ;
 
 LDECL_PARAM ::= LDECL_PARAM:ld  DECL_PARAM:d
-                {: RESULT = ld + d;:}
+                {: RESULT = ld + "," + d;:}
         |
                 DECL_PARAM:d
                 {: RESULT = d;:}
@@ -145,6 +146,19 @@ EXP    ::=     CSTENTIERE:c
         |
                 IDF:i PAROUVRANTE PARFERMANTE
                 {: RESULT = new AppelFonction(ileft + 1, i) ; :}
+        |
+                IDF:i PAROUVRANTE LEXP:le PARFERMANTE
+                {: RESULT = new AppelFonction(ileft + 1, i, le); :}
+                ;
+
+LEXP    ::=     LEXP:le VIRGULE EXP:e
+                {: le.add(e) ;
+                   RESULT = le ;  :}
+        |
+                EXP:e
+                {: ArrayList<Expression> a = new ArrayList<>() ;
+                   a.add(e) ;
+                   RESULT = a ; :}
                 ;
 
 TYPE    ::=     ENTIER
@@ -202,9 +216,8 @@ PARAM   ::=     PAROUVRANTE PARFERMANTE
 FONC   ::=      TYPE:t IDF:i PARAM:p DEBUT LINST:li FIN
                 {:
                     TDS.getInstance().sortieBloc();
-                    GestionnaireFonctions.getInstance().ajouter(new Fonction(ileft + 1,i,li));
+                    GestionnaireFonctions.getInstance().ajouter(new Fonction(ileft + 1,i,li,p));
                     try {
-                        System.out.println(p);
                         TDS.getInstance().ajouter(new Entree(i,"fonction",p), new Symbole(t)) ;
                     }
                     catch (DoubleDeclarationException e){
@@ -215,9 +228,8 @@ FONC   ::=      TYPE:t IDF:i PARAM:p DEBUT LINST:li FIN
                 TYPE:t IDF:i PARAM:p VARIABLES LDECL_LOC:ldl DEBUT LINST:li FIN
                 {:
                     TDS.getInstance().sortieBloc();
-                    GestionnaireFonctions.getInstance().ajouter(new Fonction(ileft + 1,i,li));
+                    GestionnaireFonctions.getInstance().ajouter(new Fonction(ileft + 1,i,li,p));
                     try {
-                        System.out.println(p);
                         TDS.getInstance().ajouter(new Entree(i,"fonction",p), new Symbole(t)) ;
                     }
                     catch (DoubleDeclarationException e){
