@@ -58,12 +58,10 @@ public class Affect extends Instruction {
     @Override
     public String toMIPS() {
         StringBuilder sb = new StringBuilder();
-
         //Construction d'un commentaire approprié.
         sb.append("# ").append(idf.toString()).append(" = ");
         if (!exp.estUnAppelDeFonction()) {
             sb.append(exp.toString()).append("\n");
-
         } else {
             sb.append(this.exp.getSignatureFonction()).append("()\n");
         }
