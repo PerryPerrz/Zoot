@@ -1,5 +1,6 @@
 variables
     entier x;
+    entier fonc2;
 fonctions
 booleen fonc2(booleen a;)
 debut

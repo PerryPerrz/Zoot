@@ -43,10 +43,13 @@ public class TDS {
      * @throws DoubleDeclarationException Exception étant appelée lorsque l'utilisateur veut déclarer une variable déjà inscrite dans la table des symboles.
      */
     public void ajouter(Entree e, Symbole s) throws DoubleDeclarationException {
-        if (this.tableDesSymboles.size() <= noBlocActuel) { //Si la TDS recherchée n'existe pas (dans une fonction sans déclarations)
+        if (this.tableDesSymboles.size() > noBlocActuel) { //Si la TDS recherchée n'existe pas (dans une fonction sans déclarations)
             for (Map.Entry<Entree, Symbole> elem : this.tableDesSymboles.get(noBlocActuel).entrySet()) {
-                if (elem.getKey().getIdf().equals(e.getIdf())) {
+                if (elem.getKey().getIdf().equals(e.getIdf()) && elem.getKey().getTypeParam().equals(e.getTypeParam())) { //Si 2 entrées sont identiques.
                     throw new DoubleDeclarationException("Le symbole " + e.getIdf() + " ne peut pas être ajouté deux fois dans la table des symboles !");
+                }
+                if (elem.getKey().getIdf().equals(e.getIdf()) && !elem.getKey().getType().equals(e.getType())) { //Si une variable et une fonction ont le même nom.
+                    throw new DoubleDeclarationException("Le symbole " + e.getIdf() + " ne peut pas être assigné à la fois à une variable et à une fonction !");
                 }
             }
         }
