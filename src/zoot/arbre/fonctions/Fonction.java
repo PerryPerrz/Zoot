@@ -36,7 +36,7 @@ public class Fonction extends ArbreAbstrait {
     public String toMIPS() {
         StringBuilder sb = new StringBuilder();
         sb.append("\n\n#Déclaration de la fonction ").append(this.idf).append("\n");
-        sb.append(this.idf).append(": \n").append(this.bloc.toMIPS());
+        sb.append(this.idf).append(this.typeParam.length).append(": \n").append(this.bloc.toMIPS()); //On ajoute le nombre de paramètre à l'étiquette car c'est la façon dont on différencie nos fonctions.
         sb.append("\tjr $ra"); //On revient à l'endroit ou l'appel de fonction a été effectué
         return sb.toString();
     }

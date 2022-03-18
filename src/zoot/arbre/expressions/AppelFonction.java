@@ -84,17 +84,10 @@ public class AppelFonction extends Expression {
         }
         if (fonctionAppelee == null)
             StockageErreurs.getInstance().ajouter(new Erreur("Aucun prototype de fonction ne correspond à cet appel !", noLigne));
-        //On récupère les types des paramètres pour pouvoir identifier la fonction.
-        StringBuilder sb = new StringBuilder();
-        if (!this.params.isEmpty()) {
-            for (Expression e : this.params) {
-                sb.append(e.getType()).append(",");
-            }
-            sb.replace(sb.length() - 1, sb.length(), "");
-        }
+
         //On récupère le type de retour de la fonction
         try {
-            this.type = TDS.getInstance().identifier(new Entree(this.idf, "fonction", sb.toString())).getType();
+            this.type = TDS.getInstance().identifier(new Entree(this.idf, "fonction", this.getTypeParam())).getType();
         } catch (EntreeNonDeclareeException e) {
             StockageErreurs.getInstance().ajouter(new Erreur(e.getMessage(), noLigne));
             this.type = "erreur";
@@ -109,7 +102,7 @@ public class AppelFonction extends Expression {
         sb.append("\tsw $s1,-4($sp)\n");
         sb.append("\taddi $sp,$sp,-8\n");
         sb.append("\t# Appel de la fonction.\n");
-        sb.append("\tjal ").append(this.idf).append("\n");
+        sb.append("\tjal ").append(this.idf).append(this.params.size()).append("\n"); //On appelle la fonction qui possède le bon nombre de paramètres.
         sb.append("\t# Restauration des registres après l'appel de fonction.\n");
         sb.append("\tlw $s1,4($sp)\n");
         sb.append("\tlw $ra,8($sp)\n");
@@ -135,5 +128,18 @@ public class AppelFonction extends Expression {
     @Override
     public String getSignatureFonction() {
         return this.idf;
+    }
+
+    @Override
+    public String getTypeParam() {
+        //On récupère les types des paramètres pour pouvoir identifier la fonction.
+        StringBuilder sb = new StringBuilder();
+        if (!this.params.isEmpty()) {
+            for (Expression e : this.params) {
+                sb.append(e.getType()).append(",");
+            }
+            sb.replace(sb.length() - 1, sb.length(), "");
+        }
+        return sb.toString();
     }
 }

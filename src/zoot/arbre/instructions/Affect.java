@@ -63,7 +63,7 @@ public class Affect extends Instruction {
         if (!exp.estUnAppelDeFonction()) {
             sb.append(exp.toString()).append("\n");
         } else {
-            sb.append(this.exp.getSignatureFonction()).append("()\n");
+            sb.append(this.exp.getSignatureFonction()).append(" (").append(this.exp.getTypeParam()).append(")\n");
         }
 
         //On stocke dans v0 le resultat de l'expression.

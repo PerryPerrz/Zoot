@@ -70,7 +70,7 @@ public class Retourne extends Instruction {
         if (!exp.estUnAppelDeFonction()) {
             sb.append(exp).append("\n");
         } else {
-            sb.append(this.exp.getSignatureFonction()).append("()\n");
+            sb.append(this.exp.getSignatureFonction()).append(" (").append(this.exp.getTypeParam()).append(")\n");
         }
 
         //Stockage de la valeur de l'expression dans v0

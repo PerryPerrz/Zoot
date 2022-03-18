@@ -40,4 +40,8 @@ public abstract class Expression extends ArbreAbstrait {
     public String getSignatureFonction() {
         return null;
     }
+
+    public String getTypeParam() {
+        return "";
+    }
 }

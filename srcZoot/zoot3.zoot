@@ -20,6 +20,7 @@ fin
 debut
     x = 6;
     ecrire x;
-    ecrire fonc2();
+    ecrire fonc2(vrai);
+    ecrire fonc2(vrai,faux,vrai);
     ecrire x;
 fin

@@ -92,7 +92,6 @@ public class TDS {
      */
     public int getTailleZoneVariables() {
         //On définit la taille d'un entier et la taille d'un booléen à 4 octets. (on descend dans la pile donc -4)
-        //TODO : à modifier lorsque l'on comprendra comment passer d'allocation statique à dynamique.
         int taille = 0;
         for (HashMap<Entree, Symbole> hm : tableDesSymboles)
             taille += hm.size();

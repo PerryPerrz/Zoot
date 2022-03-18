@@ -46,7 +46,7 @@ public class Ecrire extends Instruction {
         if (!exp.estUnAppelDeFonction()) {
             sb.append(exp.toString()).append("\n");
         } else {
-            sb.append(this.exp.getSignatureFonction()).append("()\n");
+            sb.append(this.exp.getSignatureFonction()).append(" (").append(this.exp.getTypeParam()).append(")\n");
         }
 
         //Affichage de la valeur
