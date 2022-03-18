@@ -33,17 +33,7 @@ public class Affect extends Instruction {
     public void verifier() {
         try {
             idf.verifier();
-            if (GestionnaireFonctions.getInstance().isFonctionsSontTraitees()) { //Si on se trouve dans une fonction
-                if (this.exp.estUnAppelDeFonction()) { //Si c'est un appel de fonction, on doit sortir du bloc pour la chercher.
-                    TDS.getInstance().sortieBloc();
-                    this.exp.verifier();
-                    TDS.getInstance().entreeBlocPrecVerif();
-                } else { //Sinon on vérifie juste
-                    this.exp.verifier();
-                }
-            } else { //Sinon on vérifie juste
-                this.exp.verifier();
-            }
+            exp.verifier();
             //On vérifie que la variable et l'expression sont du même type, si une erreur à déjà été détectée avec l'idf et l'exp, on ne stocke pas d'erreur de type.
             if (!idf.getType().equals("erreur") && !exp.getType().equals("erreur") && !idf.getType().equals(exp.getType())) {
                 //Sinon, on stocke l'erreur et passe à la suite

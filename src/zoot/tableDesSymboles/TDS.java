@@ -45,9 +45,7 @@ public class TDS {
     public void ajouter(Entree e, Symbole s) throws DoubleDeclarationException {
         if (this.tableDesSymboles.size() > noBlocActuel) { //Si la TDS recherchée n'existe pas (dans une fonction sans déclarations)
             for (Map.Entry<Entree, Symbole> elem : this.tableDesSymboles.get(noBlocActuel).entrySet()) {
-                String[] typesParamE = e.getTypeParam().split(",");
-                String[] typesParamElem = elem.getKey().getTypeParam().split(",");
-                if (elem.getKey().getIdf().equals(e.getIdf()) && typesParamElem.length == typesParamE.length) { //Si 2 entrées sont identiques.
+                if (elem.getKey().getIdf().equals(e.getIdf()) && elem.getKey().getTypeParam().size() == e.getTypeParam().size()) { //Si 2 entrées sont identiques.
                     throw new DoubleDeclarationException("Le symbole " + e.getIdf() + " ne peut pas être ajouté deux fois dans la table des symboles !");
                 }
                 if (elem.getKey().getIdf().equals(e.getIdf()) && !elem.getKey().getType().equals(e.getType())) { //Si une variable et une fonction ont le même nom.
@@ -68,12 +66,9 @@ public class TDS {
      */
     public Symbole identifier(Entree e) throws EntreeNonDeclareeException {
         Symbole s = null;
-
         if (this.tableDesSymboles.size() > noBlocActuel) { //Si la TDS recherchée existe (dans une fonction sans déclarations elle peut ne pas exister)
             for (Map.Entry<Entree, Symbole> elem : this.tableDesSymboles.get(noBlocActuel).entrySet()) {
-                String[] typesParamE = e.getTypeParam().split(",");
-                String[] typesParamElem = elem.getKey().getTypeParam().split(",");
-                if (elem.getKey().getIdf().equals(e.getIdf()) && elem.getKey().getType().equals(e.getType()) && typesParamElem.length == typesParamE.length) {
+                if (elem.getKey().getIdf().equals(e.getIdf()) && elem.getKey().getType().equals(e.getType()) && elem.getKey().getTypeParam().size() == e.getTypeParam().size()) {
                     s = new Symbole(elem.getValue().getType());
                     s.setDeplacement(elem.getValue().getDeplacement());
                 }
@@ -136,8 +131,13 @@ public class TDS {
         noBlocActuel = noBlocPrec;
     }
 
-    public void entreeBlocPrecVerif() {
+    public void entreeBlocPrec() {
         //On se positionne dans le bloc prec.
         noBlocActuel = noBlocPrec;
+    }
+
+    public void entreeBlocI(int noBloc) {
+        noBlocPrec = noBlocActuel;
+        noBlocActuel = noBloc;
     }
 }

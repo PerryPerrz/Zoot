@@ -47,7 +47,7 @@ public class Idf extends Expression {
                     this.type = "erreur";
                 }
                 //On revient dans le bloc de la fonction
-                TDS.getInstance().entreeBlocPrecVerif();
+                TDS.getInstance().entreeBlocPrec();
             } else {
                 //Sinon, on ajoute une erreur, on donne un type erreur et on passe à la suite.
                 StockageErreurs.getInstance().ajouter(new Erreur(e.getMessage(), this.getNoLigne()));

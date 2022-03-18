@@ -3,13 +3,17 @@ package zoot.arbre.fonctions;
 import zoot.arbre.ArbreAbstrait;
 import zoot.tableDesSymboles.TDS;
 
+import java.util.ArrayList;
+
 /**
  * Classe Fonction.
  */
 public class Fonction extends ArbreAbstrait {
     private final String idf;
     private final ArbreAbstrait bloc;
-    private final String[] typeParam;
+    private final ArrayList<String> typeParams;
+    private final ArrayList<String> nomParams;
+    private final int noBlocFonc;
 
     /**
      * Constructeur de la classe Fonction.
@@ -18,11 +22,13 @@ public class Fonction extends ArbreAbstrait {
      * @param idf  l'identifiant
      * @param bloc le bloc d'instruction
      */
-    public Fonction(int n, String idf, ArbreAbstrait bloc, String typeParams) {
+    public Fonction(int n, String idf, ArbreAbstrait bloc, ArrayList<String> typeParams, ArrayList<String> nomParams, int noBlocFonc) {
         super(n);
         this.idf = idf;
         this.bloc = bloc;
-        this.typeParam = typeParams.split(",");
+        this.typeParams = typeParams;
+        this.nomParams = nomParams;
+        this.noBlocFonc = noBlocFonc;
     }
 
     @Override
@@ -36,7 +42,7 @@ public class Fonction extends ArbreAbstrait {
     public String toMIPS() {
         StringBuilder sb = new StringBuilder();
         sb.append("\n\n#Déclaration de la fonction ").append(this.idf).append("\n");
-        sb.append(this.idf).append(this.typeParam.length).append(": \n").append(this.bloc.toMIPS()); //On ajoute le nombre de paramètre à l'étiquette car c'est la façon dont on différencie nos fonctions.
+        sb.append(this.idf).append(this.typeParams.size()).append(": \n").append(this.bloc.toMIPS()); //On ajoute le nombre de paramètre à l'étiquette car c'est la façon dont on différencie nos fonctions.
         sb.append("\tjr $ra"); //On revient à l'endroit ou l'appel de fonction a été effectué
         return sb.toString();
     }
@@ -50,11 +56,19 @@ public class Fonction extends ArbreAbstrait {
         return idf;
     }
 
-    public String[] getTypeParam() {
-        return typeParam;
+    public ArrayList<String> getTypeParams() {
+        return typeParams;
     }
 
     public int getNbParams() {
-        return typeParam.length;
+        return typeParams.size();
+    }
+
+    public ArrayList<String> getNomParams() {
+        return nomParams;
+    }
+
+    public int getNoBlocFonc() {
+        return noBlocFonc;
     }
 }

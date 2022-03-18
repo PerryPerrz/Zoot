@@ -1,12 +1,14 @@
 package zoot.tableDesSymboles;
 
+import java.util.ArrayList;
+
 /**
  * Classe Entrée.
  */
 public class Entree {
     private final String idf;
     private final String type; //Vaut soit "variable" soit "fonction"
-    private final String typeParam; //Type des paramètres
+    private final ArrayList<String> typeParam; //Type des paramètres
 
     /**
      * Constructeur de la classe Entrée.
@@ -17,10 +19,10 @@ public class Entree {
     public Entree(String idf, String type) {
         this.idf = idf;
         this.type = type;
-        this.typeParam = "";
+        this.typeParam = new ArrayList<>();
     }
 
-    public Entree(String idf, String type, String typeParam) {
+    public Entree(String idf, String type, ArrayList<String> typeParam) {
         this.idf = idf;
         this.type = type;
         this.typeParam = typeParam;
@@ -44,7 +46,7 @@ public class Entree {
         return type;
     }
 
-    public String getTypeParam() {
+    public ArrayList<String> getTypeParam() {
         return this.typeParam;
     }
 }

@@ -6,16 +6,14 @@ variables
     booleen x;
 debut
     x = vrai;
-    ecrire x;
-    a = faux;
     retourne a;
 fin
 
 booleen fonc2(booleen a;booleen b;booleen c;)
 debut
     x = 5;
-    a = faux;
-    retourne a;
+    c = fonc2(b);
+    retourne c;
 fin
 debut
     x = 6;
