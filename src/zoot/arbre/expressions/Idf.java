@@ -30,24 +30,24 @@ public class Idf extends Expression {
             this.depl = temp.getDeplacement();
             this.type = temp.getType();
         } catch (EntreeNonDeclareeException e) {
+            //Si la variable existe, elle est frocément dans le main, car elle n'est pas dans la fonction. (dans le try, on check si elle est dans la fonction, donc si l'on va dans le catch, cela signifie qu'elle n'y était pas.)
             //Sinon si on est dans une fonction, on cherche si la variable existe dans le bloc supérieur (le main)
             if (GestionnaireFonctions.getInstance().isFonctionsSontTraitees()) {
                 try {
-                    //On reviens dans le bloc du main
+                    //On revient dans le bloc du main
                     TDS.getInstance().sortieBloc();
 
                     //Si la variable existe bien, on stocke sa position dans la pile (déplacement).
                     Symbole temp2 = TDS.getInstance().identifier(new Entree(nom, "variable"));
                     this.depl = temp2.getDeplacement();
                     this.type = temp2.getType();
-
-                    //On reviens dans le bloc de la fonction
-                    TDS.getInstance().entreeBlocVerifIDF();
                 } catch (EntreeNonDeclareeException e2) {
                     //Sinon, on ajoute une erreur, on donne un type erreur et on passe à la suite.
                     StockageErreurs.getInstance().ajouter(new Erreur(e2.getMessage(), this.getNoLigne()));
                     this.type = "erreur";
                 }
+                //On revient dans le bloc de la fonction
+                TDS.getInstance().entreeBlocPrecVerif();
             } else {
                 //Sinon, on ajoute une erreur, on donne un type erreur et on passe à la suite.
                 StockageErreurs.getInstance().ajouter(new Erreur(e.getMessage(), this.getNoLigne()));

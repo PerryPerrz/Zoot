@@ -33,8 +33,8 @@ public class AppelFonction extends Expression {
     /**
      * Constructeur de la classe AppelFonction.
      *
-     * @param n   numéro de la ligne
-     * @param idf identifiant de la fonction appelée
+     * @param n      numéro de la ligne
+     * @param idf    identifiant de la fonction appelée
      * @param params paramètres de la fonction appelée
      */
     public AppelFonction(int n, String idf, ArrayList<Expression> params) {
@@ -46,10 +46,8 @@ public class AppelFonction extends Expression {
     @Override
     public void verifier() {
         //On vérifie les paramètres
-        if (params != null) {
-            for (Expression e : params) {
-                e.verifier();
-            }
+        for (Expression e : params) {
+            e.verifier();
         }
 
         if (GestionnaireFonctions.getInstance().isFonctionsSontTraitees()) { //Si on est dans une fonction
@@ -86,13 +84,17 @@ public class AppelFonction extends Expression {
         }
         if (fonctionAppelee == null)
             StockageErreurs.getInstance().ajouter(new Erreur("Aucun prototype de fonction ne correspond à cet appel !", noLigne));
-
-
-
+        //On récupère les types des paramètres pour pouvoir identifier la fonction.
+        StringBuilder sb = new StringBuilder();
+        if (!this.params.isEmpty()) {
+            for (Expression e : this.params) {
+                sb.append(e.getType()).append(",");
+            }
+            sb.replace(sb.length() - 1, sb.length(), "");
+        }
         //On récupère le type de retour de la fonction
         try {
-            this.type = TDS.getInstance().identifier(new Entree(this.idf, "fonction")).getType();
-            TDS.getInstance().identifier(new Entree(this.idf, "fonction"));
+            this.type = TDS.getInstance().identifier(new Entree(this.idf, "fonction", sb.toString())).getType();
         } catch (EntreeNonDeclareeException e) {
             StockageErreurs.getInstance().ajouter(new Erreur(e.getMessage(), noLigne));
             this.type = "erreur";

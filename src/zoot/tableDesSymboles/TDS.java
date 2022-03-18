@@ -4,7 +4,6 @@ import zoot.exceptions.DoubleDeclarationException;
 import zoot.exceptions.EntreeNonDeclareeException;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -72,7 +71,9 @@ public class TDS {
 
         if (this.tableDesSymboles.size() > noBlocActuel) { //Si la TDS recherchée existe (dans une fonction sans déclarations elle peut ne pas exister)
             for (Map.Entry<Entree, Symbole> elem : this.tableDesSymboles.get(noBlocActuel).entrySet()) {
-                if (elem.getKey().getIdf().equals(e.getIdf()) && elem.getKey().getType().equals(e.getType())) {
+                String[] typesParamE = e.getTypeParam().split(",");
+                String[] typesParamElem = elem.getKey().getTypeParam().split(",");
+                if (elem.getKey().getIdf().equals(e.getIdf()) && elem.getKey().getType().equals(e.getType()) && typesParamElem.length == typesParamE.length) {
                     s = new Symbole(elem.getValue().getType());
                     s.setDeplacement(elem.getValue().getDeplacement());
                 }
@@ -132,11 +133,6 @@ public class TDS {
     public void entreeBlocVerif() {
         //On augmente le bloc précédent
         noBlocPrec++;
-        //On se positionne dans le bloc suivant.
-        noBlocActuel = noBlocPrec;
-    }
-
-     public void entreeBlocVerifIDF() {
         //On se positionne dans le bloc suivant.
         noBlocActuel = noBlocPrec;
     }
