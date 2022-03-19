@@ -1,8 +1,6 @@
 package zoot.arbre.instructions;
 
 import zoot.arbre.expressions.Expression;
-import zoot.arbre.fonctions.GestionnaireFonctions;
-import zoot.tableDesSymboles.TDS;
 
 /**
  * Classe Ecrire.
@@ -44,7 +42,7 @@ public class Ecrire extends Instruction {
         sb.append(exp.toMIPS());
         //Si c'est un booleen on l'affiche tel quel
         if (exp.getType().equals("booleen")) {
-            sb.append("\tbeq $s1, $v0, Sinon").append(noLigne).append("\n"); //TODO s1 ???????
+            sb.append("\tbeq $t0, $v0, Sinon").append(noLigne).append("\n"); //TODO s1 ???????
             sb.append("\tla $a0, vraiAff\n");
             sb.append("\tli $v0, 4\n");
             sb.append("\tsyscall\n");

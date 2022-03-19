@@ -2,11 +2,9 @@ package zoot.arbre.instructions;
 
 import zoot.arbre.expressions.Expression;
 import zoot.arbre.expressions.Idf;
-import zoot.arbre.fonctions.GestionnaireFonctions;
 import zoot.exceptions.EntreeNonDeclareeException;
 import zoot.gestionErreurs.Erreur;
 import zoot.gestionErreurs.StockageErreurs;
-import zoot.tableDesSymboles.TDS;
 
 /**
  * Classe Affect.

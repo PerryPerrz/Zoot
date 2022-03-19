@@ -89,27 +89,21 @@ public class AppelFonction extends Expression {
             StockageErreurs.getInstance().ajouter(new Erreur("Aucun prototype de fonction ne correspond à cet appel !", noLigne));
 
         //On récupère le type de retour de la fonction
+        ArrayList<String> temp = new ArrayList<>(Arrays.asList(this.getTypeParam().split(",")));
+
+        //Si l'appel de la fonction ne se trouve pas dans le main, on sort du bloc actuel (bloc de la fonction) pour aller dans le bloc du main.
+        if (GestionnaireFonctions.getInstance().isFonctionsSontTraitees())
+            TDS.getInstance().sortieBloc();
         try {
-            if (GestionnaireFonctions.getInstance().isFonctionsSontTraitees())
-                TDS.getInstance().entreeBlocPrec();
-            ArrayList<String> temp = new ArrayList<>(Arrays.asList(this.getTypeParam().split(",")));
+            //On vérifie que la fonction que l'on appelle existe, et si c'est le cas, on récupère son type de retour.
             this.type = TDS.getInstance().identifier(new Entree(this.idf, "fonction", temp)).getType();
-        } catch (EntreeNonDeclareeException e) {
-            if (GestionnaireFonctions.getInstance().isFonctionsSontTraitees()) {
-                TDS.getInstance().sortieBloc();
-                try {
-                    ArrayList<String> temp2 = new ArrayList<>(Arrays.asList(this.getTypeParam().split(",")));
-                    this.type = TDS.getInstance().identifier(new Entree(this.idf, "fonction", temp2)).getType();
-                } catch (EntreeNonDeclareeException e2) {
-                    StockageErreurs.getInstance().ajouter(new Erreur(e2.getMessage(), noLigne));
-                    this.type = "erreur";
-                }
-                TDS.getInstance().entreeBlocPrec();
-            } else {
-                StockageErreurs.getInstance().ajouter(new Erreur(e.getMessage(), noLigne));
-                this.type = "erreur";
-            }
+        } catch (EntreeNonDeclareeException e2) {
+            StockageErreurs.getInstance().ajouter(new Erreur(e2.getMessage(), noLigne));
+            this.type = "erreur";
         }
+        //Une fois la vérification terminée, on revient dans le bloc de la fonction.
+        if (GestionnaireFonctions.getInstance().isFonctionsSontTraitees())
+            TDS.getInstance().entreeBlocPrec();
     }
 
     @Override
@@ -119,14 +113,15 @@ public class AppelFonction extends Expression {
         sb.append("\tsw $ra,0($sp)\n");
         sb.append("\tsw $s1,-4($sp)\n");
         sb.append("\taddi $sp,$sp,-8\n");
-        sb.append("\t# Passage des valeurs des params.\n");
+        sb.append("\t# Passage des valeurs dans les paramètres de la fonction appelée.\n");
         TDS.getInstance().entreeBlocI(fonctionAppelee.getNoBlocFonc());
+        //On parcourt les valeurs données dans un appel de fonction, on stocke chaque valeur au paramètre qui convient. Ce paramètre étant stocké dans la pile.
         for (int i = 0; i < params.size(); i++) {
             //On stocke dans v0 le resultat de l'expression.
             sb.append(params.get(i).toMIPS());
             //On transfère l'expression dans la variable
 
-            sb.append("\t").append("sw $v0, ").append(TDS.getInstance().identifier(new Entree(fonctionAppelee.getNomParams().get(i),"variable")).getDeplacement()).append("($s7)\n");
+            sb.append("\t").append("sw $v0, ").append(TDS.getInstance().identifier(new Entree(fonctionAppelee.getNomParams().get(i), "variable")).getDeplacement()).append("($s7)\n");
         }
         TDS.getInstance().entreeBlocPrec();
         sb.append("\t# Appel de la fonction.\n");
