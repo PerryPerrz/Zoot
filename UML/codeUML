@@ -2,21 +2,31 @@
 class zoot.exceptions.AnalyseLexicaleException {
 }
 class zoot.tableDesSymboles.TDS {
+- int noBlocActuel
+- int noBlocPrec
 - {static} TDS instance
 + {static} TDS getInstance()
 + void ajouter(Entree,Symbole)
 + Symbole identifier(Entree)
 + int getTailleZoneVariables()
++ int getNoBlocActuel()
++ void entreeBloc()
++ void sortieBloc()
++ void entreeBlocVerif()
++ void entreeBlocPrec()
++ void entreeBlocI(int noBloc)
 }
 class zoot.arbre.expressions.AppelFonction {
+- String idf
+- String type
 + void verifier()
 + String toMIPS()
 + String getType()
 + boolean estUneVariable()
 + boolean estUnAppelDeFonction()
 + String getSignatureFonction()
++ String getTypeParam()
 }
-zoot.arbre.expressions.AppelFonction -- "1" zoot.arbre.expressions.Idf
 
 class zoot.exceptions.DoubleDeclarationException {
 }
@@ -33,7 +43,9 @@ class zoot.tableDesSymboles.Entree {
 - String idf
 + String getIdf()
 + String getType()
++ ArrayList<String> getTypeParam()
 }
+zoot.tableDesSymboles.Entree -- "*" java.lang.String
 
 abstract class zoot.arbre.instructions.Instruction {
 }
@@ -73,20 +85,28 @@ class zoot.gestionErreurs.Erreur {
 class zoot.arbre.expressions.Idf {
 - String nom
 - int depl
+- String type
 + void verifier()
 + String toMIPS()
 + String getType()
 + String toString()
 + boolean estUneVariable()
 + boolean estUnAppelDeFonction()
++ int getDepl()
 }
 class zoot.arbre.fonctions.Fonction {
 - String idf
+- int noBloc
 + void verifier()
 + String toMIPS()
 + String getIdf()
++ int getNbParams()
++ ArrayList<String> getTypeParams()
++ ArrayList<String> getNomParams()
++ int getNoBlocFonc()
 }
-
+zoot.arbre.fonctions.Fonction -- "*" java.lang.String
+zoot.arbre.fonctions.Fonction -- "*" java.lang.String
 
 abstract class zoot.arbre.expressions.Constante {
 # String cste
@@ -105,7 +125,6 @@ class zoot.arbre.fonctions.GestionnaireFonctions {
 + String toMipsFonctions()
 + void verifier()
 + ArrayList<Fonction> getFonctions()
-+ Fonction getFonctionINumLigne(int)
 }
 
 class zoot.Zoot {
@@ -146,6 +165,8 @@ class zoot.tableDesSymboles.Symbole {
 abstract class zoot.exceptions.AnalyseException {
 }
 
+zoot.arbre.expressions.AppelFonction -- "1" zoot.arbre.fonctions.Fonction
+zoot.arbre.expressions.Expression "*" --  zoot.arbre.expressions.AppelFonction
 zoot.arbre.fonctions.Fonction-- "1" zoot.arbre.ArbreAbstrait
 zoot.arbre.fonctions.Fonction-- "1" zoot.arbre.expressions.Idf
 zoot.arbre.fonctions.GestionnaireFonctions-- "*" zoot.arbre.fonctions.Fonction
