@@ -35,7 +35,7 @@ public class Symbole {
     /**
      * Fonction qui retourne la position de la variable dans la pile.
      *
-     * @return
+     * @return le déplacement
      */
     public int getDeplacement() {
         return deplacement;
@@ -44,7 +44,7 @@ public class Symbole {
     /**
      * Procédure qui définit la position de la variable dans la pile.
      *
-     * @param deplacement
+     * @param deplacement le déplacement
      */
     public void setDeplacement(int deplacement) {
         this.deplacement = deplacement;

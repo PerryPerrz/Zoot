@@ -6,7 +6,11 @@ import zoot.arbre.ArbreAbstrait;
  * Classe abstraite Expression.
  */
 public abstract class Expression extends ArbreAbstrait {
-
+    /**
+     * Constructeur de la classe Expression.
+     *
+     * @param n numéro de ligne
+     */
     protected Expression(int n) {
         super(n);
     }
@@ -41,6 +45,11 @@ public abstract class Expression extends ArbreAbstrait {
         return null;
     }
 
+    /**
+     * Fonction qui retourne le type de paramètre.
+     *
+     * @return un string, le type de paramètre
+     */
     public String getTypeParam() {
         return "";
     }

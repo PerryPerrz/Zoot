@@ -22,6 +22,13 @@ public class Entree {
         this.typeParam = new ArrayList<>();
     }
 
+    /**
+     * Constructeur de la classe Entrée.
+     *
+     * @param idf       l'identifiant
+     * @param type      le type de l'entrée
+     * @param typeParam le type de/des param(s)
+     */
     public Entree(String idf, String type, ArrayList<String> typeParam) {
         this.idf = idf;
         this.type = type;
@@ -46,6 +53,11 @@ public class Entree {
         return type;
     }
 
+    /**
+     * Fonction qui retourne les types des paramètres.
+     *
+     * @return les types des paramètres.
+     */
     public ArrayList<String> getTypeParam() {
         return this.typeParam;
     }

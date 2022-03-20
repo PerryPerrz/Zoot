@@ -31,7 +31,7 @@ public class GestionnaireFonctions {
     /**
      * Fonction qui retourne le booléen isFonctionsSontTraitees.
      *
-     * @return le booléen isFonctionsSontTraitees
+     * @return le booléen isFonctionsSontTraitees.
      */
     public boolean isFonctionsSontTraitees() {
         return fonctionsSontTraitees;
@@ -40,7 +40,7 @@ public class GestionnaireFonctions {
     /**
      * Procédure qui définit le booléen isFonctionsSontTraitees.
      *
-     * @param fonctionsSontTraitees le booléen a set
+     * @param fonctionsSontTraitees le booléen a set.
      */
     public void setFonctionsSontTraitees(boolean fonctionsSontTraitees) {
         this.fonctionsSontTraitees = fonctionsSontTraitees;
@@ -49,7 +49,7 @@ public class GestionnaireFonctions {
     /**
      * Fonction qui ajooute une fonction à l'ArrayList de fonctions.
      *
-     * @param fonc la fonction a ajouter
+     * @param fonc la fonction a ajouter.
      */
     public void ajouter(Fonction fonc) {
         this.fonctions.add(fonc);

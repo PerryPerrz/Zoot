@@ -17,6 +17,12 @@ public class Idf extends Expression {
     private int depl;
     private String type;
 
+    /**
+     * Constructeur de la classe IDF.
+     *
+     * @param texte texte
+     * @param n     numéro de ligne
+     */
     public Idf(String texte, int n) {
         super(n);
         this.nom = texte;

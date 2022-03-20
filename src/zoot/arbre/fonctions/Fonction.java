@@ -56,18 +56,38 @@ public class Fonction extends ArbreAbstrait {
         return idf;
     }
 
-    public ArrayList<String> getTypeParams() {
-        return typeParams;
-    }
-
+    /**
+     * Fonction qui retourne le nombre de paramètres d'une fonction.
+     *
+     * @return le nombre de paramètre d'une fonction.
+     */
     public int getNbParams() {
         return typeParams.size();
     }
 
+    /**
+     * Fonction qui retourne les types des paramètres stockés dans une ArrayList.
+     *
+     * @return une ArrayList contenant les types de paramètres.
+     */
+    public ArrayList<String> getTypeParams() {
+        return typeParams;
+    }
+
+    /**
+     * Fonction qui retourne le nom des paramètres d'une fonction.
+     *
+     * @return le nom des paramètres.
+     */
     public ArrayList<String> getNomParams() {
         return nomParams;
     }
 
+    /**
+     * Fonction qui retourne le numéro de bloc qui correspond à la fonction.
+     *
+     * @return le numéro de bloc qui correspond à la fonction.
+     */
     public int getNoBlocFonc() {
         return noBlocFonc;
     }

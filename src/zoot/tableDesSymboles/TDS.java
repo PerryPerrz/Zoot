@@ -131,11 +131,19 @@ public class TDS {
         noBlocActuel = noBlocPrec;
     }
 
+    /**
+     * Procédure qui fait rentrer la TDS dans le bloc précedant.
+     */
     public void entreeBlocPrec() {
         //On se positionne dans le bloc prec.
         noBlocActuel = noBlocPrec;
     }
 
+    /**
+     * Procédure qui fait rentrer la TDS dans un bloc spécifique.
+     *
+     * @param noBloc le noBloc du bloc dans lequel on veut rentrer.
+     */
     public void entreeBlocI(int noBloc) {
         noBlocPrec = noBlocActuel;
         noBlocActuel = noBloc;
