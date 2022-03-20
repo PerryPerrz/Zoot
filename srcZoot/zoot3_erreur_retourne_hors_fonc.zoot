@@ -16,8 +16,10 @@ debut
     retourne c;
 fin
 debut
+    x = 6;
     ecrire x;
     ecrire fonc2(vrai);
     ecrire fonc2(vrai,faux,vrai);
+    retourne fonc2(vrai);
     ecrire x;
 fin

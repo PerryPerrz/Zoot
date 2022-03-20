@@ -89,7 +89,11 @@ public class AppelFonction extends Expression {
             StockageErreurs.getInstance().ajouter(new Erreur("Aucun prototype de fonction ne correspond à cet appel !", noLigne));
 
         //On récupère le type de retour de la fonction
-        ArrayList<String> temp = new ArrayList<>(Arrays.asList(this.getTypeParam().split(",")));
+        ArrayList<String> temp;
+        if (this.getTypeParam().isEmpty())
+            temp = new ArrayList<>();
+        else
+            temp = new ArrayList<>(Arrays.asList(this.getTypeParam().split(",")));
 
         //Si l'appel de la fonction ne se trouve pas dans le main, on sort du bloc actuel (bloc de la fonction) pour aller dans le bloc du main.
         if (GestionnaireFonctions.getInstance().isFonctionsSontTraitees())

@@ -207,7 +207,13 @@ DECL_LOC ::=    TYPE:t IDF:i POINTVIRGULE
                 ;
 
 PARAM   ::=     PAROUVRANTE PARFERMANTE
-                {: RESULT = "";:}
+                {:
+                    TDS tds = TDS.getInstance();
+                    if (tds.getNoBlocActuel() == 0) {
+                        tds.entreeBloc();
+                    }
+                    RESULT = "";
+                :}
         |
                 PAROUVRANTE LDECL_PARAM:ld PARFERMANTE
                 {: RESULT = ld;:}
