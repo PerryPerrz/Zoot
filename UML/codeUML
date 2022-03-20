@@ -35,6 +35,7 @@ class zoot.arbre.BlocDInstructions {
 + void verifier()
 + String toMIPS()
 + String toString()
++ ArrayList<ArbreAbstrait> getProgramme()
 }
 class zoot.exceptions.AnalyseLexicaleSemantique {
 }
@@ -135,6 +136,7 @@ abstract class zoot.arbre.ArbreAbstrait {
 + int getNoLigne()
 + {abstract}void verifier()
 + {abstract}String toMIPS()
++ boolean estUnRetourne()
 }
 class zoot.arbre.expressions.ConstanteBooleenne {
 + String toMIPS()
@@ -143,6 +145,7 @@ class zoot.arbre.expressions.ConstanteBooleenne {
 class zoot.arbre.instructions.Retourne {
 + void verifier()
 + String toMIPS()
++ boolean estUnRetourne()
 }
 zoot.arbre.instructions.Retourne -- "1" zoot.arbre.expressions.Expression
 
