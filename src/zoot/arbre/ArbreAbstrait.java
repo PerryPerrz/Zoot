@@ -20,4 +20,7 @@ public abstract class ArbreAbstrait {
 
     public abstract String toMIPS();
 
+    public boolean estUnRetourne() {
+        return false;
+    }
 }

@@ -73,4 +73,9 @@ public class Retourne extends Instruction {
         sb.append(exp.toMIPS());
         return sb.toString();
     }
+
+    @Override
+    public boolean estUnRetourne() {
+        return true;
+    }
 }

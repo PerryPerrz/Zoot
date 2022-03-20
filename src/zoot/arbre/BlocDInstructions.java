@@ -70,4 +70,12 @@ public class BlocDInstructions extends ArbreAbstrait {
         return programme.toString();
     }
 
+    /**
+     * Fonction qui retourne le programme d'un bloc d'instructions.
+     *
+     * @return le programme d'un bloc d'instructions.
+     */
+    public ArrayList<ArbreAbstrait> getProgramme() {
+        return programme;
+    }
 }

@@ -1,6 +1,9 @@
 package zoot.arbre.fonctions;
 
 import zoot.arbre.ArbreAbstrait;
+import zoot.arbre.BlocDInstructions;
+import zoot.gestionErreurs.Erreur;
+import zoot.gestionErreurs.StockageErreurs;
 import zoot.tableDesSymboles.TDS;
 
 import java.util.ArrayList;
@@ -36,6 +39,18 @@ public class Fonction extends ArbreAbstrait {
         TDS.getInstance().entreeBlocVerif();
         this.bloc.verifier();
         TDS.getInstance().sortieBloc();
+
+        boolean retourneExiste = false;
+
+        //Chaque a correpsond à une instruction de la fonction.
+        for (ArbreAbstrait a : ((BlocDInstructions) this.bloc).getProgramme()) {
+            if (a.estUnRetourne()) {
+                retourneExiste = true;
+            }
+        }
+        if (!retourneExiste) {
+            StockageErreurs.getInstance().ajouter(new Erreur("Attention, la fonction à la ligne donnée ne possède pas d'instruction retourne !", this.noLigne));
+        }
     }
 
     @Override
