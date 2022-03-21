@@ -45,8 +45,6 @@ public class BlocDInstructions extends ArbreAbstrait {
             sb.append("sautLigne:\t.asciiz \"\\n\"\n");
             sb.append(".text\n");
             sb.append("main :\n");
-            sb.append("\n# Initialiser $t0 avec la valeur faux\n");
-            sb.append("\tla $t0, faux\n");
             sb.append("\n# Initialiser $s7 avec $sp\n");
             sb.append("\tmove $s7, $sp\n");
             sb.append("\n# Réserver la place pour ").append((TDS.getInstance().getTailleZoneVariables() * -1) / 4).append(" variables\n");

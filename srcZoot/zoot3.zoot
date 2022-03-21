@@ -12,12 +12,13 @@ fin
 booleen fonc2(booleen a;booleen b;booleen c;)
 debut
     x = 5;
-    c = fonc2(b);
+    c = fonc2(fonc2(b));
     retourne c;
 fin
 debut
+    x = 6;
     ecrire x;
     ecrire fonc2(vrai);
-    ecrire fonc2(vrai,faux,vrai);
+    ecrire fonc2(vrai,fonc2(faux),fonc2(vrai, vrai, faux));
     ecrire x;
 fin

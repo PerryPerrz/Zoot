@@ -42,7 +42,9 @@ public class Ecrire extends Instruction {
         sb.append(exp.toMIPS());
         //Si c'est un booleen on l'affiche tel quel
         if (exp.getType().equals("booleen")) {
-            sb.append("\tbeq $t0, $v0, Sinon").append(noLigne).append("\n"); //TODO s1 ???????
+            sb.append("\n# Initialiser $t8 avec la valeur faux\n");
+            sb.append("\tla $t8, faux\n");
+            sb.append("\tbeq $t8, $v0, Sinon").append(noLigne).append("\n");
             sb.append("\tla $a0, vraiAff\n");
             sb.append("\tli $v0, 4\n");
             sb.append("\tsyscall\n");
