@@ -10,6 +10,7 @@ debut
 fin
 
 entier fonc2(booleen a;booleen b;booleen c;)
+variables
 debut
     x = 5;
     c = fonc2(b);

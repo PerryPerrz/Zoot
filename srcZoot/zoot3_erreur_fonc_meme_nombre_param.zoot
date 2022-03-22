@@ -10,6 +10,7 @@ debut
 fin
 
 booleen fonc2(booleen a;booleen b;booleen c;)
+variables
 debut
     x = 5;
     retourne c;
