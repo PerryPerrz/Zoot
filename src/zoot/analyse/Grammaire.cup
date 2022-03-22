@@ -74,13 +74,7 @@ non terminal ArrayList<Expression> LEXP;
 
 start with PROG ;
 
-PROG    ::=     VARIABLES LDECL:ld DEBUT LINST:li  FIN
-                {: RESULT = li ; :}
-        |
-                DEBUT LINST:li  FIN
-                {: RESULT = li ; :}
-        |
-                VARIABLES LDECL:ld FONCTIONS LFONC:lf DEBUT LINST:li  FIN
+PROG    ::=     VARIABLES LDECL:ld FONCTIONS LFONC:lf DEBUT LINST:li  FIN
                 {: RESULT = li ; :}
                 ;
 
@@ -262,26 +256,4 @@ FONC   ::=      TYPE:t IDF:i PARAM:p VARIABLES DEBUT LINST:li FIN
                         StockageErreurs.getInstance().ajouter(new Erreur(e.getMessage(), ileft + 1));
                     }
                 :}
-       |
-                 TYPE:t IDF:i PARAM:p DEBUT LINST:li FIN
-                                {:
-                                    int noBlocFonc = TDS.getInstance().getNoBlocActuel();
-                                    TDS.getInstance().sortieBloc();
-                                    String[] params = p.split(",");
-                                    ArrayList<String> typeParams = new ArrayList<>();
-                                    ArrayList<String> nomParams = new ArrayList<>();
-                                    for (String s : params) {
-                                        if (s.equals("entier") || s.equals("booleen"))
-                                            typeParams.add(s);
-                                        else
-                                            nomParams.add(s);
-                                    }
-                                    GestionnaireFonctions.getInstance().ajouter(new Fonction(ileft + 1,i,li,typeParams, nomParams, noBlocFonc));
-                                    try {
-                                        TDS.getInstance().ajouter(new Entree(i,"fonction",typeParams), new Symbole(t)) ;
-                                    }
-                                    catch (DoubleDeclarationException e){
-                                        StockageErreurs.getInstance().ajouter(new Erreur(e.getMessage(), ileft + 1));
-                                    }
-                                :}
                 ;
