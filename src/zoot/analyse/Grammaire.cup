@@ -219,7 +219,7 @@ PARAM   ::=     PAROUVRANTE PARFERMANTE
                 {: RESULT = ld;:}
                 ;
 
-FONC   ::=      TYPE:t IDF:i PARAM:p DEBUT LINST:li FIN
+FONC   ::=      TYPE:t IDF:i PARAM:p VARIABLES DEBUT LINST:li FIN
                 {:
                     int noBlocFonc = TDS.getInstance().getNoBlocActuel();
                     TDS.getInstance().sortieBloc();
