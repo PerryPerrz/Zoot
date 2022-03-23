@@ -3,6 +3,8 @@ package zoot;
 import zoot.analyse.AnalyseurLexical;
 import zoot.analyse.AnalyseurSyntaxique;
 import zoot.arbre.ArbreAbstrait;
+import zoot.arbre.expressions.ConstanteEntiere;
+import zoot.arbre.expressions.Multiplication;
 import zoot.arbre.fonctions.GestionnaireFonctions;
 import zoot.exceptions.AnalyseException;
 import zoot.gestionErreurs.Erreur;

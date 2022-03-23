@@ -1,18 +1,17 @@
 package zoot.arbre.expressions;
 
 /**
- * Classe Addition.
+ * Classe Multiplication.
  */
-public class Addition extends Binaire {
-
+public class Multiplication extends Binaire {
     /**
-     * Constructeur de la classe Addition.
+     * Constructeur de la classe Binaire.
      *
      * @param n       numéro de ligne
      * @param eGauche expression gauche
      * @param eDroite expression droite
      */
-    protected Addition(int n, Expression eGauche, Expression eDroite) {
+    public Multiplication(int n, Expression eGauche, Expression eDroite) {
         super(n, eGauche, eDroite);
     }
 
@@ -27,7 +26,9 @@ public class Addition extends Binaire {
 
             sb.append(eDroite.toMIPS(supprRegistreInutile(1, registres)));
             //On ajoute les 2 entiers stockés dans les 2 registres, puis stocke le résultat de la somme de v0.
-            sb.append("\tadd ").append(registres[0]).append(",").append(registres[0]).append(",").append(registres[1]).append("\n");
+            sb.append("\tmult ").append(registres[0]).append(",").append(registres[1]).append("\n");
+            //On récupère les résultat de la multiplication, et on la stocke dans $v0. Si le nombre est trop grand (résultat codé sur plus de 32 bits), une bonne partie du résultat se trouve dans mfhi.
+            sb.append("\tmflo ").append(registres[0]).append("\n");
         } else { //Sinon, on utilise la pile
             //TODO à faire quand on à compris
         }
