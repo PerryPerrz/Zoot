@@ -63,7 +63,7 @@ public class Idf extends Expression {
     }
 
     @Override
-    public String toMIPS() {
+    public String toMIPS(String... registres) {
         return "\tlw $v0, " + this.depl + "($s7)\n";
     }
 

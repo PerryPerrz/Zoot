@@ -15,7 +15,7 @@ public class ConstanteEntiere extends Constante {
     }
 
     @Override
-    public String toMIPS() {
+    public String toMIPS(String... registres) {
         return "\tli $v0, " + this.cste + "\n";
     }
 

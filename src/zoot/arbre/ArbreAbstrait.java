@@ -18,7 +18,7 @@ public abstract class ArbreAbstrait {
 
     public abstract void verifier();
 
-    public abstract String toMIPS();
+    public abstract String toMIPS(String... registres); //Ajout d'un paramètre pour optimiser le code mips des expressions binaires.
 
     public boolean estUnRetourne() {
         return false;

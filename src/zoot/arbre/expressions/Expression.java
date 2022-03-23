@@ -53,4 +53,8 @@ public abstract class Expression extends ArbreAbstrait {
     public String getTypeParam() {
         return "";
     }
+
+    public int getNbErchov() {
+        return 1;
+    }
 }

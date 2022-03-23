@@ -111,7 +111,7 @@ public class AppelFonction extends Expression {
     }
 
     @Override
-    public String toMIPS() {
+    public String toMIPS(String... registres) {
         StringBuilder sb = new StringBuilder();
         sb.append("\n# Sauvegarde des registres avant l'appel de fonction.\n");
         sb.append("\tsw $ra,0($sp)\n");

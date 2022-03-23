@@ -44,7 +44,7 @@ public class Affect extends Instruction {
     }
 
     @Override
-    public String toMIPS() {
+    public String toMIPS(String... registres) {
         StringBuilder sb = new StringBuilder();
         //Construction d'un commentaire approprié.
         sb.append("# ").append(idf.toString()).append(" = ");

@@ -15,7 +15,7 @@ public class ConstanteBooleenne extends Constante {
     }
 
     @Override
-    public String toMIPS() {
+    public String toMIPS(String... registres) {
         return "\tla $v0, " + this.cste + "\n";
     }
 

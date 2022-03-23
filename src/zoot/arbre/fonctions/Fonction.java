@@ -54,7 +54,7 @@ public class Fonction extends ArbreAbstrait {
     }
 
     @Override
-    public String toMIPS() {
+    public String toMIPS(String... registres) {
         StringBuilder sb = new StringBuilder();
         sb.append("\n\n#Déclaration de la fonction ").append(this.idf).append("\n");
         sb.append(this.idf).append(this.typeParams.size()).append(": \n").append(this.bloc.toMIPS()); //On ajoute le nombre de paramètre à l'étiquette car c'est la façon dont on différencie nos fonctions.

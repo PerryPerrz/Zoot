@@ -32,7 +32,7 @@ public class BlocDInstructions extends ArbreAbstrait {
     }
 
     @Override
-    public String toMIPS() {
+    public String toMIPS(String... registres) {
         StringBuilder sb = new StringBuilder(programme.size() * 16);
         if (!GestionnaireFonctions.getInstance().isFonctionsSontTraitees()) { //Si on est en train de traiter le bloc d'instruction du programme principal, on construit le code du programme principal.
             GestionnaireFonctions.getInstance().setFonctionsSontTraitees(true);

@@ -58,7 +58,7 @@ public class Retourne extends Instruction {
     }
 
     @Override
-    public String toMIPS() { //Appelé à la fin de la fonction.
+    public String toMIPS(String... registres) { //Appelé à la fin de la fonction.
         StringBuilder sb = new StringBuilder();
 
         //Construction d'un commentaire approprié

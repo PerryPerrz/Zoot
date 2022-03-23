@@ -26,7 +26,7 @@ public class Ecrire extends Instruction {
     }
 
     @Override
-    public String toMIPS() {
+    public String toMIPS(String... registres) {
         StringBuilder sb = new StringBuilder();
 
         //Ecriture d'un commentaire adapté
