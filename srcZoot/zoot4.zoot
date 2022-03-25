@@ -1,0 +1,20 @@
+variables
+entier a;
+entier b;
+
+fonctions
+entier fonc1(entier a; entier b;)
+variables
+debut
+ecrire a;
+ecrire b;
+retourne 3;
+fin
+
+debut
+a = 25;
+b = 3;
+ecrire (a + -b) * b;
+ecrire a * b;
+ecrire fonc1(5 + 5, a*-2) + a * b;
+fin

@@ -1,18 +1,22 @@
-package zoot.arbre.expressions;
+package zoot.arbre.expressions.operateurs.binaires;
+
+import zoot.arbre.expressions.Expression;
+import zoot.gestionErreurs.Erreur;
+import zoot.gestionErreurs.StockageErreurs;
 
 /**
- * Classe Binaire.
+ * Classe BinaireEntier.
  */
-public abstract class Binaire extends Expression {
+public abstract class BinaireEntier extends Expression {
     protected Expression eGauche;
     protected Expression eDroite;
 
     /**
-     * Constructeur de la classe Binaire.
+     * Constructeur de la classe BinaireEntier.
      *
      * @param n numéro de ligne
      */
-    protected Binaire(int n, Expression eGauche, Expression eDroite) {
+    protected BinaireEntier(int n, Expression eGauche, Expression eDroite) {
         super(n);
         this.eDroite = eDroite;
         this.eGauche = eGauche;
@@ -20,12 +24,15 @@ public abstract class Binaire extends Expression {
 
     @Override
     public void verifier() {
-
+        eGauche.verifier();
+        eDroite.verifier();
+        if (!eGauche.getType().equals("entier") || !eDroite.getType().equals("entier"))
+            StockageErreurs.getInstance().ajouter(new Erreur("Une des expressions autour de l'opérateur binaire n'est pas un entier !", noLigne));
     }
 
     @Override
     public String getType() {
-        return null;
+        return "entier";
     }
 
     @Override

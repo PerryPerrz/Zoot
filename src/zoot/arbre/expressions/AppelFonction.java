@@ -122,7 +122,7 @@ public class AppelFonction extends Expression {
         //On parcourt les valeurs données dans un appel de fonction, on stocke chaque valeur au paramètre qui convient. Ce paramètre étant stocké dans la pile.
         for (int i = 0; i < params.size(); i++) {
             //On stocke dans v0 le resultat de l'expression.
-            sb.append(params.get(i).toMIPS());
+            sb.append(params.get(i).toMIPS(registres));
             //On transfère l'expression dans la variable
 
             sb.append("\t").append("sw $v0, ").append(TDS.getInstance().identifier(new Entree(fonctionAppelee.getNomParams().get(i), "variable")).getDeplacement()).append("($s7)\n");
@@ -167,6 +167,20 @@ public class AppelFonction extends Expression {
             }
             sb.replace(sb.length() - 1, sb.length(), "");
         }
+        return sb.toString();
+    }
+
+    @Override
+    public String toString() {
+        return idf + "(" + this.affichageParametres() +")";
+    }
+
+    private String affichageParametres() {
+        StringBuilder sb = new StringBuilder();
+        for (Expression e : params)
+            sb.append(e.toString()).append(",");
+        if (sb.length() >= 1)
+            sb.replace(sb.length()-1, sb.length(), "");
         return sb.toString();
     }
 }

@@ -63,6 +63,9 @@ commentaire = [/]{2}.*{finDeLigne}
 "booleen"              { return symbol(CodesLexicaux.BOOLEEN); }
 
 "="                    { return symbol(CodesLexicaux.EGAL); }
+"+"                    { return symbol(CodesLexicaux.PLUS); }
+"*"                    { return symbol(CodesLexicaux.MULT); }
+"-"                    { return symbol(CodesLexicaux.MOINS); }
 
 {idf}                  { return symbol(CodesLexicaux.IDF, yytext()); }
 

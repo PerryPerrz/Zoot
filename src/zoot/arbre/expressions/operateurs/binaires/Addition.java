@@ -1,9 +1,11 @@
-package zoot.arbre.expressions;
+package zoot.arbre.expressions.operateurs.binaires;
+
+import zoot.arbre.expressions.Expression;
 
 /**
  * Classe Addition.
  */
-public class Addition extends Binaire {
+public class Addition extends BinaireEntier {
 
     /**
      * Constructeur de la classe Addition.
@@ -12,7 +14,7 @@ public class Addition extends Binaire {
      * @param eGauche expression gauche
      * @param eDroite expression droite
      */
-    protected Addition(int n, Expression eGauche, Expression eDroite) {
+    public Addition(int n, Expression eGauche, Expression eDroite) {
         super(n, eGauche, eDroite);
     }
 
@@ -30,7 +32,13 @@ public class Addition extends Binaire {
             sb.append("\tadd ").append(registres[0]).append(",").append(registres[0]).append(",").append(registres[1]).append("\n");
         } else { //Sinon, on utilise la pile
             //TODO à faire quand on à compris
+            System.out.println("Pas encore implémenté !");
         }
         return sb.toString();
+    }
+
+    @Override
+    public String toString() {
+        return eGauche.toString() + " + " + eDroite.toString();
     }
 }

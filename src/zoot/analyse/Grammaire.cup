@@ -3,6 +3,8 @@ package zoot.analyse ;
 import java.util.*;
 import zoot.arbre.* ;
 import zoot.arbre.expressions.* ;
+import zoot.arbre.expressions.operateurs.binaires.* ;
+import zoot.arbre.expressions.operateurs.unaires.* ;
 import zoot.arbre.instructions.* ;
 import zoot.exceptions.*;
 import zoot.tableDesSymboles.*;
@@ -59,7 +61,7 @@ parser code {:
 
 /* Terminals (tokens returned by the scanner).  */
 
-terminal Symbol    DEBUT, FIN, VARIABLES, POINTVIRGULE, VIRGULE, ECRIRE, EGAL, FONCTIONS, PAROUVRANTE, PARFERMANTE, RETOURNE;
+terminal Symbol    DEBUT, FIN, VARIABLES, POINTVIRGULE, VIRGULE, ECRIRE, EGAL, FONCTIONS, PAROUVRANTE, PARFERMANTE, RETOURNE, PLUS, MULT, MOINS;
 terminal String    IDF, CSTENTIERE, CSTBOOLEENNE, BOOLEEN, ENTIER;
 
 /* Non terminals used in the grammar section.  */
@@ -69,6 +71,10 @@ non terminal Instruction INST;
 non terminal Expression EXP;
 non terminal String TYPE,PARAM, LDECL_PARAM,DECL_PARAM;
 non terminal ArrayList<Expression> LEXP;
+
+precedence left PLUS;
+precedence left MULT;
+precedence left PAROUVRANTE, PARFERMANTE;
 
 /* ----------------------------Grammar Section-------------------- */
 
@@ -143,6 +149,18 @@ EXP    ::=     CSTENTIERE:c
         |
                 IDF:i PAROUVRANTE LEXP:le PARFERMANTE
                 {: RESULT = new AppelFonction(ileft + 1, i, le); :}
+        |
+                EXP:eg PLUS EXP:ed
+                {: RESULT = new Addition(egleft + 1, eg, ed); :}
+        |
+                EXP:eg MULT EXP:ed
+                {: RESULT = new Multiplication(egleft + 1, eg, ed); :}
+        |
+                MOINS EXP:e
+                {: RESULT = new Moins(eleft + 1, e); :}
+        |
+                PAROUVRANTE EXP:e PARFERMANTE
+                {: RESULT = new Parenthese(eleft + 1, e); :}
                 ;
 
 LEXP    ::=     LEXP:le VIRGULE EXP:e

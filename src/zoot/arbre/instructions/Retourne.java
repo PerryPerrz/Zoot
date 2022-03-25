@@ -70,7 +70,7 @@ public class Retourne extends Instruction {
         }
 
         //Stockage de la valeur de l'expression dans v0
-        sb.append(exp.toMIPS());
+        sb.append(exp.toMIPS("$v0", "$t0", "$t1", "$t2", "$t3", "$t4", "$t5", "$t6", "$t7"));
         return sb.toString();
     }
 

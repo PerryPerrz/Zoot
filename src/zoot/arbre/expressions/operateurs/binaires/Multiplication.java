@@ -1,11 +1,13 @@
-package zoot.arbre.expressions;
+package zoot.arbre.expressions.operateurs.binaires;
+
+import zoot.arbre.expressions.Expression;
 
 /**
  * Classe Multiplication.
  */
-public class Multiplication extends Binaire {
+public class Multiplication extends BinaireEntier {
     /**
-     * Constructeur de la classe Binaire.
+     * Constructeur de la classe BinaireEntier.
      *
      * @param n       numéro de ligne
      * @param eGauche expression gauche
@@ -31,7 +33,13 @@ public class Multiplication extends Binaire {
             sb.append("\tmflo ").append(registres[0]).append("\n");
         } else { //Sinon, on utilise la pile
             //TODO à faire quand on à compris
+            System.out.println("Pas encore implémenté !");
         }
         return sb.toString();
+    }
+
+    @Override
+    public String toString() {
+        return eGauche.toString() + " * " + eDroite.toString();
     }
 }

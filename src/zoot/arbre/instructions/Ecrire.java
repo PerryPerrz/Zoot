@@ -39,7 +39,7 @@ public class Ecrire extends Instruction {
 
         //Affichage de la valeur
         //On met le résultat de l'expression dans v0 pour l'afficher ensuite
-        sb.append(exp.toMIPS());
+        sb.append(exp.toMIPS("$v0", "$t0", "$t1", "$t2", "$t3", "$t4", "$t5", "$t6", "$t7"));
         //Si c'est un booleen on l'affiche tel quel
         if (exp.getType().equals("booleen")) {
             sb.append("\n# Initialiser $t8 avec la valeur faux\n");
