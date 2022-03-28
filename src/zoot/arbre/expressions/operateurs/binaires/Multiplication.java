@@ -7,7 +7,7 @@ import zoot.arbre.expressions.Expression;
  */
 public class Multiplication extends BinaireEntier {
     /**
-     * Constructeur de la classe BinaireEntier.
+     * Constructeur de la classe Multiplication.
      *
      * @param n       numéro de ligne
      * @param eGauche expression gauche

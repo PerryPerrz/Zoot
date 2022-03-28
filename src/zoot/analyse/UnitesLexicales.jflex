@@ -67,6 +67,9 @@ commentaire = [/]{2}.*{finDeLigne}
 "*"                    { return symbol(CodesLexicaux.MULT); }
 "-"                    { return symbol(CodesLexicaux.MOINS); }
 
+"et"                   { return symbol(CodesLexicaux.ET); }
+"ou"                   { return symbol(CodesLexicaux.OU); }
+
 {idf}                  { return symbol(CodesLexicaux.IDF, yytext()); }
 
 {espace}               { }

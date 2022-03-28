@@ -2,11 +2,14 @@ package zoot.arbre.expressions.operateurs.unaires;
 
 import zoot.arbre.expressions.Expression;
 
+/**
+ * Classe Parenthese.
+ */
 public class Parenthese extends Expression {
     private final Expression exp;
 
     /**
-     * Constructeur de la classe Expression.
+     * Constructeur de la classe Parenthese.
      *
      * @param n numéro de ligne
      */
