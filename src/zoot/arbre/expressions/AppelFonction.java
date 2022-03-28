@@ -172,7 +172,7 @@ public class AppelFonction extends Expression {
 
     @Override
     public String toString() {
-        return idf + "(" + this.affichageParametres() +")";
+        return idf + "(" + this.affichageParametres() + ")";
     }
 
     private String affichageParametres() {
@@ -180,7 +180,7 @@ public class AppelFonction extends Expression {
         for (Expression e : params)
             sb.append(e.toString()).append(",");
         if (sb.length() >= 1)
-            sb.replace(sb.length()-1, sb.length(), "");
+            sb.replace(sb.length() - 1, sb.length(), "");
         return sb.toString();
     }
 }

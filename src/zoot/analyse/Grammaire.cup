@@ -72,8 +72,8 @@ non terminal Expression EXP;
 non terminal String TYPE,PARAM, LDECL_PARAM,DECL_PARAM;
 non terminal ArrayList<Expression> LEXP;
 
-precedence ou OU;
-precedence et ET;
+precedence left OU;
+precedence left ET;
 
 precedence left PLUS;
 precedence left MULT;
@@ -162,10 +162,10 @@ EXP    ::=     CSTENTIERE:c
                 MOINS EXP:e
                 {: RESULT = new Moins(eleft + 1, e); :}
         |
-                EXP:eg et EXP:ed
+                EXP:eg ET EXP:ed
                 {: RESULT = new Et(egleft + 1, eg, ed); :}
         |
-                EXP:eg ou EXP:ed
+                EXP:eg OU EXP:ed
                 {: RESULT = new Ou(egleft + 1, eg, ed); :}
         |
                 PAROUVRANTE EXP:e PARFERMANTE

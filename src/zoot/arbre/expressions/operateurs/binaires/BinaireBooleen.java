@@ -4,14 +4,19 @@ import zoot.arbre.expressions.Expression;
 import zoot.gestionErreurs.Erreur;
 import zoot.gestionErreurs.StockageErreurs;
 
+/**
+ * Classe abstraite BinaireBooleen.
+ */
 public abstract class BinaireBooleen extends Expression {
     protected Expression eGauche;
     protected Expression eDroite;
 
     /**
-     * Constructeur de la classe Expression.
+     * Constructeur de la classe BinaireBooleen.
      *
-     * @param n numéro de ligne
+     * @param n       numéro de ligne
+     * @param eGauche expression gauche
+     * @param eDroite expression droite
      */
     protected BinaireBooleen(int n, Expression eGauche, Expression eDroite) {
         super(n);
