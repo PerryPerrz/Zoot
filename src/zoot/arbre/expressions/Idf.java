@@ -85,14 +85,4 @@ public class Idf extends Expression {
     public String toString() {
         return nom;
     }
-
-    @Override
-    public boolean estUneVariable() {
-        return true;
-    }
-
-    @Override
-    public boolean estUnAppelDeFonction() {
-        return false;
-    }
 }

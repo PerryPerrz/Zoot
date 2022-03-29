@@ -62,6 +62,9 @@ commentaire = [/]{2}.*{finDeLigne}
 
 "booleen"              { return symbol(CodesLexicaux.BOOLEEN); }
 
+"=="                    { return symbol(CodesLexicaux.DOUBLEEGAL); }
+"!="                    { return symbol(CodesLexicaux.DIFFERENT); }
+"<"                    { return symbol(CodesLexicaux.INFERIEUR); }
 "="                    { return symbol(CodesLexicaux.EGAL); }
 "+"                    { return symbol(CodesLexicaux.PLUS); }
 "*"                    { return symbol(CodesLexicaux.MULT); }
@@ -69,6 +72,7 @@ commentaire = [/]{2}.*{finDeLigne}
 
 "et"                   { return symbol(CodesLexicaux.ET); }
 "ou"                   { return symbol(CodesLexicaux.OU); }
+"non"                   { return symbol(CodesLexicaux.NON); }
 
 {idf}                  { return symbol(CodesLexicaux.IDF, yytext()); }
 

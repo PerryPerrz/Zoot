@@ -43,16 +43,6 @@ public abstract class BinaireBooleen extends Expression {
     }
 
     @Override
-    public boolean estUneVariable() {
-        return false;
-    }
-
-    @Override
-    public boolean estUnAppelDeFonction() {
-        return false;
-    }
-
-    @Override
     public int getNbErchov() {
         return eGauche.getNbErchov() == eDroite.getNbErchov() ? eGauche.getNbErchov() + 1 : Math.max(eGauche.getNbErchov(), eDroite.getNbErchov());
     }

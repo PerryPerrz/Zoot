@@ -41,12 +41,7 @@ public class Affect extends Instruction {
     public String toMIPS(String... registres) {
         StringBuilder sb = new StringBuilder();
         //Construction d'un commentaire approprié.
-        sb.append("# ").append(idf.toString()).append(" = ");
-        if (!exp.estUnAppelDeFonction()) {
-            sb.append(exp.toString()).append("\n");
-        } else {
-            sb.append(this.exp.getSignatureFonction()).append(" (").append(this.exp.getTypeParam()).append(")\n");
-        }
+        sb.append("# ").append(idf.toString()).append(" = ").append(exp.toString()).append("\n");
 
         //On stocke dans v0 le resultat de l'expression.
         sb.append(exp.toMIPS("$v0", "$t0", "$t1", "$t2", "$t3", "$t4", "$t5", "$t6", "$t7"));

@@ -34,16 +34,6 @@ public class Parenthese extends Expression {
     }
 
     @Override
-    public boolean estUneVariable() {
-        return false;//TODO : vérif si ça pose pas de pb de pas relayer la rep de l'exp.
-    }
-
-    @Override
-    public boolean estUnAppelDeFonction() {
-        return false;//TODO : vérif si ça pose pas de pb de pas relayer la rep de l'exp.
-    }
-
-    @Override
     public String toString() {
         return "(" + exp.toString() + ")";
     }

@@ -30,12 +30,7 @@ public class Ecrire extends Instruction {
         StringBuilder sb = new StringBuilder();
 
         //Ecriture d'un commentaire adapté
-        sb.append("# Ecrire ");
-        if (!exp.estUnAppelDeFonction()) {
-            sb.append(exp.toString()).append("\n");
-        } else {
-            sb.append(this.exp.getSignatureFonction()).append(" (").append(this.exp.getTypeParam()).append(")\n");
-        }
+        sb.append("# Ecrire ").append(exp.toString()).append("\n");
 
         //Affichage de la valeur
         //On met le résultat de l'expression dans v0 pour l'afficher ensuite

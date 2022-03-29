@@ -4,7 +4,7 @@ import zoot.arbre.expressions.Expression;
 import zoot.gestionErreurs.Erreur;
 import zoot.gestionErreurs.StockageErreurs;
 
-public class Moins extends Expression {
+public class Non extends Expression {
     private final Expression exp;
 
     /**
@@ -12,7 +12,7 @@ public class Moins extends Expression {
      *
      * @param n numéro de ligne
      */
-    public Moins(int n, Expression exp) {
+    public Non(int n, Expression exp) {
         super(n);
         this.exp = exp;
     }
@@ -20,21 +20,20 @@ public class Moins extends Expression {
     @Override
     public void verifier() {
         exp.verifier();
-        if (!exp.getType().equals("entier"))
-            StockageErreurs.getInstance().ajouter(new Erreur("Appliquer un '-' sur une expression autre qu'entière n'est pas autorisé !", noLigne));
+        if (!exp.getType().equals("booleen"))
+            StockageErreurs.getInstance().ajouter(new Erreur("Appliquer un 'non' sur une expression autre que booléenne n'est pas autorisé !", noLigne));
     }
 
     @Override
     public String toMIPS(String... registres) {
         StringBuilder sb = new StringBuilder();
-        sb.append(exp.toMIPS(registres));
-        sb.append("\tsub ").append(registres[0]).append(", $zero, ").append(registres[0]).append("\n");
+        //TODO : inverser la valeur du bool
         return sb.toString();
     }
 
     @Override
     public String getType() {
-        return "entier";
+        return "booleen";
     }
 
     @Override
@@ -44,6 +43,6 @@ public class Moins extends Expression {
 
     @Override
     public String toString() {
-        return "-" + exp.toString();
+        return "non" + exp.toString();
     }
 }

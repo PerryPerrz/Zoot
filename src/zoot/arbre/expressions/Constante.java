@@ -27,14 +27,4 @@ public abstract class Constante extends Expression {
     public String toString() {
         return cste;
     }
-
-    @Override
-    public boolean estUneVariable() {
-        return false;
-    }
-
-    @Override
-    public boolean estUnAppelDeFonction() {
-        return false;
-    }
 }

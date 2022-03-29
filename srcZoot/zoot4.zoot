@@ -14,6 +14,8 @@ fin
 debut
 a = 25;
 b = 3;
+ecrire (5 != 4) et (7 == 6) et (11 < 13) ou (vrai == faux) ou (faux != faux);
+ecrire vrai et non (faux ou vrai);
 ecrire (a + -b) * b;
 ecrire a * b;
 ecrire fonc1(5 + 5, a*-2) + a * b;

@@ -4,35 +4,34 @@ import zoot.arbre.expressions.Expression;
 import zoot.gestionErreurs.Erreur;
 import zoot.gestionErreurs.StockageErreurs;
 
-/**
- * Classe BinaireEntier.
- */
-public abstract class BinaireEntier extends Expression {
-    protected Expression eGauche;
-    protected Expression eDroite;
+public class Inferieur extends Expression {
+    private final Expression eGauche;
+    private final Expression eDroite;
 
-    /**
-     * Constructeur de la classe BinaireEntier.
-     *
-     * @param n numéro de ligne
-     */
-    protected BinaireEntier(int n, Expression eGauche, Expression eDroite) {
+    public Inferieur(int n, Expression eGauche, Expression eDroite) {
         super(n);
-        this.eDroite = eDroite;
         this.eGauche = eGauche;
+        this.eDroite = eDroite;
     }
 
     @Override
     public void verifier() {
         eGauche.verifier();
         eDroite.verifier();
-        if (!eGauche.getType().equals("entier") || !eDroite.getType().equals("entier"))
-            StockageErreurs.getInstance().ajouter(new Erreur("Une des expressions autour de l'opérateur binaire n'est pas un entier !", noLigne));
+        if (!eDroite.getType().equals("entier") || !eGauche.getType().equals("entier"))
+            StockageErreurs.getInstance().ajouter(new Erreur("Une des expressions qui entoure un '<' n'est pas entière !", noLigne));
+    }
+
+    @Override
+    public String toMIPS(String... registres) {
+        StringBuilder sb = new StringBuilder();
+        //TODO : Comparer
+        return sb.toString();
     }
 
     @Override
     public String getType() {
-        return "entier";
+        return "booleen";
     }
 
     @Override
@@ -57,5 +56,10 @@ public abstract class BinaireEntier extends Expression {
             i++;
         }
         return temp;
+    }
+
+    @Override
+    public String toString() {
+        return eGauche.toString() + "<" + eDroite.toString();
     }
 }

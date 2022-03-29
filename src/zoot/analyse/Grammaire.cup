@@ -61,7 +61,7 @@ parser code {:
 
 /* Terminals (tokens returned by the scanner).  */
 
-terminal Symbol    DEBUT, FIN, VARIABLES, POINTVIRGULE, VIRGULE, ECRIRE, EGAL, FONCTIONS, PAROUVRANTE, PARFERMANTE, RETOURNE, PLUS, MULT, MOINS, ET, OU;
+terminal Symbol    DEBUT, FIN, VARIABLES, POINTVIRGULE, VIRGULE, ECRIRE, EGAL, FONCTIONS, PAROUVRANTE, PARFERMANTE, RETOURNE, PLUS, MULT, MOINS, ET, OU, NON, DOUBLEEGAL, DIFFERENT, INFERIEUR;
 terminal String    IDF, CSTENTIERE, CSTBOOLEENNE, BOOLEEN, ENTIER;
 
 /* Non terminals used in the grammar section.  */
@@ -74,9 +74,13 @@ non terminal ArrayList<Expression> LEXP;
 
 precedence left OU;
 precedence left ET;
-
+precedence left DIFFERENT;
+precedence left DOUBLEEGAL;
+precedence left INFERIEUR;
 precedence left PLUS;
 precedence left MULT;
+precedence left MOINS;
+precedence left NON;
 precedence left PAROUVRANTE, PARFERMANTE;
 
 /* ----------------------------Grammar Section-------------------- */
@@ -153,6 +157,15 @@ EXP    ::=     CSTENTIERE:c
                 IDF:i PAROUVRANTE LEXP:le PARFERMANTE
                 {: RESULT = new AppelFonction(ileft + 1, i, le); :}
         |
+                EXP:eg DIFFERENT EXP:ed
+                {: RESULT = new Different(egleft + 1, eg, ed); :}
+        |
+                EXP:eg DOUBLEEGAL EXP:ed
+                {: RESULT = new DoubleEgal(egleft + 1, eg, ed); :}
+        |
+                EXP:eg INFERIEUR EXP:ed
+                {: RESULT = new Inferieur(egleft + 1, eg, ed); :}
+        |
                 EXP:eg PLUS EXP:ed
                 {: RESULT = new Addition(egleft + 1, eg, ed); :}
         |
@@ -161,6 +174,9 @@ EXP    ::=     CSTENTIERE:c
         |
                 MOINS EXP:e
                 {: RESULT = new Moins(eleft + 1, e); :}
+        |
+                NON EXP:e
+                {: RESULT = new Non(eleft + 1, e); :}
         |
                 EXP:eg ET EXP:ed
                 {: RESULT = new Et(egleft + 1, eg, ed); :}

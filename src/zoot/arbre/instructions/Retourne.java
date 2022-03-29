@@ -62,12 +62,7 @@ public class Retourne extends Instruction {
         StringBuilder sb = new StringBuilder();
 
         //Construction d'un commentaire approprié
-        sb.append("# ").append("Retourne ");
-        if (!exp.estUnAppelDeFonction()) {
-            sb.append(exp).append("\n");
-        } else {
-            sb.append(this.exp.getSignatureFonction()).append(" (").append(this.exp.getTypeParam()).append(")\n");
-        }
+        sb.append("# ").append("Retourne ").append(exp.toString()).append("\n");
 
         //Stockage de la valeur de l'expression dans v0
         sb.append(exp.toMIPS("$v0", "$t0", "$t1", "$t2", "$t3", "$t4", "$t5", "$t6", "$t7"));

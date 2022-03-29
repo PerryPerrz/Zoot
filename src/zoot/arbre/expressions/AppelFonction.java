@@ -143,21 +143,6 @@ public class AppelFonction extends Expression {
     }
 
     @Override
-    public boolean estUneVariable() {
-        return false;
-    }
-
-    @Override
-    public boolean estUnAppelDeFonction() {
-        return true;
-    }
-
-    @Override
-    public String getSignatureFonction() {
-        return this.idf;
-    }
-
-    @Override
     public String getTypeParam() {
         //On récupère les types des paramètres pour pouvoir identifier la fonction.
         StringBuilder sb = new StringBuilder();

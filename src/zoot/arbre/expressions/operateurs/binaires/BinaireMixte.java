@@ -4,19 +4,16 @@ import zoot.arbre.expressions.Expression;
 import zoot.gestionErreurs.Erreur;
 import zoot.gestionErreurs.StockageErreurs;
 
-/**
- * Classe BinaireEntier.
- */
-public abstract class BinaireEntier extends Expression {
+public abstract class BinaireMixte extends Expression {
     protected Expression eGauche;
     protected Expression eDroite;
 
     /**
-     * Constructeur de la classe BinaireEntier.
+     * Constructeur de la classe BinaireMixte.
      *
      * @param n numéro de ligne
      */
-    protected BinaireEntier(int n, Expression eGauche, Expression eDroite) {
+    protected BinaireMixte(int n, Expression eGauche, Expression eDroite) {
         super(n);
         this.eDroite = eDroite;
         this.eGauche = eGauche;
@@ -26,13 +23,13 @@ public abstract class BinaireEntier extends Expression {
     public void verifier() {
         eGauche.verifier();
         eDroite.verifier();
-        if (!eGauche.getType().equals("entier") || !eDroite.getType().equals("entier"))
-            StockageErreurs.getInstance().ajouter(new Erreur("Une des expressions autour de l'opérateur binaire n'est pas un entier !", noLigne));
+        if (!eGauche.getType().equals(eDroite.getType()))
+            StockageErreurs.getInstance().ajouter(new Erreur("Les expressions autour d'un binaire mixte ne sont pas de même type !", noLigne));
     }
 
     @Override
     public String getType() {
-        return "entier";
+        return "booleen";
     }
 
     @Override
