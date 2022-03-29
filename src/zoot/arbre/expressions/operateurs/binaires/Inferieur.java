@@ -7,11 +7,13 @@ import zoot.gestionErreurs.StockageErreurs;
 public class Inferieur extends Expression {
     private final Expression eGauche;
     private final Expression eDroite;
+    private final int numCarac;
 
-    public Inferieur(int n, Expression eGauche, Expression eDroite) {
+    public Inferieur(int n, Expression eGauche, Expression eDroite, int numCarac) {
         super(n);
         this.eGauche = eGauche;
         this.eDroite = eDroite;
+        this.numCarac = numCarac;
     }
 
     @Override
@@ -25,7 +27,24 @@ public class Inferieur extends Expression {
     @Override
     public String toMIPS(String... registres) {
         StringBuilder sb = new StringBuilder();
-        //TODO : Comparer
+        sb.append(eGauche.toMIPS(registres));
+        //Si on a encore au moins 1 registre temporaire disponible, on l'utilise
+        if (registres.length != 1) {
+            //On stocke le résultat dans un registre pour pouvoir réutiliser v0
+            sb.append("\tmove ").append(registres[1]).append(", ").append(registres[0]).append("\n");
+
+            sb.append(eDroite.toMIPS(supprRegistreInutile(1, registres)));
+            sb.append("\tsub $t8, ").append(registres[1]).append(", $v0\n");
+            sb.append("\tbltz $t8, Sinon").append(noLigne).append("Car").append(numCarac).append("\n");
+            sb.append("\tla $v0, faux\n");
+            sb.append("\tb FinSi").append(noLigne).append("Car").append(numCarac).append("\n");
+            sb.append("Sinon").append(noLigne).append("Car").append(numCarac).append(":").append("\n");
+            sb.append("\tla $v0, vrai\n");
+            sb.append("FinSi").append(noLigne).append("Car").append(numCarac).append(":\n");
+        } else { //Sinon, on utilise la pile
+            //TODO à faire quand on à compris
+            System.out.println("Pas encore implémenté !");
+        }
         return sb.toString();
     }
 

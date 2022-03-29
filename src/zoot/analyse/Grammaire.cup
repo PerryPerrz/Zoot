@@ -158,13 +158,13 @@ EXP    ::=     CSTENTIERE:c
                 {: RESULT = new AppelFonction(ileft + 1, i, le); :}
         |
                 EXP:eg DIFFERENT EXP:ed
-                {: RESULT = new Different(egleft + 1, eg, ed); :}
+                {: RESULT = new Different(egleft + 1, eg, ed, egright); :}
         |
                 EXP:eg DOUBLEEGAL EXP:ed
-                {: RESULT = new DoubleEgal(egleft + 1, eg, ed); :}
+                {: RESULT = new DoubleEgal(egleft + 1, eg, ed, egright); :}
         |
                 EXP:eg INFERIEUR EXP:ed
-                {: RESULT = new Inferieur(egleft + 1, eg, ed); :}
+                {: RESULT = new Inferieur(egleft + 1, eg, ed, egright); :}
         |
                 EXP:eg PLUS EXP:ed
                 {: RESULT = new Addition(egleft + 1, eg, ed); :}
@@ -176,7 +176,7 @@ EXP    ::=     CSTENTIERE:c
                 {: RESULT = new Moins(eleft + 1, e); :}
         |
                 NON EXP:e
-                {: RESULT = new Non(eleft + 1, e); :}
+                {: RESULT = new Non(eleft + 1, e, eright); :}
         |
                 EXP:eg ET EXP:ed
                 {: RESULT = new Et(egleft + 1, eg, ed); :}

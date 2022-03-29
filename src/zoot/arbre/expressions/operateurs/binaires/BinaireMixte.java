@@ -7,16 +7,18 @@ import zoot.gestionErreurs.StockageErreurs;
 public abstract class BinaireMixte extends Expression {
     protected Expression eGauche;
     protected Expression eDroite;
+    protected int numCarac;
 
     /**
      * Constructeur de la classe BinaireMixte.
      *
      * @param n numéro de ligne
      */
-    protected BinaireMixte(int n, Expression eGauche, Expression eDroite) {
+    protected BinaireMixte(int n, Expression eGauche, Expression eDroite, int numCarac) {
         super(n);
         this.eDroite = eDroite;
         this.eGauche = eGauche;
+        this.numCarac = numCarac;
     }
 
     @Override
