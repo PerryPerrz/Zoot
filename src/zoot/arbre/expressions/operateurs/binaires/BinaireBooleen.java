@@ -10,6 +10,7 @@ import zoot.gestionErreurs.StockageErreurs;
 public abstract class BinaireBooleen extends Expression {
     protected Expression eGauche;
     protected Expression eDroite;
+    protected int numCarac;
 
     /**
      * Constructeur de la classe BinaireBooleen.
@@ -18,10 +19,11 @@ public abstract class BinaireBooleen extends Expression {
      * @param eGauche expression gauche
      * @param eDroite expression droite
      */
-    protected BinaireBooleen(int n, Expression eGauche, Expression eDroite) {
+    protected BinaireBooleen(int n, Expression eGauche, Expression eDroite, int numCarac) {
         super(n);
         this.eGauche = eGauche;
         this.eDroite = eDroite;
+        this.numCarac = numCarac;
     }
 
     @Override
@@ -45,5 +47,24 @@ public abstract class BinaireBooleen extends Expression {
     @Override
     public int getNbErchov() {
         return eGauche.getNbErchov() == eDroite.getNbErchov() ? eGauche.getNbErchov() + 1 : Math.max(eGauche.getNbErchov(), eDroite.getNbErchov());
+    }
+
+    /**
+     * Foonction qui supprime un registre de la liste des registres libres lors de son utilisation.
+     *
+     * @param n         l'indice du registre utilisé/à supprimer
+     * @param registres la liste de registres disponibles actuellement
+     * @return la liste de registre disponible après l'appel de la fonction
+     */
+    public String[] supprRegistreInutile(int n, String... registres) {
+        String[] temp = new String[registres.length - 1];
+        int i = 0;
+        for (int j = 0; j < registres.length; j++) {
+            if (i == n)
+                j++;
+            temp[i] = registres[j];
+            i++;
+        }
+        return temp;
     }
 }

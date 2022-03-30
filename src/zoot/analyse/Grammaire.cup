@@ -179,10 +179,10 @@ EXP    ::=     CSTENTIERE:c
                 {: RESULT = new Non(eleft + 1, e, eright); :}
         |
                 EXP:eg ET EXP:ed
-                {: RESULT = new Et(egleft + 1, eg, ed); :}
+                {: RESULT = new Et(egleft + 1, eg, ed, egright); :}
         |
                 EXP:eg OU EXP:ed
-                {: RESULT = new Ou(egleft + 1, eg, ed); :}
+                {: RESULT = new Ou(egleft + 1, eg, ed, egright); :}
         |
                 PAROUVRANTE EXP:e PARFERMANTE
                 {: RESULT = new Parenthese(eleft + 1, e); :}
