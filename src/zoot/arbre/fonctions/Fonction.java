@@ -44,12 +44,12 @@ public class Fonction extends ArbreAbstrait {
 
         //Chaque a correpsond à une instruction de la fonction.
         for (ArbreAbstrait a : ((BlocDInstructions) this.bloc).getProgramme()) {
-            if (a.estUnRetourne()) {
+            if (a.contientUnRetourne()) {
                 retourneExiste = true;
             }
         }
         if (!retourneExiste) {
-            StockageErreurs.getInstance().ajouter(new Erreur("Attention, la fonction à la ligne donnée ne possède pas d'instruction retourne !", this.noLigne));
+            StockageErreurs.getInstance().ajouter(new Erreur("Attention, la fonction à la ligne donnée ne possède pas d'instruction retourne où n'en contient pas partout !", this.noLigne));
         }
     }
 

@@ -1,5 +1,6 @@
 package zoot.arbre.expressions.operateurs.binaires;
 
+import zoot.arbre.GenerateurNum;
 import zoot.arbre.expressions.Expression;
 import zoot.gestionErreurs.Erreur;
 import zoot.gestionErreurs.StockageErreurs;
@@ -7,18 +8,18 @@ import zoot.gestionErreurs.StockageErreurs;
 public abstract class BinaireMixte extends Expression {
     protected Expression eGauche;
     protected Expression eDroite;
-    protected int numCarac;
+    protected int numUnique;
 
     /**
      * Constructeur de la classe BinaireMixte.
      *
      * @param n numéro de ligne
      */
-    protected BinaireMixte(int n, Expression eGauche, Expression eDroite, int numCarac) {
+    protected BinaireMixte(int n, Expression eGauche, Expression eDroite) {
         super(n);
         this.eDroite = eDroite;
         this.eGauche = eGauche;
-        this.numCarac = numCarac;
+        this.numUnique = GenerateurNum.getInstance().genererNombre();
     }
 
     @Override

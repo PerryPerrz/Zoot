@@ -1,5 +1,6 @@
 package zoot.arbre.expressions.operateurs.binaires;
 
+import zoot.arbre.GenerateurNum;
 import zoot.arbre.expressions.Expression;
 import zoot.gestionErreurs.Erreur;
 import zoot.gestionErreurs.StockageErreurs;
@@ -10,7 +11,7 @@ import zoot.gestionErreurs.StockageErreurs;
 public abstract class BinaireBooleen extends Expression {
     protected Expression eGauche;
     protected Expression eDroite;
-    protected int numCarac;
+    protected int numUnique;
 
     /**
      * Constructeur de la classe BinaireBooleen.
@@ -19,11 +20,11 @@ public abstract class BinaireBooleen extends Expression {
      * @param eGauche expression gauche
      * @param eDroite expression droite
      */
-    protected BinaireBooleen(int n, Expression eGauche, Expression eDroite, int numCarac) {
+    protected BinaireBooleen(int n, Expression eGauche, Expression eDroite) {
         super(n);
         this.eGauche = eGauche;
         this.eDroite = eDroite;
-        this.numCarac = numCarac;
+        this.numUnique = GenerateurNum.getInstance().genererNombre();
     }
 
     @Override

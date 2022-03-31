@@ -13,8 +13,8 @@ public class Et extends BinaireBooleen {
      * @param eGauche expression gauche
      * @param eDroite expression droite
      */
-    public Et(int n, Expression eGauche, Expression eDroite, int numCarac) {
-        super(n, eGauche, eDroite, numCarac);
+    public Et(int n, Expression eGauche, Expression eDroite) {
+        super(n, eGauche, eDroite);
     }
 
     @Override
@@ -24,18 +24,18 @@ public class Et extends BinaireBooleen {
         if (registres.length != 1) {
             sb.append("\n# Initialiser $t8 avec la valeur faux\n");
             sb.append("\tla $t8, faux\n");
-            sb.append("\tbeq $t8, ").append(registres[0]).append(", Sinon").append(noLigne).append("Car").append(numCarac).append("\n");
+            sb.append("\tbeq $t8, ").append(registres[0]).append(", Sinon").append(numUnique).append("\n");
             sb.append(eDroite.toMIPS(registres));
-            sb.append("\tbeq $t8, ").append(registres[0]).append(", SinonImbrique").append(noLigne).append("Car").append(numCarac).append("\n");
+            sb.append("\tbeq $t8, ").append(registres[0]).append(", SinonImbrique").append(numUnique).append("\n");
             sb.append("\tla $v0, vrai\n");
-            sb.append("\tb FinSiImbrique").append(noLigne).append("Car").append(numCarac).append("\n");
-            sb.append("SinonImbrique").append(noLigne).append("Car").append(numCarac).append(":").append("\n");
+            sb.append("\tb FinSiImbrique").append(numUnique).append("\n");
+            sb.append("SinonImbrique").append(numUnique).append(":").append("\n");
             sb.append("\tla $v0, faux\n");
-            sb.append("FinSiImbrique").append(noLigne).append("Car").append(numCarac).append(":\n");
-            sb.append("\tb FinSi").append(noLigne).append("Car").append(numCarac).append("\n");
-            sb.append("Sinon").append(noLigne).append("Car").append(numCarac).append(":").append("\n");
+            sb.append("FinSiImbrique").append(numUnique).append(":\n");
+            sb.append("\tb FinSi").append(numUnique).append("\n");
+            sb.append("Sinon").append(numUnique).append(":").append("\n");
             sb.append("\tla $v0, faux\n");
-            sb.append("FinSi").append(noLigne).append("Car").append(numCarac).append(":\n");
+            sb.append("FinSi").append(numUnique).append(":\n");
         } else {
             //TODO : utiliser la pile
         }

@@ -1,22 +1,23 @@
 package zoot.arbre.expressions.operateurs.unaires;
 
+import zoot.arbre.GenerateurNum;
 import zoot.arbre.expressions.Expression;
 import zoot.gestionErreurs.Erreur;
 import zoot.gestionErreurs.StockageErreurs;
 
 public class Non extends Expression {
     private final Expression exp;
-    private final int numCarac;
+    private final int numUnique;
 
     /**
      * Constructeur de la classe Expression.
      *
      * @param n numéro de ligne
      */
-    public Non(int n, Expression exp, int numCarac) {
+    public Non(int n, Expression exp) {
         super(n);
         this.exp = exp;
-        this.numCarac = numCarac;
+        this.numUnique = GenerateurNum.getInstance().genererNombre();
     }
 
     @Override
@@ -32,12 +33,12 @@ public class Non extends Expression {
         sb.append(exp.toMIPS(registres));
         sb.append("\n# Initialiser $t8 avec la valeur faux\n");
         sb.append("\tla $t8, faux\n");
-        sb.append("\tbeq $t8, $v0, Sinon").append(noLigne).append("Car").append(numCarac).append("\n");
+        sb.append("\tbeq $t8, $v0, Sinon").append(numUnique).append("\n");
         sb.append("\tla $v0, faux\n");
-        sb.append("\tb FinSi").append(noLigne).append("Car").append(numCarac).append("\n");
-        sb.append("Sinon").append(noLigne).append("Car").append(numCarac).append(":").append("\n");
+        sb.append("\tb FinSi").append(numUnique).append("\n");
+        sb.append("Sinon").append(numUnique).append(":").append("\n");
         sb.append("\tla $v0, vrai\n");
-        sb.append("FinSi").append(noLigne).append("Car").append(numCarac).append(":\n");
+        sb.append("FinSi").append(numUnique).append(":\n");
         return sb.toString();
     }
 

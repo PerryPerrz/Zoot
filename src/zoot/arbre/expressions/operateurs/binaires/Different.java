@@ -3,8 +3,8 @@ package zoot.arbre.expressions.operateurs.binaires;
 import zoot.arbre.expressions.Expression;
 
 public class Different extends BinaireMixte {
-    public Different(int n, Expression eGauche, Expression eDroite, int numCarac) {
-        super(n, eGauche, eDroite, numCarac);
+    public Different(int n, Expression eGauche, Expression eDroite) {
+        super(n, eGauche, eDroite);
     }
 
     @Override
@@ -14,12 +14,12 @@ public class Different extends BinaireMixte {
         if (registres.length != 1) {
             sb.append("\tmove ").append(registres[1]).append(", ").append(registres[0]).append("\n");
             sb.append(eDroite.toMIPS(this.supprRegistreInutile(1, registres)));
-            sb.append("\tbeq ").append(registres[1]).append(", ").append(registres[0]).append(", Sinon").append(noLigne).append("Car").append(numCarac).append("\n");
+            sb.append("\tbeq ").append(registres[1]).append(", ").append(registres[0]).append(", Sinon").append(numUnique).append("\n");
             sb.append("\tla $v0, vrai\n");
-            sb.append("\tb FinSi").append(noLigne).append("Car").append(numCarac).append("\n");
-            sb.append("Sinon").append(noLigne).append("Car").append(numCarac).append(":").append("\n");
+            sb.append("\tb FinSi").append(numUnique).append("\n");
+            sb.append("Sinon").append(numUnique).append(":\n");
             sb.append("\tla $v0, faux\n");
-            sb.append("FinSi").append(noLigne).append("Car").append(numCarac).append(":\n");
+            sb.append("FinSi").append(numUnique).append(":\n");
         } else {
             //TODO : utiliser la pile
         }

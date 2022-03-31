@@ -70,7 +70,7 @@ public class Retourne extends Instruction {
     }
 
     @Override
-    public boolean estUnRetourne() {
+    public boolean contientUnRetourne() {
         return true;
     }
 }
