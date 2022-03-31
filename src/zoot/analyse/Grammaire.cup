@@ -133,7 +133,7 @@ LDECL_LOC ::=   LDECL_LOC:ld  DECL_LOC:d
                 ;
 
 INST    ::=     ECRIRE EXP:e POINTVIRGULE
-                {: RESULT = new Ecrire(e, eleft + 1, eright) ; :}
+                {: RESULT = new Ecrire(e, eleft + 1) ; :}
         |
                 IDF:i EGAL EXP:e POINTVIRGULE
                 {: RESULT = new Affect(new Idf(i,ileft+1), e, eleft+1) ; :}
@@ -142,19 +142,19 @@ INST    ::=     ECRIRE EXP:e POINTVIRGULE
                 {: RESULT = new Retourne(eleft + 1, e); :}
         |
                 SI EXP:e ALORS LINST:lia SINON LINST:lis FINSI
-                {: RESULT = new Conditionnelle(eleft + 1, e, lia, lis, eright); :}
+                {: RESULT = new Conditionnelle(eleft + 1, e, lia, lis); :}
         |
                 SI EXP:e ALORS SINON LINST:lis FINSI
-                {: RESULT = new Conditionnelle(eleft + 1, e, new BlocDInstructions(eleft + 1), lis, eright); :}
+                {: RESULT = new Conditionnelle(eleft + 1, e, new BlocDInstructions(eleft + 1), lis); :}
         |
                 SI EXP:e ALORS LINST:lia FINSI
-                {: RESULT = new Conditionnelle(eleft + 1, e, lia, new BlocDInstructions(eleft + 1), eright); :}
+                {: RESULT = new Conditionnelle(eleft + 1, e, lia, new BlocDInstructions(eleft + 1)); :}
         |
                 SI EXP:e ALORS FINSI
-                {: RESULT = new Conditionnelle(eleft + 1, e, new BlocDInstructions(eleft + 1), new BlocDInstructions(eleft + 1), eright); :}
+                {: RESULT = new Conditionnelle(eleft + 1, e, new BlocDInstructions(eleft + 1), new BlocDInstructions(eleft + 1)); :}
         |
                 REPETER LINST:li JUSQUA EXP:e FINREPETER
-                {: RESULT = new Boucle(eleft + 1, e, li, eright); :}
+                {: RESULT = new Boucle(eleft + 1, e, li); :}
                 ;
 
 EXP    ::=     CSTENTIERE:c
@@ -173,13 +173,13 @@ EXP    ::=     CSTENTIERE:c
                 {: RESULT = new AppelFonction(ileft + 1, i, le); :}
         |
                 EXP:eg DIFFERENT EXP:ed
-                {: RESULT = new Different(egleft + 1, eg, ed, egright); :}
+                {: RESULT = new Different(egleft + 1, eg, ed); :}
         |
                 EXP:eg DOUBLEEGAL EXP:ed
-                {: RESULT = new DoubleEgal(egleft + 1, eg, ed, egright); :}
+                {: RESULT = new DoubleEgal(egleft + 1, eg, ed); :}
         |
                 EXP:eg INFERIEUR EXP:ed
-                {: RESULT = new Inferieur(egleft + 1, eg, ed, egright); :}
+                {: RESULT = new Inferieur(egleft + 1, eg, ed); :}
         |
                 EXP:eg PLUS EXP:ed
                 {: RESULT = new Addition(egleft + 1, eg, ed); :}
@@ -191,13 +191,13 @@ EXP    ::=     CSTENTIERE:c
                 {: RESULT = new Moins(eleft + 1, e); :}
         |
                 NON EXP:e
-                {: RESULT = new Non(eleft + 1, e, eright); :}
+                {: RESULT = new Non(eleft + 1, e); :}
         |
                 EXP:eg ET EXP:ed
-                {: RESULT = new Et(egleft + 1, eg, ed, egright); :}
+                {: RESULT = new Et(egleft + 1, eg, ed); :}
         |
                 EXP:eg OU EXP:ed
-                {: RESULT = new Ou(egleft + 1, eg, ed, egright); :}
+                {: RESULT = new Ou(egleft + 1, eg, ed); :}
         |
                 PAROUVRANTE EXP:e PARFERMANTE
                 {: RESULT = new Parenthese(eleft + 1, e); :}

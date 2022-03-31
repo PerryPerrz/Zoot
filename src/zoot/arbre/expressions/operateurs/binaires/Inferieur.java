@@ -1,5 +1,6 @@
 package zoot.arbre.expressions.operateurs.binaires;
 
+import zoot.arbre.GenerateurNum;
 import zoot.arbre.expressions.Expression;
 import zoot.gestionErreurs.Erreur;
 import zoot.gestionErreurs.StockageErreurs;
@@ -7,13 +8,13 @@ import zoot.gestionErreurs.StockageErreurs;
 public class Inferieur extends Expression {
     private final Expression eGauche;
     private final Expression eDroite;
-    private final int numCarac;
+    private final int numUnique;
 
-    public Inferieur(int n, Expression eGauche, Expression eDroite, int numCarac) {
+    public Inferieur(int n, Expression eGauche, Expression eDroite) {
         super(n);
         this.eGauche = eGauche;
         this.eDroite = eDroite;
-        this.numCarac = numCarac;
+        this.numUnique = GenerateurNum.getInstance().genererNombre();
     }
 
     @Override
@@ -35,12 +36,12 @@ public class Inferieur extends Expression {
 
             sb.append(eDroite.toMIPS(supprRegistreInutile(1, registres)));
             sb.append("\tsub $t8, ").append(registres[1]).append(", $v0\n");
-            sb.append("\tbltz $t8, Sinon").append(noLigne).append("Car").append(numCarac).append("\n");
+            sb.append("\tbltz $t8, Sinon").append(numUnique).append("\n");
             sb.append("\tla $v0, faux\n");
-            sb.append("\tb FinSi").append(noLigne).append("Car").append(numCarac).append("\n");
-            sb.append("Sinon").append(noLigne).append("Car").append(numCarac).append(":").append("\n");
+            sb.append("\tb FinSi").append(numUnique).append("\n");
+            sb.append("Sinon").append(numUnique).append(":").append("\n");
             sb.append("\tla $v0, vrai\n");
-            sb.append("FinSi").append(noLigne).append("Car").append(numCarac).append(":\n");
+            sb.append("FinSi").append(numUnique).append(":\n");
         } else { //Sinon, on utilise la pile
             //TODO à faire quand on à compris
             System.out.println("Pas encore implémenté !");
