@@ -6,19 +6,28 @@ booleen c;
 fonctions
 entier fonc1(entier a; entier b;)
 variables
+booleen c;
 debut
-ecrire a;
-ecrire b;
+si a == b alors
+ecrire vrai;
+sinon
+ecrire faux;
+finsi
 retourne 3;
 fin
 
 debut
-a = 25;
-b = 3;
-c = a == b;
-ecrire (faux ou vrai) et (vrai et vrai);
-ecrire -4 < 54;
-ecrire non faux;
-ecrire c;
-ecrire (c == faux) == (a == 25);
+si 1==1 alors
+ecrire vrai;
+finsi
+ecrire fonc1(5,12);
+
+//a = 25;
+//b = 3;
+//c = a == b;
+//ecrire (faux ou vrai) et (vrai et vrai);ecrire vrai;
+//ecrire -4 < 54;
+//ecrire non faux;
+//ecrire c;
+//ecrire (c == faux) == (a == 25);
 fin

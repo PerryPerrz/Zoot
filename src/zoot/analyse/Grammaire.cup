@@ -61,7 +61,7 @@ parser code {:
 
 /* Terminals (tokens returned by the scanner).  */
 
-terminal Symbol    DEBUT, FIN, VARIABLES, POINTVIRGULE, VIRGULE, ECRIRE, EGAL, FONCTIONS, PAROUVRANTE, PARFERMANTE, RETOURNE, PLUS, MULT, MOINS, ET, OU, NON, DOUBLEEGAL, DIFFERENT, INFERIEUR;
+terminal Symbol    DEBUT, FIN, VARIABLES, POINTVIRGULE, VIRGULE, ECRIRE, EGAL, FONCTIONS, PAROUVRANTE, PARFERMANTE, RETOURNE, PLUS, MULT, MOINS, ET, OU, NON, DOUBLEEGAL, DIFFERENT, INFERIEUR, SI, ALORS, SINON, FINSI;
 terminal String    IDF, CSTENTIERE, CSTBOOLEENNE, BOOLEEN, ENTIER;
 
 /* Non terminals used in the grammar section.  */
@@ -133,13 +133,25 @@ LDECL_LOC ::=   LDECL_LOC:ld  DECL_LOC:d
                 ;
 
 INST    ::=     ECRIRE EXP:e POINTVIRGULE
-                {: RESULT = new Ecrire(e, eleft + 1) ; :}
+                {: RESULT = new Ecrire(e, eleft + 1, eright) ; :}
         |
                 IDF:i EGAL EXP:e POINTVIRGULE
                 {: RESULT = new Affect(new Idf(i,ileft+1), e, eleft+1) ; :}
-       |
+        |
                 RETOURNE EXP:e POINTVIRGULE
                 {: RESULT = new Retourne(eleft + 1, e); :}
+        |
+                SI EXP:e ALORS LINST:lia SINON LINST:lis FINSI
+                {: RESULT = new Conditionnelle(eleft + 1, e, lia, lis, eright); :}
+        |
+                SI EXP:e ALORS SINON LINST:lis FINSI
+                {: RESULT = new Conditionnelle(eleft + 1, e, new BlocDInstructions(eleft + 1), lis, eright); :}
+        |
+                SI EXP:e ALORS LINST:lia FINSI
+                {: RESULT = new Conditionnelle(eleft + 1, e, lia, new BlocDInstructions(eleft + 1), eright); :}
+        |
+                SI EXP:e ALORS FINSI
+                {: RESULT = new Conditionnelle(eleft + 1, e, new BlocDInstructions(eleft + 1), new BlocDInstructions(eleft + 1), eright); :}
                 ;
 
 EXP    ::=     CSTENTIERE:c

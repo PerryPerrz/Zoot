@@ -2,7 +2,7 @@ package zoot.arbre.expressions.operateurs.binaires;
 
 import zoot.arbre.expressions.Expression;
 
-public class DoubleEgal extends BinaireMixte{
+public class DoubleEgal extends BinaireMixte {
     public DoubleEgal(int n, Expression eGauche, Expression eDroite, int numCarac) {
         super(n, eGauche, eDroite, numCarac);
     }

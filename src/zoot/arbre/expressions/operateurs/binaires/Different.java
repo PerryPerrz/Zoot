@@ -2,7 +2,7 @@ package zoot.arbre.expressions.operateurs.binaires;
 
 import zoot.arbre.expressions.Expression;
 
-public class Different extends BinaireMixte{
+public class Different extends BinaireMixte {
     public Different(int n, Expression eGauche, Expression eDroite, int numCarac) {
         super(n, eGauche, eDroite, numCarac);
     }

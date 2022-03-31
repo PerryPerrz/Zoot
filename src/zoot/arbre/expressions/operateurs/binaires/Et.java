@@ -25,16 +25,16 @@ public class Et extends BinaireBooleen {
             sb.append("\n# Initialiser $t8 avec la valeur faux\n");
             sb.append("\tla $t8, faux\n");
             sb.append("\tbeq $t8, ").append(registres[0]).append(", Sinon").append(noLigne).append("Car").append(numCarac).append("\n");
-                sb.append(eDroite.toMIPS(registres));
-                sb.append("\tbeq $t8, ").append(registres[0]).append(", SinonImbrique").append(noLigne).append("Car").append(numCarac).append("\n");
-                    sb.append("\tla $v0, vrai\n");
-                sb.append("\tb FinSiImbrique").append(noLigne).append("Car").append(numCarac).append("\n");
-                sb.append("SinonImbrique").append(noLigne).append("Car").append(numCarac).append(":").append("\n");
-                    sb.append("\tla $v0, faux\n");
-                sb.append("FinSiImbrique").append(noLigne).append("Car").append(numCarac).append(":\n");
+            sb.append(eDroite.toMIPS(registres));
+            sb.append("\tbeq $t8, ").append(registres[0]).append(", SinonImbrique").append(noLigne).append("Car").append(numCarac).append("\n");
+            sb.append("\tla $v0, vrai\n");
+            sb.append("\tb FinSiImbrique").append(noLigne).append("Car").append(numCarac).append("\n");
+            sb.append("SinonImbrique").append(noLigne).append("Car").append(numCarac).append(":").append("\n");
+            sb.append("\tla $v0, faux\n");
+            sb.append("FinSiImbrique").append(noLigne).append("Car").append(numCarac).append(":\n");
             sb.append("\tb FinSi").append(noLigne).append("Car").append(numCarac).append("\n");
             sb.append("Sinon").append(noLigne).append("Car").append(numCarac).append(":").append("\n");
-                sb.append("\tla $v0, faux\n");
+            sb.append("\tla $v0, faux\n");
             sb.append("FinSi").append(noLigne).append("Car").append(numCarac).append(":\n");
         } else {
             //TODO : utiliser la pile
