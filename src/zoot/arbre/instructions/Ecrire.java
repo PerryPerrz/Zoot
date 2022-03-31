@@ -7,7 +7,8 @@ import zoot.arbre.expressions.Expression;
  */
 public class Ecrire extends Instruction {
 
-    protected Expression exp;
+    private final Expression exp;
+    private final int numCarac;
 
     /**
      * Constructeur de la classe Ecrire.
@@ -15,9 +16,10 @@ public class Ecrire extends Instruction {
      * @param e l'expression
      * @param n le numéro de ligne
      */
-    public Ecrire(Expression e, int n) {
+    public Ecrire(Expression e, int n, int numCarac) {
         super(n);
         exp = e;
+        this.numCarac = numCarac;
     }
 
     @Override
@@ -39,16 +41,16 @@ public class Ecrire extends Instruction {
         if (exp.getType().equals("booleen")) {
             sb.append("\n# Initialiser $t8 avec la valeur faux\n");
             sb.append("\tla $t8, faux\n");
-            sb.append("\tbeq $t8, $v0, Sinon").append(noLigne).append("\n");
+            sb.append("\tbeq $t8, $v0, Sinon").append(noLigne).append("Car").append(numCarac).append("\n");
             sb.append("\tla $a0, vraiAff\n");
             sb.append("\tli $v0, 4\n");
             sb.append("\tsyscall\n");
-            sb.append("\tb FinSi").append(noLigne).append("\n");
-            sb.append("Sinon").append(noLigne).append(":").append("\n");
+            sb.append("\tb FinSi").append(noLigne).append("Car").append(numCarac).append("\n");
+            sb.append("Sinon").append(noLigne).append("Car").append(numCarac).append(":").append("\n");
             sb.append("\tla $a0, fauxAff\n");
             sb.append("\tli $v0, 4\n");
             sb.append("\tsyscall\n");
-            sb.append("FinSi").append(noLigne).append(":\n");
+            sb.append("FinSi").append(noLigne).append("Car").append(numCarac).append(":\n");
         } else {
             sb.append("\tmove $a0, $v0\n"); //On met le résultat de l'expression
             sb.append("\tli $v0, 1\n");
