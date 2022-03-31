@@ -51,6 +51,10 @@ commentaire = [/]{2}.*{finDeLigne}
 "sinon"                { return symbol(CodesLexicaux.SINON); }
 "finsi"                { return symbol(CodesLexicaux.FINSI); }
 
+"repeter"              { return symbol(CodesLexicaux.REPETER); }
+"jusqua"               { return symbol(CodesLexicaux.JUSQUA); }
+"finrepeter"           { return symbol(CodesLexicaux.FINREPETER); }
+
 "ecrire"               { return symbol(CodesLexicaux.ECRIRE); }
 
 ";"                    { return symbol(CodesLexicaux.POINTVIRGULE); }

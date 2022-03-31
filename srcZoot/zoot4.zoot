@@ -2,6 +2,7 @@ variables
 entier a;
 entier b;
 booleen c;
+entier i;
 
 fonctions
 entier fonc1(entier a; entier b;)
@@ -17,10 +18,21 @@ retourne 3;
 fin
 
 debut
-si 1==1 alors
-ecrire vrai;
-finsi
-ecrire fonc1(5,12);
+i = 0;
+
+repeter
+ecrire i;
+i = i + 1;
+jusqua
+i == 10
+finrepeter
+
+
+
+//si 1==1 alors
+//ecrire vrai;
+//finsi
+//ecrire fonc1(5,12);
 
 //a = 25;
 //b = 3;
