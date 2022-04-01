@@ -27,19 +27,17 @@ jusqua
 i == 10
 finrepeter
 
+si 1==1 alors
+ecrire vrai;
+finsi
+ecrire fonc1(5,12);
 
-
-//si 1==1 alors
-//ecrire vrai;
-//finsi
-//ecrire fonc1(5,12);
-
-//a = 25;
-//b = 3;
-//c = a == b;
-//ecrire (faux ou vrai) et (vrai et vrai);ecrire vrai;
-//ecrire -4 < 54;
-//ecrire non faux;
-//ecrire c;
-//ecrire (c == faux) == (a == 25);
+a = 25;
+b = 3;
+c = a == b;
+ecrire (faux ou vrai) et (vrai et vrai);ecrire vrai;
+ecrire -4 < 54;
+ecrire non faux;
+ecrire c;
+ecrire (c == faux) == (a == 25);
 fin

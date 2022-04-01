@@ -1,8 +1,8 @@
 package zoot.arbre.instructions;
 
-import zoot.arbre.GenerateurNum;
 import zoot.arbre.ArbreAbstrait;
 import zoot.arbre.BlocDInstructions;
+import zoot.arbre.GenerateurNum;
 import zoot.arbre.expressions.Expression;
 import zoot.gestionErreurs.Erreur;
 import zoot.gestionErreurs.StockageErreurs;

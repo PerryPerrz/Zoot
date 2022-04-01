@@ -53,7 +53,8 @@ public abstract class BinaireEntier extends Expression {
         for (int j = 0; j < registres.length; j++) {
             if (i == n)
                 j++;
-            temp[i] = registres[j];
+            if (j < registres.length)
+                temp[i] = registres[j];
             i++;
         }
         return temp;

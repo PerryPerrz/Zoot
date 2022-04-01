@@ -21,7 +21,17 @@ public class Different extends BinaireMixte {
             sb.append("\tla $v0, faux\n");
             sb.append("FinSi").append(numUnique).append(":\n");
         } else {
-            //TODO : utiliser la pile
+            sb.append("\tsw $v0,($sp)\n");
+            sb.append("\tadd $sp,$sp,-4\n");
+            sb.append(eDroite.toMIPS(registres)).append("\n");
+            sb.append("\tadd $sp,$sp,4\n");
+            sb.append("\tlw $t8,($sp)\n");
+            sb.append("\tbeq $t8, $v0, Sinon").append(numUnique).append("\n");
+            sb.append("\tla $v0, vrai\n");
+            sb.append("\tb FinSi").append(numUnique).append("\n");
+            sb.append("Sinon").append(numUnique).append(":\n");
+            sb.append("\tla $v0, faux\n");
+            sb.append("FinSi").append(numUnique).append(":\n");
         }
         return sb.toString();
     }

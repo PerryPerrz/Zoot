@@ -21,24 +21,20 @@ public class Ou extends BinaireBooleen {
     public String toMIPS(String... registres) {
         StringBuilder sb = new StringBuilder();
         sb.append(eGauche.toMIPS(registres));
-        if (registres.length != 1) {
-            sb.append("\n# Initialiser $t8 avec la valeur faux\n");
-            sb.append("\tla $t8, faux\n");
-            sb.append("\tbeq $t8, ").append(registres[0]).append(", Sinon").append(numUnique).append("\n");
-            sb.append("\tla $v0, vrai\n");
-            sb.append("\tb FinSi").append(numUnique).append("\n");
-            sb.append("Sinon").append(numUnique).append(":").append("\n");
-            sb.append(eDroite.toMIPS(registres));
-            sb.append("\tbeq $t8, ").append(registres[0]).append(", SinonImbrique").append(numUnique).append("\n");
-            sb.append("\tla $v0, vrai\n");
-            sb.append("\tb FinSiImbrique").append(numUnique).append("\n");
-            sb.append("SinonImbrique").append(numUnique).append(":").append("\n");
-            sb.append("\tla $v0, faux\n");
-            sb.append("FinSiImbrique").append(numUnique).append(":\n");
-            sb.append("FinSi").append(numUnique).append(":\n");
-        } else {
-            //TODO : utiliser la pile
-        }
+        sb.append("\n# Initialiser $t8 avec la valeur faux\n");
+        sb.append("\tla $t8, faux\n");
+        sb.append("\tbeq $t8, $v0, Sinon").append(numUnique).append("\n");
+        sb.append("\tla $v0, vrai\n");
+        sb.append("\tb FinSi").append(numUnique).append("\n");
+        sb.append("Sinon").append(numUnique).append(":").append("\n");
+        sb.append(eDroite.toMIPS(registres));
+        sb.append("\tbeq $t8, $v0, SinonImbrique").append(numUnique).append("\n");
+        sb.append("\tla $v0, vrai\n");
+        sb.append("\tb FinSiImbrique").append(numUnique).append("\n");
+        sb.append("SinonImbrique").append(numUnique).append(":").append("\n");
+        sb.append("\tla $v0, faux\n");
+        sb.append("FinSiImbrique").append(numUnique).append(":\n");
+        sb.append("FinSi").append(numUnique).append(":\n");
         return sb.toString();
     }
 

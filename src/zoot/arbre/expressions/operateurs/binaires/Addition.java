@@ -2,6 +2,8 @@ package zoot.arbre.expressions.operateurs.binaires;
 
 import zoot.arbre.expressions.Expression;
 
+import java.util.Arrays;
+
 /**
  * Classe Addition.
  */
@@ -31,8 +33,12 @@ public class Addition extends BinaireEntier {
             //On ajoute les 2 entiers stockés dans les 2 registres, puis stocke le résultat de la somme de v0.
             sb.append("\tadd ").append(registres[0]).append(",").append(registres[0]).append(",").append(registres[1]).append("\n");
         } else { //Sinon, on utilise la pile
-            //TODO à faire quand on à compris
-            System.out.println("Pas encore implémenté !");
+            sb.append("\tsw $v0,($sp)\n");
+            sb.append("\tadd $sp,$sp,-4\n");
+            sb.append(eDroite.toMIPS(registres)).append("\n");
+            sb.append("\tadd $sp,$sp,4\n");
+            sb.append("\tlw $t8,($sp)\n");
+            sb.append("\tadd $v0, $t8, $v0\n");
         }
         return sb.toString();
     }
