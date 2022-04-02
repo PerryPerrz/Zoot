@@ -43,8 +43,18 @@ public class Inferieur extends Expression {
             sb.append("\tla $v0, vrai\n");
             sb.append("FinSi").append(numUnique).append(":\n");
         } else { //Sinon, on utilise la pile
-            //TODO à faire quand on à compris
-            System.out.println("Pas encore implémenté !");
+            sb.append("\tsw $v0,($sp)\n");
+            sb.append("\tadd $sp,$sp,-4\n");
+            sb.append(eDroite.toMIPS(registres)).append("\n");
+            sb.append("\tadd $sp,$sp,4\n");
+            sb.append("\tlw $t8,($sp)\n");
+            sb.append("\tsub $t8, $t8, $v0\n");
+            sb.append("\tbltz $t8, Sinon").append(numUnique).append("\n");
+            sb.append("\tla $v0, faux\n");
+            sb.append("\tb FinSi").append(numUnique).append("\n");
+            sb.append("Sinon").append(numUnique).append(":").append("\n");
+            sb.append("\tla $v0, vrai\n");
+            sb.append("FinSi").append(numUnique).append(":\n");
         }
         return sb.toString();
     }
@@ -72,7 +82,8 @@ public class Inferieur extends Expression {
         for (int j = 0; j < registres.length; j++) {
             if (i == n)
                 j++;
-            temp[i] = registres[j];
+            if (j < registres.length)
+                temp[i] = registres[j];
             i++;
         }
         return temp;

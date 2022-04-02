@@ -32,8 +32,15 @@ public class Multiplication extends BinaireEntier {
             //On récupère les résultat de la multiplication, et on la stocke dans $v0. Si le nombre est trop grand (résultat codé sur plus de 32 bits), une bonne partie du résultat se trouve dans mfhi.
             sb.append("\tmflo ").append(registres[0]).append("\n");
         } else { //Sinon, on utilise la pile
-            //TODO à faire quand on à compris
-            System.out.println("Pas encore implémenté !");
+            sb.append("\tsw $v0,($sp)\n");
+            sb.append("\tadd $sp,$sp,-4\n");
+            sb.append(eDroite.toMIPS(registres)).append("\n");
+            sb.append("\tadd $sp,$sp,4\n");
+            sb.append("\tlw $t8,($sp)\n");
+            //On ajoute les 2 entiers stockés dans les 2 registres, puis stocke le résultat de la somme de v0.
+            sb.append("\tmult $v0, $t8\n");
+            //On récupère les résultat de la multiplication, et on la stocke dans $v0. Si le nombre est trop grand (résultat codé sur plus de 32 bits), une bonne partie du résultat se trouve dans mfhi.
+            sb.append("\tmflo $v0\n");
         }
         return sb.toString();
     }
